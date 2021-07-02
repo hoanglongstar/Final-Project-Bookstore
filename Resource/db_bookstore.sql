@@ -111,3 +111,12 @@ ADD CONSTRAINT `fk_parent_id`
 INSERT INTO `bookstore`.`categories` (`name`, `code`, `description`, `enabled`) VALUES ('Van hoc the gioi', 'VHTG', 'Sach nuoc ngoai', '1');
 INSERT INTO `bookstore`.`categories` (`name`, `code`, `description`, `enabled`, `parent_id`) VALUES ('Tieu thuyet', 'TTNN', 'Tieu thuyet nuoc ngoai', '1', '1');
 INSERT INTO `bookstore`.`categories` (`name`, `code`, `description`, `enabled`, `parent_id`) VALUES ('Sach thieu nhi ', 'TNNN', 'Sach thieu nhi nuoc ngoai', '1', '1');
+
+ALTER TABLE `bookstore`.`users` 
+ADD COLUMN `avatar` VARCHAR(45) NULL DEFAULT NULL AFTER `password`;
+
+ALTER TABLE `bookstore`.`customers` 
+CHANGE COLUMN `last_login` `last_login` DATETIME NULL DEFAULT NULL ;
+
+ALTER TABLE `bookstore`.`customers` 
+CHANGE COLUMN `rank` `customer_rank` VARCHAR(45) NULL DEFAULT NULL ;
