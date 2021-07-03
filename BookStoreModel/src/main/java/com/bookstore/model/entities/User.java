@@ -35,6 +35,9 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
+	@Column(name = "avatar")
+	private String avatar;
+	
 	@Column(name = "enabled")
 	private Boolean enabled;
 	
@@ -75,6 +78,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -101,6 +112,14 @@ public class User {
 //		for(String newRole : userRoles) {
 //			
 //		}
+	}
+	
+	@Transient
+	public String getPhotoPath() {
+		if(id != null & avatar != null) {
+			return "/profile-photos/" + id + "/" + avatar;
+		}
+		return null;
 	}
 
 }

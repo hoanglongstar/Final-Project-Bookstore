@@ -42,7 +42,7 @@ public class Customer {
 	@Column(name = "photo_url")
 	private String photoUrl;
 	
-	@Column(name = "rank")
+	@Column(name = "customer_rank")
 	private String rank;
 	
 	@Column(name = "create_date")
@@ -183,6 +183,5 @@ public class Customer {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-	
 	
 }
