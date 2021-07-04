@@ -28,7 +28,13 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+		.antMatchers("/").permitAll()
 		.anyRequest().permitAll()
+		.and().formLogin().loginPage("/login").permitAll()
+		.usernameParameter("email")
+		.passwordParameter("password")
+		.loginProcessingUrl("/dologin")
+		.defaultSuccessUrl("/")
 		.and().oauth2Login().loginPage("/login").permitAll()
 		.userInfoEndpoint().userService(customerOAuth2Service)
 		.and().successHandler(successHandler)
