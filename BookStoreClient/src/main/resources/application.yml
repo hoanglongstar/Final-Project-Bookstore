@@ -17,5 +17,16 @@ spring:
             client-secret: gKra8Wji3cCSQdMolhQOULbU
             scope:
             - email
-            - profile
+            - profile            
+  mail:
+    host: smtp.gmail.com
+    password: bbmnmzfsizielpym
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    username: nguyenvothanhhuy2002@gmail.com
             

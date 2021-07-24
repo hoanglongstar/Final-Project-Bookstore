@@ -43,4 +43,12 @@ public class CustomerService {
 		
 		customerRepository.save(customer);
 	}
+	
+	public Customer getCustomerByPhone(String phoneNumber) {
+		return customerRepository.getByPhoneNumber(phoneNumber);
+	}
+	
+	public void saveCustomer(Customer c) {
+		customerRepository.save(c);
+	}
 }
