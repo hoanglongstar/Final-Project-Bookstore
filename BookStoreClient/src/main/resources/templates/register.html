@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Login 07</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="login/css/style.css">
+
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Login #07</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-10">
+					<div class="wrap d-md-flex">
+						<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+							<div class="text w-100">
+								<h2>Welcome to Sign In</h2>
+							</div>
+			      </div>
+			      	</div>
+					<form th:object="${customerForm}" th:action="@{/register}" method="post" class="signin-form">
+			      		<div class="form-group mb-3" data-validate="Username is reauired">
+			      			<label class="label" for="email">Email</label>
+			      			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</span>
+							<span th:if="${error_duplicate_email}">[[${error_duplicate_email}]]</span>
+			      			<input type="email" class="form-control" placeholder="E-mail" required="required">
+			      		</div>
+		            <div class="form-group mb-3" data-validate="Password is required">
+		            	<label class="label" for="password">Password</label>
+		              	<input type="password" class="form-control" placeholder="Password" required>
+		              	<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</span>
+		            </div>
+                    <div class="form-group mb-3" data-validate="Password is required">
+						<label class="label">Retype Password</label>
+						<input class="form-control" type="password" name="retypepass" placeholder="Type your password again" required="required">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+                    <div class="form-group mb-3" data-validate = "Username is reauired">
+						<label class="label">First Name</label>
+						<input th:field="*{firstName}" class="form-control" type="text" name="firstname" placeholder="Type your first name">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						<span th:if="${#fields.hasErrors('*{firstName}')}" th:errors="*{firstName}">password error</span>
+						
+					</div>
+					
+					<div class="form-group mb-3" data-validate = "Username is reauired">
+						<label class="label">Last Name</label>
+						<input th:field="*{lastName}" class="form-control" type="text" name="lasttname" placeholder="Type your last name">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						<span th:if="${#fields.hasErrors('*{lastName}')}" th:errors="*{lastName}">password error</span>
+						
+					</div>
+					
+					<div class="form-group mb-3" data-validate = "Username is reauired">
+						<label class="label">Phone Number</label>
+						<input th:field="*{phoneNumber}" class="form-control" type="text" name="phonenumber" placeholder="Type your phone number">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">password error</span><br>
+						<span th:if="${error_duplicate_phone}">[[${error_duplicate_phone}]]</span>
+					</div>
+					
+					<div class="form-group mb-3" data-validate = "Username is reauired">
+						<label class="label">Address</label>
+						<input th:field="*{address}" class="form-control" type="text" name="address" placeholder="Type your adrress">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+		            <div class="form-group">
+		            	<button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+		            </div>
+
+		          </form>
+		        </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="login/js/jquery.min.js"></script>
+  <script src="login/js/popper.js"></script>
+  <script src="login/js/bootstrap.min.js"></script>
+  <script src="login/js/main.js"></script>
+
+	</body>
+</html>

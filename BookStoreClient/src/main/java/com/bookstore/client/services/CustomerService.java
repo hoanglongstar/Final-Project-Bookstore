@@ -3,8 +3,10 @@ package com.bookstore.client.services;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bookstore.client.helper.PasswordManager;
 import com.bookstore.client.repository.CustomerRepository;
 import com.bookstore.model.entities.Customer;
 import com.bookstore.model.enumerate.AuthProvider;
@@ -15,7 +17,15 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-	public Customer getByEmail(String email) {
+	public void saveCustomer(Customer c) {
+		customerRepository.save(c);
+	}
+	
+	public Customer getCustomerByPhone(String phoneNumber) {
+		return customerRepository.getByPhoneNumber(phoneNumber);
+	}
+	
+	public Customer getCustomerByEmail(String email) {
 		return customerRepository.getCustomerByEmail(email);
 	}
 	
@@ -42,13 +52,5 @@ public class CustomerService {
 		customer.setLastLogin(loginDate);
 		
 		customerRepository.save(customer);
-	}
-	
-	public Customer getCustomerByPhone(String phoneNumber) {
-		return customerRepository.getByPhoneNumber(phoneNumber);
-	}
-	
-	public void saveCustomer(Customer c) {
-		customerRepository.save(c);
 	}
 }

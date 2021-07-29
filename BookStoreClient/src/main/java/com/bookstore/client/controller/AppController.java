@@ -14,6 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -70,13 +73,30 @@ public class AppController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@GetMapping("/register")
+	public String showRegisterView(Model model) {
+		
+		CustomerForm customerForm = new CustomerForm();
+		System.out.println("check: " +customerForm.toString());
+		model.addAttribute("customer", customerForm);
+		
+		return "register";
+	}
+//	
+//	@PostMapping("/register")
+//	public String doRegister(@ModelAttribute("customer") CustomerData customerData) {
+//		System.out.println("AppController::doRegister -> " + customerData.toString());
+//		customerService.registerNewCustomer(customerData);
+//		return "redirect:/login";
+//	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String checkCustomerInfo(@Valid CustomerForm customerForm, BindingResult bindingResult, RedirectAttributes redirectAttributes)   {
 	
 		boolean error = false;
 		
 		Customer customer = customerService.getCustomerByPhone(customerForm.getPhoneNumber());
-		Customer customer2 = customerService.getByEmail(customerForm.getEmail());
+		Customer customer2 = customerService.getCustomerByEmail(customerForm.getEmail());
 		
 		if(customer2 != null) {
 			redirectAttributes.addFlashAttribute("error_duplicate_email", "the email used by another one");
@@ -89,13 +109,13 @@ public class AppController {
 		}
 		
 		if(error) {
-			return "redirect:/login";
+			return "redirect:/register";
 		}
 		
 		System.out.println("checkCustomerInfo: " + customerForm.toString());
 		
 		if (bindingResult.hasErrors()) {
-			return "login";
+			return "register";
 		}
 		//register new account;
 		customerService.saveCustomer(customerForm.getCustomer());

@@ -23,11 +23,17 @@ public class CustomerForm {
 	
 	@NotNull(message = "Ten ban khong duoc de trong")
 	@Size(min = 2, max = 64, message = "do dai ten ban phai tu 2 ky tu , toi da 64 ky tu")
-	private String name;
+	private String fistName;
+	
+	@NotNull(message = "Ten ban khong duoc de trong")
+	@Size(min = 2, max = 64, message = "do dai ten ban phai tu 2 ky tu , toi da 64 ky tu")
+	private String lastName;
 	
 	@NotNull
 	@Size(min = 10, max = 12, message = "do dai ten ban phai tu 10 ky tu , toi da 12 ky tu")
 	private String phoneNumber;
+	
+	private String address;
 	
 	private String imagebase64;
 	
@@ -57,14 +63,6 @@ public class CustomerForm {
 		this.passwordRetype = passwordRetype;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -89,12 +87,37 @@ public class CustomerForm {
 		this.photoPath = photoPath;
 	}
 
+	
+	public String getFistName() {
+		return fistName;
+	}
+
+	public void setFistName(String fistName) {
+		this.fistName = fistName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public Customer getCustomer() {
 		Customer c = new Customer();
 		c.setPassword(password);
 		c.setEmail(email);
-		c.setFirstName(name);
-		c.setLastName("Green");
+		c.setFirstName(fistName);
+		c.setLastName(lastName);
 		c.setPhoneNumber(phoneNumber);
 		return c;
 	}

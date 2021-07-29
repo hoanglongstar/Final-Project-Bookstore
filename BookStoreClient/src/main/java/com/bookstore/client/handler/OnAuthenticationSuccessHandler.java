@@ -41,7 +41,7 @@ public class OnAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 			provider = AuthProvider.FACEBOOK;
 		}
 		
-		Customer customer = customerService.getByEmail(email);
+		Customer customer = customerService.getCustomerByEmail(email);
 		
 		if(customer == null) {
 			customerService.registerNewCustomer(email, name, provider);
