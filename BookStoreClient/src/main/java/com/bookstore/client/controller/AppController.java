@@ -77,8 +77,8 @@ public class AppController {
 	public String showRegisterView(Model model) {
 		
 		CustomerForm customerForm = new CustomerForm();
-		System.out.println("check: " +customerForm.toString());
-		model.addAttribute("customer", customerForm);
+		System.out.println("check: " + customerForm.toString());
+		model.addAttribute("customerForm", customerForm);
 		
 		return "register";
 	}

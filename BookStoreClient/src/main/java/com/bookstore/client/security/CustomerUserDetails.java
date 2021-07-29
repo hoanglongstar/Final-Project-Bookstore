@@ -12,6 +12,10 @@ import com.bookstore.model.entities.Customer;
 
 public class CustomerUserDetails implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3044723183998121451L;
 	private Customer customer;
 	
 	public CustomerUserDetails(Customer customer) {

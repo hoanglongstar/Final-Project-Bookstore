@@ -23,7 +23,7 @@ public class CustomerForm {
 	
 	@NotNull(message = "Ten ban khong duoc de trong")
 	@Size(min = 2, max = 64, message = "do dai ten ban phai tu 2 ky tu , toi da 64 ky tu")
-	private String fistName;
+	private String firstName;
 	
 	@NotNull(message = "Ten ban khong duoc de trong")
 	@Size(min = 2, max = 64, message = "do dai ten ban phai tu 2 ky tu , toi da 64 ky tu")
@@ -88,12 +88,12 @@ public class CustomerForm {
 	}
 
 	
-	public String getFistName() {
-		return fistName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFistName(String fistName) {
-		this.fistName = fistName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -116,7 +116,7 @@ public class CustomerForm {
 		Customer c = new Customer();
 		c.setPassword(password);
 		c.setEmail(email);
-		c.setFirstName(fistName);
+		c.setFirstName(firstName);
 		c.setLastName(lastName);
 		c.setPhoneNumber(phoneNumber);
 		return c;
