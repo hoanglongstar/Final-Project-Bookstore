@@ -120,3 +120,63 @@ CHANGE COLUMN `last_login` `last_login` DATETIME NULL DEFAULT NULL ;
 
 ALTER TABLE `bookstore`.`customers` 
 CHANGE COLUMN `rank` `customer_rank` VARCHAR(45) NULL DEFAULT NULL ;
+
+CREATE TABLE `bookstore`.`persistent_logins` (
+  `series` VARCHAR(64) NOT NULL,
+  `username` VARCHAR(64) NOT NULL,
+  `token` VARCHAR(64) NOT NULL,
+  `last_used` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`series`));
+
+ALTER TABLE `bookstore`.`products` 
+ADD INDEX `fk_category_id_idx` (`category_id` ASC) VISIBLE;
+;
+ALTER TABLE `bookstore`.`products` 
+ADD CONSTRAINT `fk_category_id`
+  FOREIGN KEY (`category_id`)
+  REFERENCES `bookstore`.`categories` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+CREATE TABLE `bookstore`.`invoice` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(45) NOT NULL,
+  `order_date` DATETIME NULL,
+  `total_payable` DOUBLE NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+    
+CREATE TABLE `bookstore`.`invoice_details` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `quantity` INT NOT NULL,
+  `item_total` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`));
+    
+ALTER TABLE `bookstore`.`customers` 
+DROP COLUMN `address`;
+
+CREATE TABLE `bookstore`.`address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `city` VARCHAR(45) NULL,
+  `district` VARCHAR(45) NULL,
+  `ward` VARCHAR(45) NULL,
+  `street` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  
+INSERT INTO `bookstore`.`customers` (`email`, `password`, `first_name`, `last_name`, `phone_number`) VALUES ('user1@gmail.com', '$2a$10$K7eWEi998zLbvR4IztZBYOPbhev2D8X1k8Axbk.dJ6Tgzb7CzS5hG', 'new', 'user', '0123456789');
+INSERT INTO `bookstore`.`customers` (`email`, `password`, `first_name`, `last_name`, `phone_number`) VALUES ('user2', '$2a$10$K7eWEi998zLbvR4IztZBYOPbhev2D8X1k8Axbk.dJ6Tgzb7CzS5hG', 'super', 'user', '0987654321');
+INSERT INTO `bookstore`.`customers` (`email`, `password`, `first_name`, `last_name`, `phone_number`) VALUES ('user3', '$2a$10$K7eWEi998zLbvR4IztZBYOPbhev2D8X1k8Axbk.dJ6Tgzb7CzS5hG', 'test', 'account', '0546231879');
+
+INSERT INTO `bookstore`.`address` (`city`, `district`, `ward`, `street`, `customer_id`) VALUES ('HCM', '1', 'da kao', 'nguyen trai', '2');
+INSERT INTO `bookstore`.`address` (`city`, `district`, `ward`, `street`, `customer_id`) VALUES ('HCM', '3', '13', 'le van sy', '1');
+INSERT INTO `bookstore`.`address` (`city`, `district`, `ward`, `street`, `customer_id`) VALUES ('HCM', '5', '6', 'nguyen van cu', '3');
+INSERT INTO `bookstore`.`address` (`city`, `district`, `ward`, `street`, `customer_id`) VALUES ('HCM', 'Tan Binh', '12', 'Truong Chinh', '2');
+
+ALTER TABLE `bookstore`.`roles` 
+ADD COLUMN `description` VARCHAR(256) NULL AFTER `role_name`;
+
+ALTER TABLE `bookstore`.`users` 
+ADD COLUMN `address` VARCHAR(256) NULL AFTER `enabled`,
+ADD COLUMN `phone_number` VARCHAR(45) NULL AFTER `address`,
+ADD COLUMN `date_of_birth` DATE NULL AFTER `phone_number`,
+ADD COLUMN `identity_number` VARCHAR(45) NULL AFTER `date_of_birth`;

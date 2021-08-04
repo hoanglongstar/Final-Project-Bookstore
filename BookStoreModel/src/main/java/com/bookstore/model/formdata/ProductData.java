@@ -1,9 +1,5 @@
 package com.bookstore.model.formdata;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import com.bookstore.model.entities.Category;
 import com.bookstore.model.entities.Product;
 

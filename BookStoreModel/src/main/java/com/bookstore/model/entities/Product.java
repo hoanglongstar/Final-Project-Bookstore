@@ -1,12 +1,19 @@
 package com.bookstore.model.entities;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -14,7 +21,12 @@ import com.bookstore.model.formdata.ProductData;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5016113275846964575L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +41,12 @@ public class Product {
 	@Column(name = "description")
 	private String description;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<InvoiceDetail> invoiceDetail = new HashSet<>();
 	
 	@Column(name = "photo")
 	private String photo;
@@ -128,6 +143,14 @@ public class Product {
 		this.enabled = enabled;
 	}
 	
+	public Set<InvoiceDetail> getInvoiceDetail() {
+		return invoiceDetail;
+	}
+
+	public void setInvoiceDetail(Set<InvoiceDetail> invoiceDetail) {
+		this.invoiceDetail = invoiceDetail;
+	}
+
 	@Transient
 	public void updateFormData(ProductData productData) {
 		this.name = productData.getName();
@@ -138,5 +161,13 @@ public class Product {
 		this.quantity = productData.getQuantity();
 		this.price = productData.getPrice();
 		this.salePrice = productData.getSalePrice();
+	}
+	
+	@Transient
+	public String getPhotoPath() {
+		if(id != null & photo != null) {
+			return "/product-photos/" + id + "/" + photo;
+		}
+		return null;
 	}
 }

@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import com.bookstore.model.entities.Role;
 import com.bookstore.model.entities.User;
 
-public class UserData {
+public class UserDataForConfirmPassword {
 	
 	private Integer id;
 	
@@ -25,9 +25,6 @@ public class UserData {
 //	@NotNull(message = "Password cannot be empty")
 	@Size(min = 6, max = 61, message = "Password length must be between 6 and 24 characters")
 	private String password;
-	
-	@Size(min = 6, max = 61, message = "Password length must be between 6 and 24 characters")
-	private String passwordRetype;
 	
 	private String avatar;
 	
@@ -91,14 +88,6 @@ public class UserData {
 			return "/profile-photos/" + id + "/" + avatar;
 		}
 		return null;
-	}
-
-	public String getPasswordRetype() {
-		return passwordRetype;
-	}
-
-	public void setPasswordRetype(String passwordRetype) {
-		this.passwordRetype = passwordRetype;
 	}
 
 	public Integer getId() {

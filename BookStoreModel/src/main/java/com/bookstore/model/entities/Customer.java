@@ -1,43 +1,68 @@
 package com.bookstore.model.entities;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 import com.bookstore.model.enumerate.AuthProvider;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6381240746290010920L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 	
 	@Column(name = "email")
+	@Email(message = "Invalid Email")
 	private String email;
-	
-	@Column(name = "password")
-	private String password;
+
 	
 	@Column(name = "first_name")
+	@Size(min = 1, max = 64, message = "Please enter first name")
 	private String firstName;
 	
 	@Column(name = "last_name")
+	@Size(min = 1, max = 64, message = "Please enter last name")
 	private String lastName;
 	
+	
+	@Column(name = "password")
+	@Size(min = 8, max = 60, message = "Password length must be between 8 and 24 characters")
+	private String password;
+	
 	@Column(name = "phone_Number")
+	@Size(min = 10, max = 12, message = "Invalid phone number")
 	private String phoneNumber;
 	
-	@Column(name = "address")
-	private String address;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Address> addresses = new HashSet<>();
+	
+	@OneToMany(mappedBy = "customerInvoice", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Invoice> invoices = new HashSet<>();
 	
 	@Column(name = "photo_url")
 	private String photoUrl;
@@ -112,16 +137,24 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
+//	public String getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(String address) {
+//		this.address = address;
+//	}
 
 	public String getPhotoUrl() {
 		return photoUrl;
+	}
+
+	public Set<Address> getAddress() {
+		return addresses;
+	}
+
+	public void setAddress(Set<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	public void setPhotoUrl(String photoUrl) {
@@ -184,4 +217,11 @@ public class Customer {
 		this.enabled = enabled;
 	}
 	
+	@Transient
+	public String getPhotoPath() {
+		if(id != null & photoUrl != null) {
+			return "/customer-photos/" + id + "/" + photoUrl;
+		}
+		return null;
+	}
 }

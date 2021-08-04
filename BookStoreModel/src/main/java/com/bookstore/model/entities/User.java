@@ -1,5 +1,6 @@
 package com.bookstore.model.entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import com.bookstore.model.formdata.UserData;
 
@@ -27,12 +29,15 @@ public class User {
 	private Integer id;
 	
 	@Column(name = "full_name")
+	@Size(min = 1, max = 64, message = "Please enter your fullname!")
 	private String fullName;
 	
 	@Column(name = "username")
+	@Size(min = 4, max = 24, message = "Username length must be between 4 and 24 characters")
 	private String username;
 	
 	@Column(name = "password")
+	@Size(min = 6, max = 65, message = "Password length must be between 6 and 24 characters")
 	private String password;
 	
 	@Column(name = "avatar")
@@ -41,9 +46,22 @@ public class User {
 	@Column(name = "enabled")
 	private Boolean enabled;
 	
+	@Column(name = "address")
+	private String address;
+	
+	@Column(name = "phone_number")
+	private String phoneNumber;
+	
+	@Column(name = "date_of_birth")
+	private java.sql.Date dateOfBirth;
+	
+	@Column(name = "identity_number")
+	private String identityNumber;
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@Size(min = 1, message = "Please select role(s) for user!")
 	private Set<Role> roles = new HashSet<>();
 
 	public Integer getId() {
@@ -102,16 +120,63 @@ public class User {
 		this.roles = roles;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(java.sql.Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getIdentityNumber() {
+		return identityNumber;
+	}
+
+	public void setIdentityNumber(String identityNumber) {
+		this.identityNumber = identityNumber;
+	}
+
 	@Transient
-	public void updateUserFormData(UserData userData) {
-		this.fullName = userData.getFullName();
-		this.username = userData.getUsername();
-		this.password = userData.getPassword();
-		String[] userRoles = userData.getRoles().split(",\\s");
-//		this.roles.clear();
-//		for(String newRole : userRoles) {
-//			
-//		}
+	public UserData copyValueFromUserEntity() {
+		
+		UserData userData = new UserData();
+		
+		String role = "";
+		
+		userData.setId(this.id);
+		userData.setFullName(fullName);
+		userData.setUsername(username);
+		userData.setPassword(password);
+		userData.setRoles(roles);
+		userData.setAvatar(avatar);
+		userData.setAddress(address);
+		userData.setDateOfBirth(dateOfBirth);
+		userData.setIdentityNumber(identityNumber);
+		userData.setPhoneNumber(phoneNumber);
+
+		for(Role userRole : roles) {
+			role += userRole.getName() + ", ";
+		}
+		
+		userData.setRole(role.substring(0, role.length() - 2));
+		
+		return userData;
 	}
 	
 	@Transient
@@ -122,4 +187,16 @@ public class User {
 		return null;
 	}
 
+	
+//	public UserData getUserInfo() {
+//		UserData userData = new UserData();
+//		
+//		userData.setId(id);
+//		userData.setFullName(fullName);
+//		userData.setUsername(username);
+//		userData.setPassword(password);
+//		userData.setRoles(roles);
+//		
+//		return userData;
+//	}
 }
