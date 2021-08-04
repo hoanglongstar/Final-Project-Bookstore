@@ -180,3 +180,14 @@ ADD COLUMN `address` VARCHAR(256) NULL AFTER `enabled`,
 ADD COLUMN `phone_number` VARCHAR(45) NULL AFTER `address`,
 ADD COLUMN `date_of_birth` DATE NULL AFTER `phone_number`,
 ADD COLUMN `identity_number` VARCHAR(45) NULL AFTER `date_of_birth`;
+
+ALTER TABLE `bookstore`.`address` 
+ADD COLUMN `customer_id` INT NOT NULL AFTER `street`,
+ADD INDEX `fk_address_id_idx` (`customer_id` ASC) VISIBLE;
+;
+ALTER TABLE `bookstore`.`address` 
+ADD CONSTRAINT `fk_address_id`
+  FOREIGN KEY (`customer_id`)
+  REFERENCES `bookstore`.`customers` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
