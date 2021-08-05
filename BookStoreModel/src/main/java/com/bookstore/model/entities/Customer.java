@@ -49,6 +49,8 @@ public class Customer implements Serializable{
 	@Size(min = 1, max = 64, message = "Please enter last name")
 	private String lastName;
 	
+	@Column(name = "date_of_birth")
+	private java.sql.Date dateOfBirth;
 	
 	@Column(name = "password")
 	@Size(min = 8, max = 60, message = "Password length must be between 8 and 24 characters")
@@ -127,6 +129,30 @@ public class Customer implements Serializable{
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public java.sql.Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(java.sql.Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Set<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Set<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(Set<Invoice> invoices) {
+		this.invoices = invoices;
 	}
 
 	public String getPhoneNumber() {

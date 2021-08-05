@@ -89,7 +89,7 @@ INSERT INTO `bookstore`.`users` (`full_name`, `username`, `password`) VALUES ('G
 INSERT INTO `bookstore`.`users` (`full_name`, `username`, `password`) VALUES ('GreenC', 'greenc', '$2a$10$K7eWEi998zLbvR4IztZBYOPbhev2D8X1k8Axbk.dJ6Tgzb7CzS5hG');
 
 INSERT INTO `bookstore`.`user_roles` (`user_id`, `role_id`) VALUES ('2', '2');
-INSERT INTO `bookstore`.`user_roles` (`user_id`, `role_id`) VALUES ('2', '3');
+INSERT INTO `bookstore`.`user_roles` (`user_id`, `role_id`) VALUES ('3', '2');
 INSERT INTO `bookstore`.`user_roles` (`user_id`, `role_id`) VALUES ('3', '3');
 INSERT INTO `bookstore`.`user_roles` (`user_id`, `role_id`) VALUES ('4', '4');
 
@@ -167,6 +167,17 @@ INSERT INTO `bookstore`.`customers` (`email`, `password`, `first_name`, `last_na
 INSERT INTO `bookstore`.`customers` (`email`, `password`, `first_name`, `last_name`, `phone_number`) VALUES ('user2', '$2a$10$K7eWEi998zLbvR4IztZBYOPbhev2D8X1k8Axbk.dJ6Tgzb7CzS5hG', 'super', 'user', '0987654321');
 INSERT INTO `bookstore`.`customers` (`email`, `password`, `first_name`, `last_name`, `phone_number`) VALUES ('user3', '$2a$10$K7eWEi998zLbvR4IztZBYOPbhev2D8X1k8Axbk.dJ6Tgzb7CzS5hG', 'test', 'account', '0546231879');
 
+ALTER TABLE `bookstore`.`address` 
+ADD COLUMN `customer_id` INT NOT NULL AFTER `street`,
+ADD INDEX `fk_address_id_idx` (`customer_id` ASC) VISIBLE;
+
+ALTER TABLE `bookstore`.`address` 
+	ADD CONSTRAINT `fk_address_id`
+  FOREIGN KEY (`customer_id`)
+  REFERENCES `bookstore`.`customers` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
 INSERT INTO `bookstore`.`address` (`city`, `district`, `ward`, `street`, `customer_id`) VALUES ('HCM', '1', 'da kao', 'nguyen trai', '2');
 INSERT INTO `bookstore`.`address` (`city`, `district`, `ward`, `street`, `customer_id`) VALUES ('HCM', '3', '13', 'le van sy', '1');
 INSERT INTO `bookstore`.`address` (`city`, `district`, `ward`, `street`, `customer_id`) VALUES ('HCM', '5', '6', 'nguyen van cu', '3');
@@ -181,13 +192,13 @@ ADD COLUMN `phone_number` VARCHAR(45) NULL AFTER `address`,
 ADD COLUMN `date_of_birth` DATE NULL AFTER `phone_number`,
 ADD COLUMN `identity_number` VARCHAR(45) NULL AFTER `date_of_birth`;
 
-ALTER TABLE `bookstore`.`address` 
-ADD COLUMN `customer_id` INT NOT NULL AFTER `street`,
-ADD INDEX `fk_address_id_idx` (`customer_id` ASC) VISIBLE;
-;
-ALTER TABLE `bookstore`.`address` 
-ADD CONSTRAINT `fk_address_id`
-  FOREIGN KEY (`customer_id`)
-  REFERENCES `bookstore`.`customers` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+INSERT INTO `bookstore`.`invoice` (`code`, `order_date`, `total_payable`, `status`, `customer_invoice_id`) VALUES ('DH0011', '2021-08-04 15:22:30', '220', 'PROCESSING', '1');
+INSERT INTO `bookstore`.`invoice` (`code`, `order_date`, `total_payable`, `status`, `customer_invoice_id`) VALUES ('DH002', '2021-08-04 16:00:01', '229', 'DELIVERING', '2');
+
+INSERT INTO `bookstore`.`invoice_details` (`quantity`, `item_total`, `invoice_detail_id`, `product_id`) VALUES ('1', '100', '1', '2');
+INSERT INTO `bookstore`.`invoice_details` (`quantity`, `item_total`, `invoice_detail_id`, `product_id`) VALUES ('1', '120', '1', '3');
+INSERT INTO `bookstore`.`invoice_details` (`quantity`, `item_total`, `invoice_detail_id`, `product_id`) VALUES ('1', '109', '2', '1');
+INSERT INTO `bookstore`.`invoice_details` (`quantity`, `item_total`, `invoice_detail_id`, `product_id`) VALUES ('1', '120', '1', '3');
+
+ALTER TABLE `bookstore`.`customers` 
+ADD COLUMN `date_of_birth` DATE NULL DEFAULT NULL AFTER `last_name`;
