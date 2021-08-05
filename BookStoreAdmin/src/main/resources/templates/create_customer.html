@@ -76,13 +76,13 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- Row -->
-                <form th:action="@{/create_user}" th:method="post" th:object="${user}" enctype="multipart/form-data" class="form-horizontal form-material mx-2">
+                <form th:action="@{/create_customer}" th:method="post" th:object="${customer}" enctype="multipart/form-data" class="form-horizontal form-material mx-2">
 	                <div class="row">
 	                    <!-- Column -->
 	                    <div class="col-lg-4 col-xlg-3 col-md-5">
 	                        <div class="card">
 	                            <div class="card-body profile-card">
-	                                <center class="mt-4"> <img th:src="@{${user.photoPath}}" alt="Avatar" id="thumbnail" 
+	                                <center class="mt-4"> <img th:src="@{${customer.photoPath}}" alt="Avatar" id="thumbnail" 
 	                                        class="rounded-circle" width="150" />
 	                                    <h4 class="card-title mt-2">Hanna Gover</h4>
 	                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
@@ -100,7 +100,7 @@
 	                                    </div>
 	                                    <div>
 	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" >
-	                                    	<input type="hidden" th:field="*{avatar}">
+	                                    	<input type="hidden" th:field="*{photoUrl}">
 	                                    </div>
 	                                </center>
 	                            </div>
@@ -111,26 +111,43 @@
 	                    <div class="col-lg-8 col-xlg-9 col-md-7">
 	                        <div class="card">
 	                            <div class="card-body">
-	                                    <div class="form-group">
-	                                        <label class="col-md-12 mb-0">Full Name</label>
-	                                        <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
-	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{fullName}" name="fullName"
-	                                                class="form-control ps-0 form-control-line">
-                                                
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-group">
-	                                        <label for="example-email" class="col-md-12">Username</label>
-	                                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{username}" name="username"
-	                                                class="form-control ps-0 form-control-line">
-                                                
-	                                        </div>
-	                                    </div>
 	                                   <div class="form-group">
-	                                        <label class="col-md-12 mb-0">Password</label><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+	                                        <label class="col-md-12 mb-0">Email</label>
+	                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+	                                        <div class="col-md-12">
+	                                            <input type="text" th:field="*{email}" name="email"
+	                                                class="form-control ps-0 form-control-line">
+                                                
+	                                        </div>
+	                                   </div>
+	                                   <div class="form-group">
+	                                        <label for="example-email" class="col-md-12">First Name</label>
+	                                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+	                                        <div class="col-md-12">
+	                                            <input type="text" th:field="*{firstName}" name="firstName"
+	                                                class="form-control ps-0 form-control-line">
+                                                
+	                                    	</div>
+	                                   </div>
+	                                   <div class="form-group">
+	                                        <label for="example-email" class="col-md-12">Last Name</label>
+	                                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+	                                        <div class="col-md-12">
+	                                            <input type="text" th:field="*{lastName}" name="lastName"
+	                                                class="form-control ps-0 form-control-line">
+                                                
+	                                        </div>
+	                                   </div>
+	                                   <div class="form-group">
+	                                        <label for="example-email" class="col-md-12">Date of Birth</label>
+	                                        <div class="col-md-12">
+	                                            <input type="date" th:field="*{dateOfBirth}"
+	                                                class="form-control ps-0 form-control-line">
+	                                        </div>
+	                                   </div>
+	                                   <div class="form-group">
+	                                        <label class="col-md-12 mb-0">Password</label>
+	                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="password" th:field="*{password}" name="password"
 	                                                class="form-control ps-0 form-control-line">
@@ -139,19 +156,45 @@
 	                                    </div>
 	                                    
 	                                    <div class="form-group">
-	                                    	<label class="col-sm-12">Select Role</label>
-	                                    	<span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></span>
-	                                    	<div class="col-sm-12 border-bottom">
-		                                    	<ul>
-		                                    		<li th:each="role : ${listRoles}">
-		                                    			<div class="col-md-12">
-		                                    				<input type="checkbox" th:field="*{roles}" th:value="${role.id}">
-		                                            		<label th:text="${role.name}"></label>
-		                                    			</div>
-		                                    		</li>
-		                                    	</ul>
+	                                        <label class="col-md-12 mb-0">Phone Number</label>
+	                                        <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+	                                        <div class="col-md-12">
+	                                            <input type="text" th:field="*{phoneNumber}" name="phoneNumber"
+	                                                class="form-control ps-0 form-control-line">
+                                                
 	                                        </div>
 	                                    </div>
+	                                    
+	                                    <!--<div th:object="${address}">
+	                                    	<div class="form-group">
+		                                        <label class="col-md-12 mb-0">Street</label>
+		                                        <div class="col-md-12">
+		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.street}"
+		                                                class="form-control ps-0 form-control-line">
+		                                        </div>
+	                                    	</div>
+	                                    	<div class="form-group">
+		                                        <label class="col-md-12 mb-0">Ward</label>
+		                                        <div class="col-md-12">
+		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.ward}"
+		                                                class="form-control ps-0 form-control-line">
+		                                        </div>
+	                                    	</div>
+	                                    	<div class="form-group">
+		                                        <label class="col-md-12 mb-0">District</label>
+		                                        <div class="col-md-12">
+		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.district}"
+		                                                class="form-control ps-0 form-control-line">
+		                                        </div>
+	                                    	</div>
+	                                    	<div class="form-group">
+		                                        <label class="col-md-12 mb-0">City</label>
+		                                        <div class="col-md-12">
+		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.city}"
+		                                                class="form-control ps-0 form-control-line">
+		                                        </div>
+	                                    	</div>
+	                                    </div>-->
 	                                    
 	                                    <div class="form-group">
 	                                        <div class="col-sm-12 d-flex">

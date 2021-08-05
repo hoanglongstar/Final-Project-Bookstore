@@ -16,6 +16,7 @@ public class MvcConfig implements WebMvcConfigurer{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 		exposeDirectory(AppConstant.PROFILE_PHOTO_DIR, registry);
+		exposeDirectory(AppConstant.PRODUCT_PHOTO_DIR, registry);
 	}
 	
 	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {

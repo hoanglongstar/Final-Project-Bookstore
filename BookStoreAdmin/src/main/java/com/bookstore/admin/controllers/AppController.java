@@ -1,7 +1,6 @@
 package com.bookstore.admin.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bookstore.admin.handler.AppConstant;
 import com.bookstore.admin.helper.FileUploadHelper;
+import com.bookstore.admin.services.CategoryService;
 import com.bookstore.admin.services.ProductService;
-import com.bookstore.admin.services.RoleService;
 import com.bookstore.admin.services.UserService;
-import com.bookstore.model.entities.Category;
 import com.bookstore.model.entities.Product;
-import com.bookstore.model.entities.Role;
 import com.bookstore.model.entities.User;
-import com.bookstore.model.formdata.ProductData;
 import com.bookstore.model.formdata.UserData;
 
 @Controller
@@ -35,11 +31,14 @@ public class AppController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private RoleService roleService;
+//	@Autowired
+//	private RoleService roleService;
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@GetMapping("/login")
 	public String showLoginView() {
@@ -52,24 +51,10 @@ public class AppController {
 		return "dashboard";
 	}
 	
-//	@RequestMapping("/")
-//	public String showHomeView(Model model) {
-//		System.out.println("showHomeView");
-//		return "dashboard";
-//	}
-	
-	@GetMapping("/user")
-	public String showUsersView(Model model) {
-		List<User> listUsers = userService.getAllUsers();
-		
-		List<UserData> copyListUser = new ArrayList<UserData>();
-		
-		for(User user : listUsers) {
-			copyListUser.add(UserData.copyValueFromUserEntity(user));
-		}
-
-		model.addAttribute("listUsers", copyListUser);
-		return "users";
+	@RequestMapping("/")
+	public String showHomeView(Model model) {
+		System.out.println("showHomeView");
+		return "dashboard";
 	}
 	
 	@GetMapping("/product")
@@ -79,95 +64,103 @@ public class AppController {
 		return "products";
 	}
 	
-	@GetMapping("/create_new_user")
-	public String showCreateNewUserView(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
-		model.addAttribute("listRoles", roleService.getAllRoles());
-		return "create_user";
-	}
-	
 	@GetMapping("/add_new_product")
 	public String showShowAddNewProductView(Model model) {
 		Product product = new Product();
 		model.addAttribute("product", product);
+		model.addAttribute("listCategory",categoryService.getAllCategory());
 		return "add_product";
 	}
 	
-	@RequestMapping(value = "/save_user", method = RequestMethod.POST)
-	public String saveUser(@RequestParam("fileImage") MultipartFile multipartFile ,@ModelAttribute("user") User user) {
+	@RequestMapping(value = "/save_new_user", method = RequestMethod.GET)
+	public String saveUser(@ModelAttribute("user") UserData userData) {
 		
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		
-		user.setAvatar(fileName);
-		user.setEnabled(true);
-		user.setPassword("123456");
-		userService.saveUser(user);
-		
-		String uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId();
-		
-		try {
-			FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+//		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//		
+//		User user = new User();
+//
+//		if(!fileName.equals("")) {
+//			userData.setAvatar(fileName);
+//			String uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + userData.getId();
+//			
+//			try {
+//				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		userData.setEnabled(true);
+//		
+//		user = userData.updateUserFormData();
+//		
+//		userService.saveUser(user);
+
 		return "redirect:/user";
 	}
 	
-	@RequestMapping(value = "/save_new_product", method = RequestMethod.POST)
-	public String saveNewProduct(@ModelAttribute("product") Product product) {
+	@RequestMapping(value = "/save_product", method = RequestMethod.POST)
+	public String saveProduct(@RequestParam("fileImage") MultipartFile multipartFile ,@ModelAttribute("product") Product product) {
 
-		Category category = new Category();
-		category.setId(2);
-		
-		product.setCategory(category);
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+		if(!fileName.equals("")) {
+			product.setPhoto(fileName);
+			String uploadDir = AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId();
+			
+			try {
+				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		product.setEnabled(true);
 		productService.saveProduct(product);
 		
 		return "redirect:/product";
 	}
 	
-	@RequestMapping(value = "/save_product", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("product") ProductData productData) {
-
-		Product entity = productService.getProductByCode(productData.getCode());
-		
-		if(entity != null) {
-			entity.updateFormData(productData);
-			Category category = new Category();
-			category.setId(2);
-			
-			entity.setCategory(category);
-			productService.saveProduct(entity);
-		}
-
-		return "redirect:/product";
-	}
+//	@RequestMapping("/edit_user/{id}")
+//	public ModelAndView showEditUserView(@PathVariable(name = "id") Integer id) {
+//		
+//		ModelAndView modelAndView = new ModelAndView("edit_user");
+//		
+//		User user = userService.getUserById(id);
+//				
+//		System.out.println("Edit User View: " + user.getAvatar());
+//		
+//		List<Role> listRoles = roleService.getAllRoles();
+//		
+//		modelAndView.addObject("user",user);
+//		modelAndView.addObject("listRoles",listRoles);
+//
+//		return modelAndView;
+//	}
 	
-	@RequestMapping("/edit_user/{id}")
-	public ModelAndView showEditUserView(@PathVariable(name = "id") Integer id) {
-		
-		ModelAndView modelAndView = new ModelAndView("edit_user");
-		
-		User user = userService.getUserById(id);
-		
-		List<Role> listRoles = roleService.getAllRoles();
-		
-		modelAndView.addObject(user);
-		modelAndView.addObject(listRoles);
-
-		return modelAndView;
-	}
+//	@RequestMapping("/change_password")
+//	public ModelAndView showChangePasswordView() {
+//		ModelAndView modelAndView = new ModelAndView("change_password");
+//		
+////		User user = userService.getUserById(id);
+//		
+////		modelAndView.addObject("user",user);
+//		
+//		return modelAndView;
+//	}
+	
+//	@RequestMapping(value = "/save_password", method = RequestMethod.POST)
+//	public String savePassword(@ModelAttribute("user") User user) {
+//		//Change password code
+//		return null;
+//	}
 	
 	@RequestMapping("/edit_product/{code}")
 	public String showEditProductView(@PathVariable(name = "code") String code, Model model) {
 		
-		Product entity = productService.getProductByCode(code);
+		Product product = productService.getProductByCode(code);
 		
-		ProductData productData = ProductData.copyValueFormEntity(entity);
-		
-		model.addAttribute("product", productData);
+		model.addAttribute("product", product);
+		model.addAttribute("listCategory", categoryService.getAllCategory());
 		
 		return "edit_product";
 	}
@@ -202,4 +195,6 @@ public class AppController {
 	public String showdebugView(Model model) {
 		return "debug";
 	}
+	
+	
 }

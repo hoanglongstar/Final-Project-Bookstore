@@ -39,7 +39,7 @@ public class MyUserDetails implements UserDetails{
 		}
 		
 		System.out.println(message + messageRoles);
-		
+
 		return authorities;
 	}
 
@@ -48,6 +48,14 @@ public class MyUserDetails implements UserDetails{
 		return user.getPassword();
 	}
 
+	public String getFullName() {
+		return user.getFullName();
+	}
+	
+	public Integer getId() {
+		return user.getId();
+	}
+	
 	@Override
 	public String getUsername() {
 		return user.getUsername();

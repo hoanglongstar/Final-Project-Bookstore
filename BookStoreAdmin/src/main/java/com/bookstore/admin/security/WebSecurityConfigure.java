@@ -1,5 +1,7 @@
 package com.bookstore.admin.security;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
@@ -26,10 +30,20 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private OnAuthenticationSuccessHandler successHandler;
+	
+	@Autowired
+	private DataSource dataSource;
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl tokenRepo = new JdbcTokenRepositoryImpl();
+		tokenRepo.setDataSource(dataSource);
+		return tokenRepo;
 	}
 	
 	@Bean
@@ -55,7 +69,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/signup", "/assets/**", "/css/**", "/fonts/**", "/images/**", "/js/**", "/scss/**", "/vendor/**").permitAll()
-		.antMatchers("/dashboard", "/users", "/create_new_user").hasAnyAuthority("ADMIN")
+//		.antMatchers("/", "/dashboard", "/users", "/create_new_user").hasAnyAuthority("ADMIN")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.usernameParameter("username")
@@ -63,6 +77,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 		.loginProcessingUrl("/dologin")
 		.failureHandler(failureHandler)
 		.successHandler(successHandler)
+		.and().rememberMe().tokenRepository(persistentTokenRepository()).tokenValiditySeconds(3600)
 		.and().logout().permitAll();
 	}
 	

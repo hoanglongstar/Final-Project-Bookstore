@@ -10,4 +10,14 @@ public class PasswordManager {
 		
 		return encoded;
 	}
+	
+	public static Boolean checkPassword(String newPassword, String oldPassword) {
+		
+		Boolean checked = false;
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		checked = encoder.matches(newPassword, oldPassword);
+		
+		return checked;
+	}
 }
