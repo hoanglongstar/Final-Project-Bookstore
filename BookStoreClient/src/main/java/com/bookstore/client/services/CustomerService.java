@@ -1,8 +1,10 @@
 package com.bookstore.client.services;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,20 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
+	
+	 
+	
 	public void saveCustomer(Customer c) {
+		PasswordManager passwordManager = new PasswordManager();
+		String encodePassword = passwordManager.encode(c.getPassword());
+		
+		Pattern bcryPattern = Pattern.compile("^[$]2[abxy]?[$](?:0[4-9]|[12][0-9]|3[01])[$][./0-9a-zA-Z]{53}$");
+		
+		if (!bcryPattern.matcher(c.getPassword()).matches()) {
+			c.setPassword(encodePassword);
+		}
+		
+		
 		customerRepository.save(c);
 	}
 	
@@ -41,16 +56,21 @@ public class CustomerService {
 		newCustomer.setLastLogin(createDate);
 		newCustomer.setAuthProvider(provider);
 		newCustomer.setEnabled(true);
-
+		
+		
 		customerRepository.save(newCustomer);
 	}
 	
-	public void updateCustomer(Customer customer, String name, AuthProvider authProvider) {
+	public void updateCustomer(Customer customer, String name ,AuthProvider authProvider) {
 		Date loginDate = new Date();
 		
+//		customer.setAddress(null);
 		customer.setFirstName(name);
+		//customer.setLastName(lastname);
 		customer.setLastLogin(loginDate);
 		
 		customerRepository.save(customer);
 	}
+	
+	//public void updateCustomer
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
+<html lang="en" xmlns:sec="http://www.thyemleaf.org/thymeleaf-extras-springsecurity5"
+				xmlns:th="http://www.thymeleaf.org">
+<head>
         <meta charset="utf-8">
         <title>E Store - eCommerce HTML Template</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -8,20 +9,21 @@
         <meta content="eCommerce HTML Template Free Download" name="description">
 
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+        <link th:href="@{/img/favicon.ico}" rel="icon">
 
         <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+        <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap}" rel="stylesheet">
 
         <!-- CSS Libraries -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="lib/slick/slick.css" rel="stylesheet">
-        <link href="lib/slick/slick-theme.css" rel="stylesheet">
+        <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css}" rel="stylesheet">
+        <link th:href="@{/lib/slick/slick.css}" rel="stylesheet">
+        <link th:href="@{/lib/slick/slick-theme.css}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link th:href="@{css/style.css}" rel="stylesheet">
     </head>
+
 
     <body>
         <!-- Top bar Start -->
@@ -42,7 +44,7 @@
         <!-- Top bar End -->
         
         <!-- Nav Bar Start -->
-        <div class="nav">
+<div class="nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
                     <a href="#" class="navbar-brand">MENU</a>
@@ -52,8 +54,8 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index" class="nav-item nav-link active">Home</a>
-                            <a href="product-list" class="nav-item nav-link">Products</a>
+                            <a href="/home" class="nav-item nav-link active">Home</a>
+                            <a href="productlist" class="nav-item nav-link">Products</a>
                             <a href="product-detail" class="nav-item nav-link">Product Detail</a>
                             <a href="cart" class="nav-item nav-link">Cart</a>
                             <a href="checkout" class="nav-item nav-link">Checkout</a>
@@ -61,20 +63,33 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlistl" class="dropdown-item">Wishlist</a>
-                                    <a href="login" class="dropdown-item">Login & Register</a>
-                                    <a href="contact" class="dropdown-item">Contact Us</a>
+                                    <a href="wishlistl" class="dropdown-item">Wishlist</a> <a
+									sec:authorize="isAnonymous()" href="login"
+									class="dropdown-item">Login & Register</a>
+								<li class="dropdown-item" sec:authorize="isAuthenticated()">
+								<a th:href="@{/profile}" sec:authentication="name" class="dropdown-item">name</a></li> 
+									<a href="contact" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
                         </div>
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-                                <div class="dropdown-menu">
-                                    <a href="login" class="dropdown-item">Login</a>
-                                    <a href="login" class="dropdown-item">Register</a>
-                                </div>
-                            </div>
+                                <a href="login" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+							<div class="dropdown-menu">
+								<li sec:authorize="isAnonymous()" class="dropdown-item"><a
+									href="/login">Login</a></li>
+
+								<li class="dropdown-item" sec:authorize="isAuthenticated()"><a
+									th:href="@{/profile}" sec:authentication="name" class="dropdown-item">name</a></li> 
+
+								<li class="dropdown-item" sec:authorize="isAuthenticated()"><a
+									onclick="document.getElementById('formlogout').submit()">Logout</a>
+
+									<form id="formlogout" th:action="@{/logout}" method="POST">
+									</form></li>
+
+							</div>
+						</div>
                         </div>
                     </div>
                 </nav>
@@ -215,33 +230,39 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
                                 <h4>Account Details</h4>
+                               <form th:action="@{/my_account}" method="post" th:object="${customer}">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <input class="form-control" type="text" placeholder="First Name">
+                                	<div class="col-md-6">
+                                        <input class="form-control" type="text" readonly="readonly" placeholder="id" th:field="*{id}">
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="text" placeholder="Last Name">
+                                        <input class="form-control" type="text" placeholder="First Name" th:field="*{firstName}">
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="text" placeholder="Mobile">
+                                        <input class="form-control" type="text" placeholder="Last Name" th:field="*{lastName}">
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="text" placeholder="Email">
+                                        <input class="form-control" type="text" placeholder="Mobile" th:field="*{phoneNumber}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Email" th:field="*{email}">
                                     </div>
                                     <div class="col-md-12">
-                                        <input class="form-control" type="text" placeholder="Address">
+                                        <input class="form-control" type="text" placeholder="Address" >
                                     </div>
                                     <div class="col-md-12">
-                                        <button class="btn">Update Account</button>
+                                        <button class="btn" type="submit" th:action="@{/my_account}" th:method="post">Update Account</button>
                                         <br><br>
                                     </div>
                                 </div>
+                                
                                 <h4>Password change</h4>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="password" placeholder="Current Password">
+                                        <input class="form-control" type="password" placeholder="Current Password" th:field="*{password}">
                                     </div>
                                     <div class="col-md-6">
                                         <input class="form-control" type="text" placeholder="New Password">
@@ -253,7 +274,9 @@
                                         <button class="btn">Save Changes</button>
                                     </div>
                                 </div>
+                                </form>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

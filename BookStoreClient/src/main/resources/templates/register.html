@@ -38,12 +38,12 @@
 			      		</div>
 		            <div class="form-group mb-3" data-validate="Password is required">
 		            	<label class="label" for="password">Password</label>
-		              	<input type="password" th:field="*{password}" name="password" class="form-control" placeholder="Password" required>
+		              	<input type="password" th:field="*{password}" name="password" class="form-control" id="password1" placeholder="Password" required>
 		              	<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</span>
 		            </div>
                     <div class="form-group mb-3" data-validate="Password is required">
 						<label class="label">Retype Password</label>
-						<input class="form-control" type="password" name="retypepass" placeholder="Type your password again" required="required">
+						<input class="form-control" type="password" name="retypepass" placeholder="Type your password again" id="password2" required="required">
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
                     <div class="form-group mb-3" data-validate = "Username is reauired">
@@ -86,11 +86,29 @@
 			</div>
 		</div>
 	</section>
+	
 
 	<script src="login/js/jquery.min.js"></script>
   <script src="login/js/popper.js"></script>
   <script src="login/js/bootstrap.min.js"></script>
   <script src="login/js/main.js"></script>
+  
+  	<script>
+		window.onload = function () {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
 
 	</body>
 </html>

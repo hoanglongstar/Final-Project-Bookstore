@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thyemleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <meta charset="utf-8">
         <title>E Store - eCommerce HTML Template</title>
@@ -52,8 +53,8 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                           <a href="index" class="nav-item nav-link active">Home</a>
-                            <a href="product-list" class="nav-item nav-link">Products</a>
+                            <a href="/home" class="nav-item nav-link active">Home</a>
+                            <a href="productlist" class="nav-item nav-link">Products</a>
                             <a href="product-detail" class="nav-item nav-link">Product Detail</a>
                             <a href="cart" class="nav-item nav-link">Cart</a>
                             <a href="checkout" class="nav-item nav-link">Checkout</a>
@@ -61,57 +62,36 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlistl" class="dropdown-item">Wishlist</a>
-                                    <a href="login" class="dropdown-item">Login & Register</a>
-                                    <a href="contact" class="dropdown-item">Contact Us</a>
+                                    <a href="wishlistl" class="dropdown-item">Wishlist</a> <a
+									sec:authorize="isAnonymous()" href="login"
+									class="dropdown-item">Login & Register</a>
+								<li class="dropdown-item" sec:authorize="isAuthenticated()">
+								<a th:href="@{/profile}" sec:authentication="name" class="dropdown-item">name</a></li> 
+									<a href="contact" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
                         </div>
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-                                <div class="dropdown-menu">
-                                    <a href="login" class="dropdown-item">Login</a>
-                                    <a href="login" class="dropdown-item">Register</a>
-                                </div>
-                            </div>
+                                <a href="login" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+							<div class="dropdown-menu">
+								<li sec:authorize="isAnonymous()" class="dropdown-item"><a
+									href="/login">Login</a></li>
+
+								<li class="dropdown-item" sec:authorize="isAuthenticated()"><a
+									th:href="@{/profile}" sec:authentication="name" class="dropdown-item">name</a></li> 
+
+								<li class="dropdown-item" sec:authorize="isAuthenticated()"><a
+									onclick="document.getElementById('formlogout').submit()">Logout</a>
+
+									<form id="formlogout" th:action="@{/logout}" method="POST">
+									</form></li>
+
+							</div>
+						</div>
                         </div>
                     </div>
                 </nav>
-            </div>
-        </div>
-        <!-- Nav Bar End -->      
-        
-        <!-- Bottom Bar Start -->
-        <div class="bottom-bar">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-3">
-                        <div class="logo">
-                            <a href="index">
-                                <img src="img/logo.png" alt="Logo">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="cart.html" class="btn cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- Bottom Bar End -->

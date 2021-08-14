@@ -9,7 +9,7 @@
         <meta content="eCommerce HTML Template Free Download" name="description">
 
         <!-- Favicon -->
-        <link th:href="@{/img/favicon.ico}" rel="icon">
+        <link th:href="@{img/favicon.ico}" rel="icon">
 
         <!-- Google Fonts -->
         <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap}" rel="stylesheet">
@@ -17,11 +17,11 @@
         <!-- CSS Libraries -->
         <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css}" rel="stylesheet">
-        <link th:href="@{/lib/slick/slick.css}" rel="stylesheet">
-        <link th:href="@{/lib/slick/slick-theme.css}" rel="stylesheet">
+        <link th:href="@{lib/slick/slick.css}" rel="stylesheet">
+        <link th:href="@{lib/slick/slick-theme.css}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link th:href="@{/css/style.css}" rel="stylesheet">
+        <link th:href="@{css/style.css}" rel="stylesheet">
     </head>
 
     <body>
@@ -103,20 +103,18 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a th:href="@{/}">
-                                <img th:src="@{/img/logo.png}" alt="Logo">
+                                <img th:src="@{img/logo.png}" alt="Logo">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-6">
-                    	<form th:action="@{/searchproducts}" method="get">
-                    		<div class="search">
-	                            <input id="searchValue" type="text" class="form-control" name="value" placeholder="Search">
-	                            <button type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                    	</form>
-                        
-                        </div>
-                        
+	                    	<form th:action="@{/searchproducts}" method="get">
+	                    		<div class="search">
+		                            <input id="searchValue" type="text" class="form-control" name="value" placeholder="Search">
+		                            <button type="submit"><i class="fa fa-search"></i></button>
+	                            </div>
+	                    	</form>                    
+                        </div>              
                     </div> 
 
                     <div class="col-md-3">
@@ -133,7 +131,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         <!-- Bottom Bar End -->  
         
         <!-- Breadcrumb Start -->
@@ -212,7 +209,7 @@
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img th:src="@{/img/image_180812.jpg}" alt="Product Image">
+                                            <img th:src="@{img/image_180812.jpg}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -228,7 +225,7 @@
                             </div>
   
                         <!-- Pagination Start -->
-                        <div class="col-md-12">
+                        <!-- <div class="col-md-12">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                              
@@ -257,8 +254,7 @@
                                 </ul>
                             </nav>
                         </div>
-                        <!-- Pagination Start -->
-                             
+                        Pagination Start -->
                     
                     <!-- Side Bar Start -->
                     <div class="col-lg-4 sidebar">
@@ -304,7 +300,7 @@
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img th:src="@{/img/product-10.jpg}" alt="Product Image">
+                                            <img th:src="@{img/product-10.jpg}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -330,7 +326,7 @@
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img th:src="@{/img/product-9.jpg}" alt="Product Image">
+                                            <img th:src="@{img/product-9.jpg}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -356,7 +352,7 @@
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img th:src="@{/img/product-8.jpg}" alt="Product Image">
+                                            <img th:src="@{img/product-8.jpg}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -410,12 +406,12 @@
         <div class="brand">
             <div class="container-fluid">
                 <div class="brand-slider">
-                    <div class="brand-item"><img th:src="@{/img/brand-1.png}" alt=""></div>
-                    <div class="brand-item"><img th:src="@{/img/brand-2.png}" alt=""></div>
-                    <div class="brand-item"><img th:src="@{/img/brand-3.png}" alt=""></div>
-                    <div class="brand-item"><img th:src="@{/img/brand-4.png}" alt=""></div>
-                    <div class="brand-item"><img th:src="@{/img/brand-5.png}" alt=""></div>
-                    <div class="brand-item"><img th:src="@{/img/brand-6.png}" alt=""></div>
+                    <div class="brand-item"><img th:src="@{img/brand-1.png}" alt=""></div>
+                    <div class="brand-item"><img th:src="@{img/brand-2.png}" alt=""></div>
+                    <div class="brand-item"><img th:src="@{img/brand-3.png}" alt=""></div>
+                    <div class="brand-item"><img th:src="@{img/brand-4.png}" alt=""></div>
+                    <div class="brand-item"><img th:src="@{img/brand-5.png}" alt=""></div>
+                    <div class="brand-item"><img th:src="@{img/brand-6.png}" alt=""></div>
                 </div>
             </div>
         </div>
@@ -478,15 +474,15 @@
                     <div class="col-md-6">
                         <div class="payment-method">
                             <h2>We Accept:</h2>
-                            <img th:src="@{/img/payment-method.png}" alt="Payment Method" />
+                            <img th:src="@{img/payment-method.png}" alt="Payment Method" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="payment-security">
                             <h2>Secured By:</h2>
-                            <img th:src="@{/img/godaddy.svg}" alt="Payment Security" />
-                            <img th:src="@{/img/norton.svg}" alt="Payment Security" />
-                            <img th:src="@{/img/ssl.svg}" alt="Payment Security" />
+                            <img th:src="@{img/godaddy.svg}" alt="Payment Security" />
+                            <img th:src="@{img/norton.svg}" alt="Payment Security" />
+                            <img th:src="@{img/ssl.svg}" alt="Payment Security" />
                         </div>
                     </div>
                 </div>
@@ -516,10 +512,10 @@
         <!-- JavaScript Libraries -->
         <script th:src="@{https://code.jquery.com/jquery-3.4.1.min.js}"></script>
         <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js}"></script>
-        <script th:src="@{/lib/easing/easing.min.js}"></script>
-        <script th:src="@{/lib/slick/slick.min.js}"></script>
+        <script th:src="@{lib/easing/easing.min.js}"></script>
+        <script th:src="@{lib/slick/slick.min.js}"></script>
         
         <!-- Template Javascript -->
-        <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{js/main.js}"></script>
     </body>
 </html>

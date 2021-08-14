@@ -30,6 +30,7 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private OnAuthenticationFailureHandler failureHandler;
 	
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/css/**","/img/**", "/js/**","lib/**", "login/**");
@@ -61,6 +62,9 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		//http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(3600);
+	
 		http.authorizeRequests()
 		.antMatchers("/", "/home").permitAll()
 		.anyRequest().permitAll()
@@ -69,7 +73,7 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 		.passwordParameter("password")
 		.loginProcessingUrl("/dologin")
 		.defaultSuccessUrl("/").permitAll()
-		
+		.and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(3600)
 		.and().oauth2Login().loginPage("/login").permitAll()
 		.userInfoEndpoint().userService(customerOAuth2Service)
 		.and().successHandler(successHandler)

@@ -61,7 +61,7 @@ public class EmailServiceImpl {
             // Prepare message using a Spring helper
             final MimeMessage mimeMessage = mailSender.createMimeMessage();
             final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-            message.setSubject("Example HTML email (simple)");
+            message.setSubject("Xác nhận email");
             message.setFrom("thymeleaf@example.com");
             message.setTo(recipientEmail);
 

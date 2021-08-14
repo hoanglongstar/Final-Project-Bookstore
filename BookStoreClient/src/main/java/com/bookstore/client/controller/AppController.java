@@ -23,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 
 import com.bookstore.client.helper.EmailServiceImpl;
+import com.bookstore.client.helper.PasswordManager;
+import com.bookstore.client.security.CustomerOAuth2User;
 import com.bookstore.client.services.CustomerService;
 import com.bookstore.model.entities.Customer;
 import com.bookstore.model.formdata.CustomerForm;
@@ -38,11 +40,39 @@ public class AppController {
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
+	
+	
+	private Authentication authentication;
 
 	@RequestMapping(value = {"/", "/home"})
 	public String showHomeView(Model model) {
+		System.out.println("pass: " +PasswordManager.getBCrypPassword("12345678"));
 		
+		if (authentication != null) {
+
+			CustomerOAuth2User oath2user = (CustomerOAuth2User) authentication.getPrincipal();
+
+			if (oath2user != null) {
+				
+				String email = oath2user.getEmail();
+
+				System.out.println("showHomeView princpal name: " + email);
+
+				Customer currentCus = customerService.getCustomerByEmail(email);
+
+				if (currentCus != null) {
+
+					model.addAttribute("customer", currentCus);
+				}
+			}
+		}
+
+		CustomerForm customerData = new CustomerForm();
+
+		model.addAttribute("customerData", customerData);
+
 		return "index";
+ 
 	}
 	
 	@RequestMapping(value = {"/cart"})
@@ -63,10 +93,6 @@ public class AppController {
 		return "checkout";
 	}
 	
-	@RequestMapping(value = {"/product-list"})
-	public String showProductList(Model model) {
-		return "product-list";
-	}
 	
 	@RequestMapping(value = {"/login"} , method = RequestMethod.GET)
 	public String showLoginView(Model model) {
@@ -77,18 +103,24 @@ public class AppController {
 	public String showRegisterView(Model model) {
 		
 		CustomerForm customerForm = new CustomerForm();
+		System.out.println("check: " +customerForm.toString());
+		System.out.println("pass:" +customerForm.getPassword());
+		model.addAttribute("customer", customerForm);
 		System.out.println("check: " + customerForm.toString());
 		model.addAttribute("customerForm", customerForm);
 		
 		return "register";
 	}
-//	
+
+	
 //	@PostMapping("/register")
-//	public String doRegister(@ModelAttribute("customer") CustomerData customerData) {
+//	public String doRegister(@ModelAttribute("customer") CustomerForm customerData) {
 //		System.out.println("AppController::doRegister -> " + customerData.toString());
 //		customerService.registerNewCustomer(customerData);
 //		return "redirect:/login";
 //	}
+	
+	
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String checkCustomerInfo(@Valid CustomerForm customerForm, BindingResult bindingResult, RedirectAttributes redirectAttributes)   {
@@ -118,6 +150,7 @@ public class AppController {
 			return "register";
 		}
 		//register new account;
+		
 		customerService.saveCustomer(customerForm.getCustomer());
 		//generate verification code: qwerty
 		//send <a>http:localhost:8080/email_veryfication/qwerty</a> hoac <a>http:localhost:8080/email_veryfication?code=qwerty</a>
