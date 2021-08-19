@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.bookstore.model.formdata.ProductData;
 
@@ -33,9 +35,11 @@ public class Product  implements Serializable{
 	private Integer id;
 	
 	@Column(name = "name")
+	@Size(min = 1, message = "Please enter product name")
 	private String name;
 	
 	@Column(name = "code")
+	@Size(min = 3, max = 10, message = "Please enter product code")
 	private String code;
 	
 	@Column(name = "description")
@@ -43,6 +47,7 @@ public class Product  implements Serializable{
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
+	@NotNull(message = "Please select product's category")
 	private Category category;
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

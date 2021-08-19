@@ -9,9 +9,9 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -282,10 +282,10 @@ public class UserController {
 			}
 		}
 		
-//		user.setEnabled(true);
+		user.setEnabled(true);
 		
 		userService.saveUser(user);
-		return "redirect:/user";
+		return "redirect:/profile";
 	}
 	
 	@Transient
@@ -303,5 +303,15 @@ public class UserController {
 		User currentUser = userService.getUserByUsername(username);
 
 		return currentUser;
+	}
+	
+	@GetMapping(value = "/search_user")
+	public String searchUserView(Model model, @Param("username") String username) {
+		User user = userService.getUserByUsername(username);
+		
+		UserData userData = user.copyValueFromUserEntity();
+		
+		model.addAttribute("listUsers", userData);
+		return "search_user";
 	}
 }

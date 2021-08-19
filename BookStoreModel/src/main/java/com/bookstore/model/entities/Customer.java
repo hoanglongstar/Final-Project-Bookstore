@@ -245,8 +245,14 @@ public class Customer implements Serializable{
 	
 	@Transient
 	public String getPhotoPath() {
+//		System.out.println(id + photoUrl);
+		if(photoUrl == null || photoUrl.equals("")) {
+			return "../images/default.jpg";
+		}
 		if(id != null & photoUrl != null) {
+			
 			return "/customer-photos/" + id + "/" + photoUrl;
+			
 		}
 		return null;
 	}

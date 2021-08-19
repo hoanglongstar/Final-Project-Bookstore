@@ -29,4 +29,8 @@ public class ProductService {
 	public void deleteProductById(Integer id) {
 		productRepository.deleteById(id);
 	}
+	
+	public List<Product> fullTextSearchProduct(String name){
+		return productRepository.fullTextSearchUserByUsername(name);
+	}
 }

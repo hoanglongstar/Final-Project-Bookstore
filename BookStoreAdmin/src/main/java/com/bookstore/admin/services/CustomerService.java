@@ -31,6 +31,7 @@ public class CustomerService {
 			
 			customer.setPassword(encodePassword);
 		}
+		
 		customerRepository.save(customer);
 	}
 	
@@ -40,5 +41,17 @@ public class CustomerService {
 	
 	public Customer getCustomerById(Integer id) {
 		return customerRepository.getById(id);
+	}
+	
+	public List<Customer> getListSearchCustomerByEmail(String email){
+		return customerRepository.getListSearchCustomerByEmail(email);
+	}
+	
+	public List<Customer> fullTextSearchCustomerByEmail(String email){
+		return customerRepository.fullTextSearchCustomerByEmail(email);
+	}
+	
+	public Customer getCustomerByPhoneNumber(String phoneNumber) {
+		return customerRepository.getCustomerByPhoneNumber(phoneNumber);
 	}
 }

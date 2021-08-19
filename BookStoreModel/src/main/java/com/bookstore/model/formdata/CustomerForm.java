@@ -128,11 +128,6 @@ public class CustomerForm {
 		customerForm.setEmail(customer.getEmail());
 		customerForm.setPassword(customer.getPassword());
 		
-		customerForm.toCustomer();
 		return customerForm;
-	}
-	
-	public void toCustomer() {
-		System.out.println("name" + getEmail() + " " + getPassword());
 	}
 }

@@ -17,15 +17,21 @@ public class MvcConfig implements WebMvcConfigurer{
 
 		exposeDirectory(AppConstant.PROFILE_PHOTO_DIR, registry);
 		exposeDirectory(AppConstant.PRODUCT_PHOTO_DIR, registry);
+		exposeDirectory(AppConstant.CUSTOMER_PHOTO_DIR, registry);
+		exposeDirectory(AppConstant.CATEGORY_PHOTO_DIR, registry);
 	}
 	
 	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
 		Path uploadDir = Paths.get(dirName);
 		String uploadPath = uploadDir.toFile().getAbsolutePath();
 		
+//		System.out.println("MvcConfig :: " + uploadPath);
+//		System.out.println("MvcConfig :: " + dirName);
+		
 		if(dirName.startsWith("../")) {
 			dirName.replace("../", "");
 		}
+//		System.out.println("-------------------");
 		
 		registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:" + uploadPath + "/");
 	}

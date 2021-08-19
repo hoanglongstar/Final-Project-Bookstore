@@ -37,12 +37,10 @@
 						Login to continue
 					</span>
 					
-					<div th:if="${loginError}">
-						<span class="txt1">[[${loginError}]]</span>
-					</div>
+					
 					<div class="wrap-input100 validate-input" data-validate = "Username is required">
 						<input class="input100" type="text" name="username" placeholder="Username">
-						<span class="focus-input100"></span>
+						<span class="focus-input100">User or password is incorrect</span>
 					</div>
 					
 					

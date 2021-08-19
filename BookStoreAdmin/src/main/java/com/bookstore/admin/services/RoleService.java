@@ -29,4 +29,8 @@ public class RoleService {
 	public void deleteRoleById(Integer id) {
 		roleRepository.deleteById(id);
 	}
+	
+	public List<Role> fullTextSearchRoleByName(String name){
+		return roleRepository.fullTextSearchRoleByName(name);
+	}
 }

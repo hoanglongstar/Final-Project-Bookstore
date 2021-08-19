@@ -14,7 +14,7 @@
     <title>[[${tittle}]]</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" th:href="@{assets/images/favicon.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
     <!-- Custom CSS -->
     <link th:href="@{/assets/plugins/chartist/dist/chartist.min.css}" rel="stylesheet">
     <!-- Custom CSS -->
@@ -72,10 +72,7 @@
 	                <!-- ============================================================== -->
 	
 	                <li class="nav-item hidden-sm-down">
-	                    <form class="app-search ps-3">
-	                        <input type="text" class="form-control" placeholder="Search for..."> <a
-	                            class="srh-btn"><i class="ti-search"></i></a>
-	                    </form>
+	                
 	                </li>
 	            </ul>
 	
@@ -164,6 +161,106 @@
             <!-- End Sidebar navigation -->
         </div>
         <!-- End Sidebar scroll-->
+	</div>
+	<div th:fragment="top-table-customer">
+		<div class="col-sm-10">
+			<h4 class="card-title">Customer List</h4>
+			<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
+		</div>
+		<div class="col-sm-2">
+			<ul class="navbar-nav me-auto mt-md-0 ">
+	            <!-- ============================================================== -->
+	            <!-- Search -->
+	            <!-- ============================================================== -->
+	
+	            <li class="nav-item hidden-sm-down">
+	                <form class="app-search" th:action="@{/search_customer}" method="GET" id="searchCustomerForm">
+	                    <input type="text" name="email" class="form-control" placeholder="Search for..."> 
+	                    <a class="srh-btn" onclick="document.getElementById('searchCustomerForm').submit()"><i class="ti-search"></i></a>
+	                </form>
+	            </li>
+	        </ul>
+		</div>
+	</div>
+	<div th:fragment="top-table-user">
+		<div class="col-sm-10">
+			<h4 class="card-title">User List</h4>
+			<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
+		</div>
+		<div class="col-sm-2">
+			<ul class="navbar-nav me-auto mt-md-0 ">
+	            <!-- ============================================================== -->
+	            <!-- Search -->
+	            <!-- ============================================================== -->
+	
+	            <li class="nav-item hidden-sm-down">
+	                <form class="app-search" th:action="@{/search_user}" method="GET" id="searchUserForm">
+	                    <input type="text" name="username" class="form-control" placeholder="Search for..."> 
+	                    <a class="srh-btn" onclick="document.getElementById('searchUserForm').submit()"><i class="ti-search"></i></a>
+	                </form>
+	            </li>
+	        </ul>
+		</div>
+	</div>
+	<div th:fragment="top-table-product">
+		<div class="col-sm-10">
+			<h4 class="card-title">Product List</h4>
+			<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
+		</div>
+		<div class="col-sm-2">
+			<ul class="navbar-nav me-auto mt-md-0 ">
+	            <!-- ============================================================== -->
+	            <!-- Search -->
+	            <!-- ============================================================== -->
+	
+	            <li class="nav-item hidden-sm-down">
+	                <form class="app-search" th:action="@{/search_product}" method="GET" id="searchProductForm">
+	                    <input type="text" name="name" class="form-control" placeholder="Search for..."> 
+	                    <a class="srh-btn" onclick="document.getElementById('searchProductForm').submit()"><i class="ti-search"></i></a>
+	                </form>
+	            </li>
+	        </ul>
+		</div>
+	</div>
+	<div th:fragment="top-table-invoice">
+		<div class="col-sm-10">
+			<h4 class="card-title">Invoice List</h4>
+			<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
+		</div>
+		<div class="col-sm-2">
+			<ul class="navbar-nav me-auto mt-md-0 ">
+	            <!-- ============================================================== -->
+	            <!-- Search -->
+	            <!-- ============================================================== -->
+	
+	            <li class="nav-item hidden-sm-down">
+	                <form class="app-search" th:action="@{/search_invoice}" method="GET" id="searchInvoiceForm">
+	                    <input type="text" name="code" class="form-control" placeholder="Search for..."> 
+	                    <a class="srh-btn" onclick="document.getElementById('searchInvoiceForm').submit()"><i class="ti-search"></i></a>
+	                </form>
+	            </li>
+	        </ul>
+		</div>
+	</div>
+	<div th:fragment="top-table-role">
+		<div class="col-sm-10">
+			<h4 class="card-title">Role List</h4>
+			<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
+		</div>
+		<div class="col-sm-2">
+			<ul class="navbar-nav me-auto mt-md-0 ">
+	            <!-- ============================================================== -->
+	            <!-- Search -->
+	            <!-- ============================================================== -->
+	
+	            <li class="nav-item hidden-sm-down">
+	                <form class="app-search" th:action="@{/search_role}" method="GET" id="searchRoleForm">
+	                    <input type="text" name="name" class="form-control" placeholder="Search for..."> 
+	                    <a class="srh-btn" onclick="document.getElementById('searchRoleForm').submit()"><i class="ti-search"></i></a>
+	                </form>
+	            </li>
+	        </ul>
+		</div>
 	</div>
 </body>
 </html>

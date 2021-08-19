@@ -3,6 +3,7 @@ package com.bookstore.admin.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bookstore.admin.services.CustomerService;
 import com.bookstore.admin.services.InvoiceDetailService;
 import com.bookstore.admin.services.InvoiceService;
+import com.bookstore.model.entities.Customer;
 import com.bookstore.model.entities.Invoice;
 import com.bookstore.model.entities.InvoiceDetail;
-import com.bookstore.model.entities.Product;
 
 @Controller
 public class InvoiceController {
@@ -22,10 +23,10 @@ public class InvoiceController {
 	private InvoiceService invoiceService;
 	
 	@Autowired
-	private InvoiceDetailService invoiceDetailService;
+	private CustomerService customerService;
 	
 	@Autowired
-	private CustomerService customerService;
+	private InvoiceDetailService invoiceDetailService;
 	
 	@GetMapping("/invoice")
 	public String showInvoiceView(Model model) {
@@ -49,5 +50,19 @@ public class InvoiceController {
 		model.addAttribute("invoiceDetail", invoiceDetail);
 		
 		return "invoice_detail";
+	}
+	
+	@GetMapping("/search_invoice")
+	public String searchInvoiceView(Model model, @Param("code") String code) {
+		if(code.length() < 10) {
+			Invoice invoice = invoiceService.getInvoiceByCode(code);
+			model.addAttribute("listInvoice", invoice);
+		} else {
+			Customer customer = customerService.getCustomerByPhoneNumber(code);
+			List<Invoice> invoiceByCustomer = invoiceService.getInvoiceByCustomer(customer);
+			model.addAttribute("listInvoice", invoiceByCustomer);
+		}
+		
+		return "search_invoice";
 	}
 }

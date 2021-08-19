@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -83,5 +84,12 @@ public class RoleController {
 		System.out.println("DELETE ROLE-----------------------------------");
 		
 		return "redirect:/role";
+	}
+	
+	@GetMapping("/search_role")
+	public String searchRoleView(Model model, @Param("name") String name) {
+		List<Role> listRoles = roleService.fullTextSearchRoleByName(name);
+		model.addAttribute("listRoles", listRoles);
+		return "search_role";
 	}
 }
