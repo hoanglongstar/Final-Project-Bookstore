@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.CategoryService;
 import com.bookstore.admin.services.ProductService;
 import com.bookstore.admin.services.UserService;
+import com.bookstore.model.entities.Category;
 import com.bookstore.model.entities.Product;
 
 @Controller
@@ -61,7 +63,33 @@ public class AppController {
 	@GetMapping("/product")
 	public String showBooksView(Model model) {
 		List<Product> listProducts = productService.getAllProducts();
+		List<Category> listCategories = categoryService.getAllCategory();
 		model.addAttribute("listProducts",listProducts);
+		model.addAttribute("listCategories", listCategories);
+		return "products";
+	}
+	
+	@RequestMapping(value = {"/product/{pageNum}"})
+	public String showBookPageView(Model model, @PathVariable(name = "pageNum") int pageNum) {
+		Page<Product> pageProduct = productService.getProductWithPage(pageNum);
+		List<Product> listProducts = pageProduct.getContent();
+		List<Category> listCategories = categoryService.getAllCategory();
+		
+		long startCount = (pageNum - 1) * ProductService.PAGE_SIZE + 1;
+		long endcount = startCount + ProductService.PAGE_SIZE - 1;
+		
+		if(endcount > pageProduct.getTotalElements()) {
+			endcount = pageProduct.getTotalElements();
+		}
+		
+		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("totalPages", pageProduct.getTotalPages());
+		model.addAttribute("totalProducts", pageProduct.getTotalElements());
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endcount);
+		model.addAttribute("listCategories", listCategories);
+		
 		return "products";
 	}
 	
@@ -139,15 +167,28 @@ public class AppController {
 		model.addAttribute("listProducts", listProducts);
 		return "search_product";
 	}
-
 	
-	@RequestMapping("/delete_user/{id}")
-	public String deleteUser(@PathVariable(name = "id") Integer id) {
+	@GetMapping(value = "/productsByCategory")
+	public String getProductsByCategory(Model model, @RequestParam(name = "categorySelected") String categorySelected) {
+//		System.out.println("getProductsByCategory :: " + categorySelected);
 		
-		userService.deleteUserById(id);
+		if(categorySelected.equals("All")) {
+			return "redirect:/product/1";
+		} 
 		
-		return "redirect:/user";
+		Category category = categoryService.getCategoryByName(categorySelected);
+		
+		List<Product> listProducts = productService.getListProductByCategory(category);
+		List<Category> listCategories = categoryService.getAllCategory();
+
+		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("selectedCategory", category);
+		
+		return "search_product";
 	}
+	
+	
 	
 	@RequestMapping("/delete_product/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Integer id) {

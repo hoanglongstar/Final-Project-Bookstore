@@ -87,6 +87,9 @@ public class UserData {
 	
 	@Transient
 	public String getPhotoPath() {
+		if(avatar == null || avatar.equals("")) {
+			return "../images/avatar.jpg";
+		}
 		if(id != null & avatar != null) {
 			return "../profile-photos/" + id + "/" + avatar;
 		}

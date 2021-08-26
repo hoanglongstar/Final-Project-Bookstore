@@ -134,6 +134,21 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="align-middle align-self-center text-center">
+                                	<a th:if="${currentPage > 1}" th:href="@{/customer/1}">&lt;&lt;</a>
+                                	
+                                	<a th:if="${currentPage > 1}" th:href="@{'/customer/' + ${currentPage - 1}}">&lt;</a>
+                                	
+                                	<span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                		<a th:if="${currentPage != i}" th:href="@{'/customer/' + ${i}}">[[${i}]]</a>
+                                		<span th:unless="${currentPage != i}">[[${i}]]</span>
+                                	</span>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/customer/' + ${currentPage + 1}}">&gt;</a>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/customer/' + ${totalPages}}">&gt;&gt;</a>
+                                	  
+                                </div>
                             </div>
                         </div>
                     </div>

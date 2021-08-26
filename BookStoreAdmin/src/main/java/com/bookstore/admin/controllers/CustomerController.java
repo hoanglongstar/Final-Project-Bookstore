@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,9 +43,29 @@ public class CustomerController {
 	public String showCustomerListView(Model model) {
 		List<Customer> listCustomer = customerService.getAllCustomer();
 		model.addAttribute("listCustomer", listCustomer);
-//		for(Customer cus : listCustomer) {
-//			System.out.println("photoPath :: " + cus.getPhotoPath());
-//		}
+
+		return "customers";
+	}
+	
+	@RequestMapping(value = "customer/{pageNum}")
+	public String showCustomerPageView(Model model, @PathVariable("pageNum") int pageNum) {
+		Page<Customer> pageCustomer = customerService.getCustomerWithPage(pageNum);
+		List<Customer> listCustomer = pageCustomer.getContent();
+		
+		long startCount = (pageNum - 1) * CustomerService.PAGE_SIZE + 1;
+		long endCount = startCount + CustomerService.PAGE_SIZE - 1;
+		
+		if(endCount > pageCustomer.getTotalElements()) {
+			endCount = pageCustomer.getTotalElements();
+		}
+		
+		model.addAttribute("listCustomer", listCustomer);
+		model.addAttribute("totalPages", pageCustomer.getTotalPages());
+		model.addAttribute("totalCustomer", pageCustomer.getTotalElements());
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		
 		return "customers";
 	}
 	

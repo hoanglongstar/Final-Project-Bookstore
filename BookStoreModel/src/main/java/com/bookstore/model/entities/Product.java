@@ -170,6 +170,9 @@ public class Product  implements Serializable{
 	
 	@Transient
 	public String getPhotoPath() {
+		if(photo == null || photo.equals("")) {
+			return "../images/book.jpeg";
+		}
 		if(id != null & photo != null) {
 			return "/product-photos/" + id + "/" + photo;
 		}

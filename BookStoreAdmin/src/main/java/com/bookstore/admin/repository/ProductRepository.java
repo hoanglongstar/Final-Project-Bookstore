@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.bookstore.model.entities.Category;
 import com.bookstore.model.entities.Product;
 
 @Repository
@@ -14,6 +15,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 
 	@Query("SELECT p FROM Product p WHERE p.code = :code")
 	public Product getByCode(@Param("code") String code);
+	
+	@Query("SELECT p FROM Product p WHERE p.category = :category")
+	public List<Product> getByCategory(@Param("category") Category category);
 	
 	//full text search product
 	@Query(value = "SELECT * FROM products WHERE MATCH(name) against (?1)", nativeQuery = true)

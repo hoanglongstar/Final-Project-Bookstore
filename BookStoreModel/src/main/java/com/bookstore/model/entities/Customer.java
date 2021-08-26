@@ -247,7 +247,7 @@ public class Customer implements Serializable{
 	public String getPhotoPath() {
 //		System.out.println(id + photoUrl);
 		if(photoUrl == null || photoUrl.equals("")) {
-			return "../images/default.jpg";
+			return "../images/avatar.jpg";
 		}
 		if(id != null & photoUrl != null) {
 			

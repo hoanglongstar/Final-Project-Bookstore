@@ -85,6 +85,29 @@
 	                            	<div th:replace="fragment :: top-table-product"></div>
                             	</div>
                                 <div  class="table-responsive">
+                                	<div class="row">
+	                                	<form th:action="@{/productsByCategory}" method="GET">
+		                                	<div class="col-sm-12">
+		                                		<div class="d-md-flex">
+				                                	<div class="col-sm-2">
+					                					<select class="form-select shadow-none col-md-2 ml-auto" th:name="categorySelected">
+					                						<option th:value="All">All</option>
+										                    <th:block th:each="category : ${listCategories}">
+										                    	<option th:value="${category.name}">[[${category.name}]]</option>
+										                    </th:block>
+										                </select>
+										            </div>
+										            <div class="form-group">
+				                                        <div class="col-sm-2 d-flex">
+				                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Search</button>
+				                                        </div>
+				                                    </div>
+				                                    
+			                                    </div>
+	                                		</div>
+	                                	</form>
+		                                	
+                                	</div>
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>
@@ -130,6 +153,21 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="align-middle align-self-center text-center">
+                                	<a th:if="${currentPage > 1}" th:href="@{/product/1}">&lt;&lt;</a>
+                                	
+                                	<a th:if="${currentPage > 1}" th:href="@{'/product/' + ${currentPage - 1}}">&lt;</a>
+                                	
+                                	<span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                		<a th:if="${currentPage != i}" th:href="@{'/product/' + ${i}}">[[${i}]]</a>
+                                		<span th:unless="${currentPage != i}">[[${i}]]</span>
+                                	</span>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/product/' + ${currentPage + 1}}">&gt;</a>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/product/' + ${totalPages}}">&gt;&gt;</a>
+                                	  
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -168,16 +206,16 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script th:src="@{assets/plugins/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/plugins/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script th:src="@{assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{js/app-style-switcher.js}"></script>
+    <script th:src="@{/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/app-style-switcher.js}"></script>
     <!--Wave Effects -->
-    <script th:src="@{js/waves.js}"></script>
+    <script th:src="@{/js/waves.js}"></script>
     <!--Menu sidebar -->
-    <script th:src="@{js/sidebarmenu.js}"></script>
+    <script th:src="@{/js/sidebarmenu.js}"></script>
     <!--Custom JavaScript -->
-    <script th:src="@{js/custom.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
 </body>
 
 </html>

@@ -254,7 +254,7 @@ public class UserController {
 		return "redirect:/dashboard";
 	}
 	
-	@RequestMapping(value = "/update_profile", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String showProfileView(Model model) {
 		
 		User user = getCurrentUser();
@@ -264,7 +264,7 @@ public class UserController {
 		return "profile";
 	}
 	
-	@RequestMapping(value = "/update_profile", method = RequestMethod.POST)
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String checkUserInfo(@RequestParam("fileImage") MultipartFile multipartFile, @ModelAttribute("user") User user) {
 		
 		System.out.println("checkUserInfo :: " + user.getPhotoPath());
@@ -313,5 +313,13 @@ public class UserController {
 		
 		model.addAttribute("listUsers", userData);
 		return "search_user";
+	}
+	
+	@RequestMapping("/delete_user/{id}")
+	public String deleteUser(@PathVariable(name = "id") Integer id) {
+		
+		userService.deleteUserById(id);
+		
+		return "redirect:/user";
 	}
 }

@@ -113,6 +113,9 @@ public class Category {
 	
 	@Transient
 	public String getPhotoPath() {
+		if(photo == null || photo.equals("")) {
+			return "../images/category.png";
+		}
 		if(id != null & photo != null) {
 			return "/category-photos/" + id + "/" + photo;
 		}

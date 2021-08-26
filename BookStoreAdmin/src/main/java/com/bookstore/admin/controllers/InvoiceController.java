@@ -3,10 +3,13 @@ package com.bookstore.admin.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.admin.services.CustomerService;
@@ -33,6 +36,28 @@ public class InvoiceController {
 		List<Invoice> listInvoice = invoiceService.getAllInvoice();
 		
 		model.addAttribute("listInvoice", listInvoice);
+		
+		return "invoices";
+	}
+	
+	@RequestMapping(value = "invoice/{pageNum}")
+	public String showInvoicePageView(Model model, @PathVariable("pageNum") int pageNum) {
+		Page<Invoice> pageInvoice = invoiceService.getInvoiceWithPage(pageNum);
+		List<Invoice> listInvoice = pageInvoice.getContent();
+		
+		long startCount = (pageNum - 1) * InvoiceService.PAGE_SIZE + 1;
+		long endCount = startCount + InvoiceService.PAGE_SIZE - 1;
+		
+		if(endCount > pageInvoice.getTotalElements()) {
+			endCount = pageInvoice.getTotalElements();
+		}
+		
+		model.addAttribute("listInvoice", listInvoice);
+		model.addAttribute("totalPages", pageInvoice.getTotalPages());
+		model.addAttribute("totalInvoice", pageInvoice.getTotalElements());
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
 		
 		return "invoices";
 	}

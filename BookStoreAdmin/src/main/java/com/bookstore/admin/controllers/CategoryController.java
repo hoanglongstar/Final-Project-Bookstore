@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -112,5 +113,12 @@ public class CategoryController {
 		category.setEnabled(true);
 		categoryService.saveCategory(category);
 		return "redirect:/category";
+	}
+	
+	@GetMapping(value = "/search_category")
+	public String searchCategory(Model model, @Param("name") String name) {
+		List<Category> listCategory = categoryService.fullTextSearchCategoryByName(name);
+		model.addAttribute("listCategory", listCategory);
+		return "search_category";
 	}
 }

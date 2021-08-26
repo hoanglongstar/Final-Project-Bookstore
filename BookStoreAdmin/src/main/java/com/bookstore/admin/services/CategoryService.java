@@ -30,4 +30,13 @@ public class CategoryService {
 		Category category = categoryRepository.getById(id);
 		return category;
 	}
+	
+	public Category getCategoryByName(String name) {
+		Category category = categoryRepository.getCategoryByName(name);
+		return category;
+	}
+	
+	public List<Category> fullTextSearchCategoryByName(String name){
+		return categoryRepository.fullTextSearchCategoryByName(name);
+	}
 }

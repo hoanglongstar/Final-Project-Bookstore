@@ -85,6 +85,29 @@
 	                            	<div th:replace="fragment :: top-table-product"></div>
                             	</div>
                                 <div  class="table-responsive">
+                                	<div class="row">
+	                                	<form th:action="@{/productsByCategory}" method="GET">
+		                                	<div class="col-sm-12">
+		                                		<div class="d-md-flex">
+				                                	<div class="col-sm-2">
+					                					<select class="form-select shadow-none col-md-2 ml-auto" th:name="categorySelected">
+					                						<option th:value="All">All</option>
+										                    <th:block th:each="category : ${listCategories}">
+										                    	<option th:value="${category.name}" th:selected="${category.name} == ${selectedCategory.name}">[[${category.name}]]</option>
+										                    </th:block>
+										                </select>
+										            </div>
+										            <div class="form-group">
+				                                        <div class="col-sm-2 d-flex">
+				                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Search</button>
+				                                        </div>
+				                                    </div>
+				                                    
+			                                    </div>
+	                                		</div>
+	                                	</form>
+		                                	
+                                	</div>
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>
