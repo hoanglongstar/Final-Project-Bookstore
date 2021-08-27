@@ -1,23 +1,35 @@
 package com.bookstore.admin.controllers;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Locale;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.TemplateEngine;
 
+import com.bookstore.admin.helper.EmailServiceImp;
 import com.bookstore.admin.services.CustomerService;
 import com.bookstore.admin.services.InvoiceDetailService;
 import com.bookstore.admin.services.InvoiceService;
 import com.bookstore.model.entities.Customer;
 import com.bookstore.model.entities.Invoice;
 import com.bookstore.model.entities.InvoiceDetail;
+import com.bookstore.model.enumerate.InvoiceStatus;
+import com.bookstore.model.formdata.InvoiceForm;
 
 @Controller
 public class InvoiceController {
@@ -27,6 +39,12 @@ public class InvoiceController {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
+	@Autowired
+	private TemplateEngine htmlTemplateEngine;
 	
 	@Autowired
 	private InvoiceDetailService invoiceDetailService;
@@ -66,13 +84,19 @@ public class InvoiceController {
 	public String showInvoiceDetailView(@RequestParam("id") Integer id, Model model) {
 		
 		Invoice invoice = invoiceService.getInvoiceById(id);
+
+		InvoiceForm invoiceForm = InvoiceForm.getStatusFromEntity(invoice);
 		
 		List<InvoiceDetail> invoiceDetail = invoiceDetailService.getInvoiceDetail(invoice);
 		
-		System.out.println("showInvoiceDetailView :: " + invoiceDetail.size());
+		List<InvoiceStatus> listStatus = new ArrayList<InvoiceStatus>(EnumSet.allOf(InvoiceStatus.class));
+		List<InvoiceStatus> listStatusForShipper = new ArrayList<InvoiceStatus>(EnumSet.of(InvoiceStatus.DELIVERED, InvoiceStatus.DELIVERING));
 		
+		model.addAttribute("listStatus", listStatus);
+		model.addAttribute("listStatusForShipper", listStatusForShipper);
 		model.addAttribute("invoice", invoice);
 		model.addAttribute("invoiceDetail", invoiceDetail);
+		model.addAttribute("invoiceForm", invoiceForm);
 		
 		return "invoice_detail";
 	}
@@ -89,5 +113,25 @@ public class InvoiceController {
 		}
 		
 		return "search_invoice";
+	}
+	
+	@PostMapping("/update_invoive_status")
+	public String updateInvoiceStatus(@ModelAttribute("invoiceForm") InvoiceForm invoiceForm) {
+		Invoice invoice = invoiceService.getInvoiceById(invoiceForm.getId());
+		invoice.setStatus(invoiceForm.getStatus());
+		invoiceService.saveInvoice(invoice);
+		
+		List<InvoiceDetail> invoiceDetail = invoiceDetailService.getInvoiceDetail(invoice);
+		
+		if(invoiceForm.getStatus() == InvoiceStatus.PROCESSING) {
+			try {
+				EmailServiceImp.sendInvoiceStatusEmail(javaMailSender, htmlTemplateEngine, invoice, invoiceDetail, Locale.getDefault());
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+ 		return "redirect:/invoice/1";
 	}
 }

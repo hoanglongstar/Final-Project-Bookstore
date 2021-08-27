@@ -47,4 +47,8 @@ public class InvoiceService {
 		
 		return invoiceRepository.findAll(pageable);
 	}
+	
+	public void saveInvoice(Invoice invoice) {
+		invoiceRepository.save(invoice);
+	}
 }

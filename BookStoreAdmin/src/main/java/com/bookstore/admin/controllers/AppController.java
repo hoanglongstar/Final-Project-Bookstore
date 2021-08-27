@@ -81,7 +81,7 @@ public class AppController {
 		if(endcount > pageProduct.getTotalElements()) {
 			endcount = pageProduct.getTotalElements();
 		}
-		
+
 		model.addAttribute("listProducts", listProducts);
 		model.addAttribute("totalPages", pageProduct.getTotalPages());
 		model.addAttribute("totalProducts", pageProduct.getTotalElements());
@@ -123,7 +123,7 @@ public class AppController {
 		product.setEnabled(true);
 		productService.saveProduct(product);
 		
-		return "redirect:/product";
+		return "redirect:/product/1";
 	}
 	
 	@GetMapping("/edit_product/{code}")
@@ -158,7 +158,7 @@ public class AppController {
 		product.setEnabled(true);
 		productService.saveProduct(product);
 		
-		return "redirect:/product";
+		return "redirect:/product/1";
 	}
 	
 	@GetMapping(value = "/search_product")
