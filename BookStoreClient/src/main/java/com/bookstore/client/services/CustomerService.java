@@ -1,6 +1,7 @@
 package com.bookstore.client.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class CustomerService {
 	private CustomerRepository customerRepository;
 	
 	
-	 
+	
 	
 	public void saveCustomer(Customer c) {
 		PasswordManager passwordManager = new PasswordManager();

@@ -3,17 +3,25 @@ package com.bookstore.client.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.client.services.CategoryService;
 import com.bookstore.client.services.ProductService;
+import com.bookstore.client.shopcart.CartInfo;
+import com.bookstore.client.shopcart.CartLineInfo;
+import com.bookstore.client.shopcart.ShopCartSessionUtil;
 import com.bookstore.model.entities.Category;
 import com.bookstore.model.entities.Product;
 
@@ -51,7 +59,7 @@ public class ProductController {
 			endCount = pageProduct.getTotalElements();
 		}
 //		for(Product product : products) {
-//			System.out.println("Sp:" + product.getName());
+//			System.out.println("Sp:" + product.getCode());
 //		}
 		
 		model.addAttribute("products", products);
@@ -61,7 +69,7 @@ public class ProductController {
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
 		
-		return "product-list";
+		return "product";
 	}
 	
 	@GetMapping(value = {"/searchproducts"})
@@ -105,5 +113,49 @@ public class ProductController {
 		model.addAttribute("products", listProduct);
 		
 		return "category_product";
+	}
+	
+	@RequestMapping("/addtocart")
+	public String byProductHandler(HttpServletRequest request, Model model, @RequestParam(value = "code", defaultValue = "") String code) {
+		
+		Product product = productService.getByCode(code);
+		System.out.println("code: " + code);
+
+		
+		if (product != null) {
+			CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
+			cartInfo.addProduct(product, 1);
+			System.out.println("code: " + product);
+		}
+		
+		return "redirect:/shopping_cart";
+	}
+	
+	@RequestMapping("/shopping_cart")
+	public String showCartView(HttpServletRequest request, Model model) {
+		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
+		
+//		for(CartLineInfo cartLine : cartInfo.getCartLines()) {
+//			System.out.println("ten san pham : " + cartLine.getProduct().getName());
+//			System.out.println("so luong : " + cartLine.getQuantity());
+//			System.out.println("Unit price : " + cartLine.getUnitPrice());
+//		}
+		
+		model.addAttribute("cartInfo", cartInfo);
+		model.addAttribute("totalCartInfo", cartInfo.totalCartInfo());
+		
+		return "cart";
+	}
+	
+	@PostMapping("/update_cart")
+	public String updateCart(@ModelAttribute("cartInfo") CartInfo cartInfo ,HttpServletRequest request, Model model) {
+//		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
+		for(CartLineInfo cartLine : cartInfo.getCartLines()) {
+			System.out.println("ten san pham : " + cartLine.getProduct().getName());
+			System.out.println("so luong : " + cartLine.getQuantity());
+			System.out.println("Unit price : " + cartLine.getUnitPrice());
+		}
+		System.out.println("updateCart" + cartInfo.getCartLines().size());
+		return "redirect:/shopping_cart";
 	}
 }

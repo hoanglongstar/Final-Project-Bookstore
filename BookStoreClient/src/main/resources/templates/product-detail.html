@@ -1,701 +1,910 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-				xmlns:sec="http://www.thyemleaf.org/thymeleaf-extras-springsecurity5">
-	<head>
-        <meta charset="utf-8">
-        <title>E Store - eCommerce HTML Template</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="eCommerce HTML Template Free Download" name="keywords">
-        <meta content="eCommerce HTML Template Free Download" name="description">
+<html lang="en"	xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thyemleaf.org/thymeleaf-extras-springsecurity5">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <title>Daily Shop | Product Detail</title>
+    
+    <!-- Font awesome -->
+    <link th:href="@{css/font-awesome.css}" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link th:href="@{css/bootstrap.css}" rel="stylesheet">   
+    <!-- SmartMenus jQuery Bootstrap Addon CSS -->
+    <link th:href="@{css/jquery.smartmenus.bootstrap.css}" rel="stylesheet">
+    <!-- Product view slider -->
+    <link rel="stylesheet" type="text/css" th:href="@{css/jquery.simpleLens.css}">    
+    <!-- slick slider -->
+    <link rel="stylesheet" type="text/css" th:href="@{css/slick.css}">
+    <!-- price picker slider -->
+    <link rel="stylesheet" type="text/css" th:href="@{css/nouislider.css}">
+    <!-- Theme color -->
+    <link id="switcher" th:href="@{css/theme-color/default-theme.css}" rel="stylesheet">
+    <!-- <link id="switcher" th:href="@{css/theme-color/bridge-theme.css}" rel="stylesheet"> -->
+    <!-- Top Slider CSS -->
+    <link th:href="@{css/sequence-theme.modern-slide-in.css}" rel="stylesheet" media="all">
 
-        <!-- Favicon -->
-        <link th:href="@{img/favicon.ico}" rel="icon">
+    <!-- Main style sheet -->
+    <link th:href="@{css/style.css}" rel="stylesheet">   
 
-        <!-- Google Fonts -->
-        <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap}" rel="stylesheet">
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    
 
-        <!-- CSS Libraries -->
-        <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
-        <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css}" rel="stylesheet">
-        <link th:href="@{lib/slick/slick.css}" rel="stylesheet">
-        <link th:href="@{lib/slick/slick-theme.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
 
-        <!-- Template Stylesheet -->
-        <link th:href="@{css/style.css}" rel="stylesheet">
-    </head>
+  </head>
+  <body>  
+    <!-- wpf loader Two -->
+    <div id="wpf-loader-two">          
+      <div class="wpf-loader-two-inner">
+        <span>Loading</span>
+      </div>
+    </div> 
+    <!-- / wpf loader Two -->       
+    <!-- SCROLL TOP BUTTON -->
+    <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+    <!-- END SCROLL TOP BUTTON -->
 
 
-    <body>
-        <!-- Top bar Start -->
-        <div class="top-bar">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <i class="fa fa-envelope"></i>
-                        support@email.com
-                    </div>
-                    <div class="col-sm-6">
-                        <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
-                    </div>
+  <!-- Start header section -->
+  <header id="aa-header">
+    <!-- start header top  -->
+    <div class="aa-header-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="aa-header-top-area">
+              <!-- start header top left -->
+              <div class="aa-header-top-left">
+                <!-- start language -->
+                <div class="aa-language">
+                  <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <img src="img/flag/english.jpg" alt="english flag">ENGLISH
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a href="#"><img src="img/flag/french.jpg" alt="">FRENCH</a></li>
+                      <li><a href="#"><img src="img/flag/english.jpg" alt="">ENGLISH</a></li>
+                    </ul>
+                  </div>
                 </div>
-            </div>
-        </div>
-        <!-- Top bar End -->
-        
-        <!-- Nav Bar Start -->
-        <div class="nav">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-                    <a href="#" class="navbar-brand">MENU</a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <!-- / language -->
 
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto">
-                            <a href="/home" class="nav-item nav-link active">Home</a>
-                            <a href="productlist" class="nav-item nav-link">Products</a>
-                            <a href="product-detail" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart" class="nav-item nav-link">Cart</a>
-                            <a href="checkout" class="nav-item nav-link">Checkout</a>
-                            <a href="my-account" class="nav-item nav-link">My Account</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="wishlistl" class="dropdown-item">Wishlist</a> <a
-									sec:authorize="isAnonymous()" href="login"
-									class="dropdown-item">Login & Register</a>
-								<li class="dropdown-item" sec:authorize="isAuthenticated()">
-								<a th:href="@{/profile}" sec:authentication="name" class="dropdown-item">name</a></li> 
-									<a href="contact" class="dropdown-item">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="navbar-nav ml-auto">
-                            <div class="nav-item dropdown">
-                                <a href="login" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-							<div class="dropdown-menu">
-								<li sec:authorize="isAnonymous()" class="dropdown-item"><a
-									href="/login">Login</a></li>
-
-								<li class="dropdown-item" sec:authorize="isAuthenticated()"><a
-									th:href="@{/profile}" sec:authentication="name" class="dropdown-item">name</a></li> 
-
-								<li class="dropdown-item" sec:authorize="isAuthenticated()"><a
-									onclick="document.getElementById('formlogout').submit()">Logout</a>
-
-									<form id="formlogout" th:action="@{/logout}" method="POST">
-									</form></li>
-
-							</div>
-						</div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <!-- Nav Bar End -->      
-        
-        <!-- Bottom Bar Start -->
-        <div class="bottom-bar">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-3">
-                        <div class="logo">
-                            <a href="index.html">
-                                <img src="img/logo.png" alt="Logo">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="cart.html" class="btn cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
-                            </a>
-                        </div>
-                    </div>
+                <!-- start currency -->
+                <div class="aa-currency">
+                  <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <i class="fa fa-usd"></i>USD
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
+                      <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
+                    </ul>
+                  </div>
                 </div>
-            </div>
-        </div>
-        <!-- Bottom Bar End --> 
-        
-        <!-- Breadcrumb Start -->
-        <div class="breadcrumb-wrap">
-            <div class="container-fluid">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active">Product Detail</li>
+                <!-- / currency -->
+                <!-- start cellphone -->
+                <div class="cellphone hidden-xs">
+                  <p><span class="fa fa-phone"></span>00-62-658-658</p>
+                </div>
+                <!-- / cellphone -->
+              </div>
+              <!-- / header top left -->
+              <div class="aa-header-top-right">
+                <ul class="aa-head-top-nav-right">
+                  <li><a href="account.html">My Account</a></li>
+                  <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
+                  <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
+                  <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
+                  <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                 </ul>
+              </div>
             </div>
+          </div>
         </div>
-        <!-- Breadcrumb End -->
-        
-        <!-- Product Detail Start -->
-        <div class="product-detail">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="product-detail-top">
-                            <div class="row align-items-center">
-                                <div class="col-md-5">
-                                    <div class="product-slider-single normal-slider">
-                                        <img src="img/product-1.jpg" alt="Product Image">
-                                        <img src="img/product-3.jpg" alt="Product Image">
-                                        <img src="img/product-5.jpg" alt="Product Image">
-                                        <img src="img/product-7.jpg" alt="Product Image">
-                                        <img src="img/product-9.jpg" alt="Product Image">
-                                        <img src="img/product-10.jpg" alt="Product Image">
-                                    </div>
-                                    <div class="product-slider-single-nav normal-slider">
-                                        <div class="slider-nav-img"><img src="img/product-1.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="img/product-3.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="img/product-5.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="img/product-7.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="img/product-9.jpg" alt="Product Image"></div>
-                                        <div class="slider-nav-img"><img src="img/product-10.jpg" alt="Product Image"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="product-content">
-                                        <div class="title"><h2>Product Name</h2></div>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="price">
-                                            <h4>Price:</h4>
-                                            <p>$99 <span>$149</span></p>
-                                        </div>
-                                        <div class="quantity">
-                                            <h4>Quantity:</h4>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="p-size">
-                                            <h4>Size:</h4>
-                                            <div class="btn-group btn-group-sm">
-                                                <button type="button" class="btn">S</button>
-                                                <button type="button" class="btn">M</button>
-                                                <button type="button" class="btn">L</button>
-                                                <button type="button" class="btn">XL</button>
-                                            </div> 
-                                        </div>
-                                        <div class="p-color">
-                                            <h4>Color:</h4>
-                                            <div class="btn-group btn-group-sm">
-                                                <button type="button" class="btn">White</button>
-                                                <button type="button" class="btn">Black</button>
-                                                <button type="button" class="btn">Blue</button>
-                                            </div> 
-                                        </div>
-                                        <div class="action">
-                                            <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row product-detail-bottom">
-                            <div class="col-lg-12">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="pill" href="#description">Description</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="pill" href="#specification">Specification</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
-                                    </li>
-                                </ul>
+      </div>
+    </div>
+    <!-- / header top  -->
 
-                                <div class="tab-content">
-                                    <div id="description" class="container tab-pane active">
-                                        <h4>Product description</h4>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque. Suspendisse sit amet neque neque. Praesent suscipit et magna eu iaculis. Donec arcu libero, commodo ac est a, malesuada finibus dolor. Aenean in ex eu velit semper fermentum. In leo dui, aliquet sit amet eleifend sit amet, varius in turpis. Maecenas fermentum ut ligula at consectetur. Nullam et tortor leo. 
-                                        </p>
-                                    </div>
-                                    <div id="specification" class="container tab-pane fade">
-                                        <h4>Product specification</h4>
-                                        <ul>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                        </ul>
-                                    </div>
-                                    <div id="reviews" class="container tab-pane fade">
-                                        <div class="reviews-submitted">
-                                            <div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <p>
-                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                            </p>
-                                        </div>
-                                        <div class="reviews-submit">
-                                            <h4>Give your Review:</h4>
-                                            <div class="ratting">
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                            <div class="row form">
-                                                <div class="col-sm-6">
-                                                    <input type="text" placeholder="Name">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="email" placeholder="Email">
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <textarea placeholder="Review"></textarea>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <button>Submit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="product">
-                            <div class="section-header">
-                                <h1>Related Products</h1>
-                            </div>
-
-                            <div class="row align-items-center product-slider product-slider-3">
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="#">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="img/product-10.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                                <a href="#"><i class="fa fa-heart"></i></a>
-                                                <a href="#"><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="#">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="img/product-8.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                                <a href="#"><i class="fa fa-heart"></i></a>
-                                                <a href="#"><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="#">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="img/product-6.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                                <a href="#"><i class="fa fa-heart"></i></a>
-                                                <a href="#"><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="#">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="img/product-4.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                                <a href="#"><i class="fa fa-heart"></i></a>
-                                                <a href="#"><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="product-item">
-                                        <div class="product-title">
-                                            <a href="#">Product Name</a>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-detail.html">
-                                                <img src="img/product-2.jpg" alt="Product Image">
-                                            </a>
-                                            <div class="product-action">
-                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                                <a href="#"><i class="fa fa-heart"></i></a>
-                                                <a href="#"><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-price">
-                                            <h3><span>$</span>99</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Side Bar Start -->
-                    <div class="col-lg-4 sidebar">
-                        <div class="sidebar-widget category">
-                            <h2 class="title">Category</h2>
-                            <nav class="navbar bg-light">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><i class="fa fa-female"></i>Fashion & Beauty</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><i class="fa fa-child"></i>Kids & Babies Clothes</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Electronics & Accessories</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        
-                        <div class="sidebar-widget widget-slider">
-                            <div class="sidebar-slider normal-slider">
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="#">Product Name</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="img/product-7.jpg" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                            <a href="#"><i class="fa fa-heart"></i></a>
-                                            <a href="#"><i class="fa fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>$</span>99</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="#">Product Name</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="img/product-8.jpg" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                            <a href="#"><i class="fa fa-heart"></i></a>
-                                            <a href="#"><i class="fa fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>$</span>99</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="#">Product Name</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="img/product-9.jpg" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                            <a href="#"><i class="fa fa-heart"></i></a>
-                                            <a href="#"><i class="fa fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>$</span>99</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="sidebar-widget brands">
-                            <h2 class="title">Our Brands</h2>
-                            <ul>
-                                <li><a href="#">Nulla </a><span>(45)</span></li>
-                                <li><a href="#">Curabitur </a><span>(34)</span></li>
-                                <li><a href="#">Nunc </a><span>(67)</span></li>
-                                <li><a href="#">Ullamcorper</a><span>(74)</span></li>
-                                <li><a href="#">Fusce </a><span>(89)</span></li>
-                                <li><a href="#">Sagittis</a><span>(28)</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-widget tag">
-                            <h2 class="title">Tags Cloud</h2>
-                            <a href="#">Lorem ipsum</a>
-                            <a href="#">Vivamus</a>
-                            <a href="#">Phasellus</a>
-                            <a href="#">pulvinar</a>
-                            <a href="#">Curabitur</a>
-                            <a href="#">Fusce</a>
-                            <a href="#">Sem quis</a>
-                            <a href="#">Mollis metus</a>
-                            <a href="#">Sit amet</a>
-                            <a href="#">Vel posuere</a>
-                            <a href="#">orci luctus</a>
-                            <a href="#">Nam lorem</a>
-                        </div>
-                    </div>
-                    <!-- Side Bar End -->
+    <!-- start header bottom  -->
+    <div class="aa-header-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="aa-header-bottom-area">
+              <!-- logo  -->
+              <div class="aa-logo">
+                <!-- Text based logo -->
+                <a href="index.html">
+                  <span class="fa fa-shopping-cart"></span>
+                  <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                </a>
+                <!-- img based logo -->
+                <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
+              </div>
+              <!-- / logo  -->
+               <!-- cart box -->
+              <div class="aa-cartbox">
+                <a class="aa-cart-link" href="#">
+                  <span class="fa fa-shopping-basket"></span>
+                  <span class="aa-cart-title">SHOPPING CART</span>
+                  <span class="aa-cart-notify">2</span>
+                </a>
+                <div class="aa-cartbox-summary">
+                  <ul>
+                    <li>
+                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                      <div class="aa-cartbox-info">
+                        <h4><a href="#">Product Name</a></h4>
+                        <p>1 x $250</p>
+                      </div>
+                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+                    </li>
+                    <li>
+                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
+                      <div class="aa-cartbox-info">
+                        <h4><a href="#">Product Name</a></h4>
+                        <p>1 x $250</p>
+                      </div>
+                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+                    </li>                    
+                    <li>
+                      <span class="aa-cartbox-total-title">
+                        Total
+                      </span>
+                      <span class="aa-cartbox-total-price">
+                        $500
+                      </span>
+                    </li>
+                  </ul>
+                  <a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
                 </div>
+              </div>
+              <!-- / cart box -->
+              <!-- search box -->
+              <div class="aa-search-box">
+                <form action="">
+                  <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
+                  <button type="submit"><span class="fa fa-search"></span></button>
+                </form>
+              </div>
+              <!-- / search box -->             
             </div>
+          </div>
         </div>
-        <!-- Product Detail End -->
-        
-        <!-- Brand Start -->
-        <div class="brand">
-            <div class="container-fluid">
-                <div class="brand-slider">
-                    <div class="brand-item"><img src="img/brand-1.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-2.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-3.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-4.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-5.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-6.png" alt=""></div>
+      </div>
+    </div>
+    <!-- / header bottom  -->
+  </header>
+  <!-- / header section -->
+  <!-- menu -->
+  <section id="menu">
+    <div class="container">
+      <div class="menu-area">
+        <!-- Navbar -->
+        <div class="navbar navbar-default" role="navigation">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>          
+          </div>
+            <div class="navbar-collapse collapse">
+            <!-- Left nav -->
+            <ul class="nav navbar-nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#">Men <span class="caret"></span></a>
+                <ul class="dropdown-menu">                
+                  <li><a href="#">Casual</a></li>
+                  <li><a href="#">Sports</a></li>
+                  <li><a href="#">Formal</a></li>
+                  <li><a href="#">Standard</a></li>                                                
+                  <li><a href="#">T-Shirts</a></li>
+                  <li><a href="#">Shirts</a></li>
+                  <li><a href="#">Jeans</a></li>
+                  <li><a href="#">Trousers</a></li>
+                  <li><a href="#">And more.. <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Sleep Wear</a></li>
+                      <li><a href="#">Sandals</a></li>
+                      <li><a href="#">Loafers</a></li>                                      
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#">Women <span class="caret"></span></a>
+                <ul class="dropdown-menu">  
+                  <li><a href="#">Kurta & Kurti</a></li>                                                                
+                  <li><a href="#">Trousers</a></li>              
+                  <li><a href="#">Casual</a></li>
+                  <li><a href="#">Sports</a></li>
+                  <li><a href="#">Formal</a></li>                
+                  <li><a href="#">Sarees</a></li>
+                  <li><a href="#">Shoes</a></li>
+                  <li><a href="#">And more.. <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Sleep Wear</a></li>
+                      <li><a href="#">Sandals</a></li>
+                      <li><a href="#">Loafers</a></li>
+                      <li><a href="#">And more.. <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Rings</a></li>
+                          <li><a href="#">Earrings</a></li>
+                          <li><a href="#">Jewellery Sets</a></li>
+                          <li><a href="#">Lockets</a></li>
+                          <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                       
+                          <li><a href="#">Jeans</a></li>
+                          <li><a href="#">Polo T-Shirts</a></li>
+                          <li><a href="#">SKirts</a></li>
+                          <li><a href="#">Jackets</a></li>
+                          <li><a href="#">Tops</a></li>
+                          <li><a href="#">Make Up</a></li>
+                          <li><a href="#">Hair Care</a></li>
+                          <li><a href="#">Perfumes</a></li>
+                          <li><a href="#">Skin Care</a></li>
+                          <li><a href="#">Hand Bags</a></li>
+                          <li><a href="#">Single Bags</a></li>
+                          <li><a href="#">Travel Bags</a></li>
+                          <li><a href="#">Wallets & Belts</a></li>                        
+                          <li><a href="#">Sunglases</a></li>
+                          <li><a href="#">Nail</a></li>                       
+                        </ul>
+                      </li>                   
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#">Kids <span class="caret"></span></a>
+                <ul class="dropdown-menu">                
+                  <li><a href="#">Casual</a></li>
+                  <li><a href="#">Sports</a></li>
+                  <li><a href="#">Formal</a></li>
+                  <li><a href="#">Standard</a></li>                                                
+                  <li><a href="#">T-Shirts</a></li>
+                  <li><a href="#">Shirts</a></li>
+                  <li><a href="#">Jeans</a></li>
+                  <li><a href="#">Trousers</a></li>
+                  <li><a href="#">And more.. <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Sleep Wear</a></li>
+                      <li><a href="#">Sandals</a></li>
+                      <li><a href="#">Loafers</a></li>                                      
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#">Sports</a></li>
+             <li><a href="#">Digital <span class="caret"></span></a>
+                <ul class="dropdown-menu">                
+                  <li><a href="#">Camera</a></li>
+                  <li><a href="#">Mobile</a></li>
+                  <li><a href="#">Tablet</a></li>
+                  <li><a href="#">Laptop</a></li>                                                
+                  <li><a href="#">Accesories</a></li>                
+                </ul>
+              </li>
+              <li><a href="#">Furniture</a></li>            
+              <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
+                <ul class="dropdown-menu">                
+                  <li><a href="blog-archive.html">Blog Style 1</a></li>
+                  <li><a href="blog-archive-2.html">Blog Style 2</a></li>
+                  <li><a href="blog-single.html">Blog Single</a></li>                
+                </ul>
+              </li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Pages <span class="caret"></span></a>
+                <ul class="dropdown-menu">                
+                  <li><a href="product.html">Shop Page</a></li>
+                  <li><a href="product-detail.html">Shop Single</a></li>                
+                  <li><a href="404.html">404 Page</a></li>                
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div> 
+      </div>
+    </div>
+  </section>
+  <!-- / menu -->  
+ 
+  <!-- catg header banner section -->
+  <section id="aa-catg-head-banner">
+   <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <div class="aa-catg-head-banner-area">
+     <div class="container">
+      <div class="aa-catg-head-banner-content">
+        <h2>T-Shirt</h2>
+        <ol class="breadcrumb">
+          <li><a href="index.html">Home</a></li>         
+          <li><a href="#">Product</a></li>
+          <li class="active">T-shirt</li>
+        </ol>
+      </div>
+     </div>
+   </div>
+  </section>
+  <!-- / catg header banner section -->
+
+  <!-- product category -->
+  <section id="aa-product-details">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-product-details-area">
+            <div class="aa-product-details-content">
+              <div class="row">
+                <!-- Modal view slider -->
+                <div class="col-md-5 col-sm-5 col-xs-12">                              
+                  <div class="aa-product-view-slider">                                
+                    <div id="demo-1" class="simpleLens-gallery-container">
+                      <div class="simpleLens-container">
+                        <div class="simpleLens-big-image-container"><a data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
+                      </div>
+                      <div class="simpleLens-thumbnails-container">
+                          <a data-big-image="img/view-slider/medium/polo-shirt-1.png" data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                          </a>                                    
+                          <a data-big-image="img/view-slider/medium/polo-shirt-3.png" data-lens-image="img/view-slider/large/polo-shirt-3.png" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                          </a>
+                          <a data-big-image="img/view-slider/medium/polo-shirt-4.png" data-lens-image="img/view-slider/large/polo-shirt-4.png" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                          </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <!-- Modal view content -->
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                  <div class="aa-product-view-content">
+                    <h3>T-Shirt</h3>
+                    <div class="aa-price-block">
+                      <span class="aa-product-view-price">$34.99</span>
+                      <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                    <h4>Size</h4>
+                    <div class="aa-prod-view-size">
+                      <a href="#">S</a>
+                      <a href="#">M</a>
+                      <a href="#">L</a>
+                      <a href="#">XL</a>
+                    </div>
+                    <h4>Color</h4>
+                    <div class="aa-color-tag">
+                      <a href="#" class="aa-color-green"></a>
+                      <a href="#" class="aa-color-yellow"></a>
+                      <a href="#" class="aa-color-pink"></a>                      
+                      <a href="#" class="aa-color-black"></a>
+                      <a href="#" class="aa-color-white"></a>                      
+                    </div>
+                    <div class="aa-prod-quantity">
+                      <form action="">
+                        <select id="" name="">
+                          <option selected="1" value="0">1</option>
+                          <option value="1">2</option>
+                          <option value="2">3</option>
+                          <option value="3">4</option>
+                          <option value="4">5</option>
+                          <option value="5">6</option>
+                        </select>
+                      </form>
+                      <p class="aa-prod-category">
+                        Category: <a href="#">Polo T-Shirt</a>
+                      </p>
+                    </div>
+                    <div class="aa-prod-view-bottom">
+                      <a class="aa-add-to-cart-btn" href="#">Add To Cart</a>
+                      <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
+                      <a class="aa-add-to-cart-btn" href="#">Compare</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-        <!-- Brand End -->
-        
-        <!-- Footer Start -->
-        <div class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Get in Touch</h2>
-                            <div class="contact-info">
-                                <p><i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
-                                <p><i class="fa fa-envelope"></i>email@example.com</p>
-                                <p><i class="fa fa-phone"></i>+123-456-7890</p>
+            <div class="aa-product-details-bottom">
+              <ul class="nav nav-tabs" id="myTab2">
+                <li><a href="#description" data-toggle="tab">Description</a></li>
+                <li><a href="#review" data-toggle="tab">Reviews</a></li>                
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div class="tab-pane fade in active" id="description">
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                  <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, culpa!</li>
+                    <li>Lorem ipsum dolor sit amet.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor qui eius esse!</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, modi!</li>
+                  </ul>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, iusto earum voluptates autem esse molestiae ipsam, atque quam amet similique ducimus aliquid voluptate perferendis, distinctio!</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ea, voluptas! Aliquam facere quas cumque rerum dolore impedit, dicta ducimus repellat dignissimos, fugiat, minima quaerat necessitatibus? Optio adipisci ab, obcaecati, porro unde accusantium facilis repudiandae.</p>
+                </div>
+                <div class="tab-pane fade " id="review">
+                 <div class="aa-product-review-area">
+                   <h4>2 Reviews for T-Shirt</h4> 
+                   <ul class="aa-review-nav">
+                     <li>
+                        <div class="media">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                            <div class="aa-product-rating">
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star-o"></span>
                             </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                          </div>
                         </div>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Follow Us</h2>
-                            <div class="contact-info">
-                                <div class="social">
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i class="fab fa-instagram"></i></a>
-                                    <a href=""><i class="fab fa-youtube"></i></a>
-                                </div>
+                      </li>
+                      <li>
+                        <div class="media">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                            <div class="aa-product-rating">
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star-o"></span>
                             </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                          </div>
                         </div>
-                    </div>
+                      </li>
+                   </ul>
+                   <h4>Add a review</h4>
+                   <div class="aa-your-rating">
+                     <p>Your Rating</p>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                   </div>
+                   <!-- review form -->
+                   <form action="" class="aa-review-form">
+                      <div class="form-group">
+                        <label for="message">Your Review</label>
+                        <textarea class="form-control" rows="3" id="message"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name">
+                      </div>  
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                      </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Company Info</h2>
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms & Condition</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h2>Purchase Info</h2>
-                            <ul>
-                                <li><a href="#">Pyament Policy</a></li>
-                                <li><a href="#">Shipping Policy</a></li>
-                                <li><a href="#">Return Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row payment align-items-center">
-                    <div class="col-md-6">
-                        <div class="payment-method">
-                            <h2>We Accept:</h2>
-                            <img src="img/payment-method.png" alt="Payment Method" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="payment-security">
-                            <h2>Secured By:</h2>
-                            <img src="img/godaddy.svg" alt="Payment Security" />
-                            <img src="img/norton.svg" alt="Payment Security" />
-                            <img src="img/ssl.svg" alt="Payment Security" />
-                        </div>
-                    </div>
-                </div>
+                      <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                   </form>
+                 </div>
+                </div>            
+              </div>
             </div>
-        </div>
-        <!-- Footer End -->
-        
-        <!-- Footer Bottom Start -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 copyright">
-                        <p>Copyright &copy; <a href="https://htmlcodex.com">HTML Codex</a>. All Rights Reserved</p>
-                    </div>
+            <!-- Related product -->
+            <div class="aa-product-related-item">
+              <h3>Related Products</h3>
+              <ul class="aa-product-catg aa-related-item-slider">
+                <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                     <figcaption>
+                      <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
+                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                    </figcaption>
+                  </figure>                     
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                  </div>
+                  <!-- product badge -->
+                  <span class="aa-badge aa-sale" href="#">SALE!</span>
+                </li>
+                 <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/women/girl-2.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                    <figcaption>
+                      <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
+                      <span class="aa-product-price">$45.50</span>
+                    </figcaption>
+                  </figure>                      
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                  </div>
+                  <!-- product badge -->
+                   <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                </li>
+                <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/man/t-shirt-1.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                  </figure>
+                  <figcaption>
+                    <h4 class="aa-product-title"><a href="#">T-Shirt</a></h4>
+                    <span class="aa-product-price">$45.50</span>
+                  </figcaption>
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                  </div>
+                  <!-- product badge -->
+                   <span class="aa-badge aa-hot" href="#">HOT!</span>
+                </li>
+                <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/women/girl-3.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                     <figcaption>
+                      <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
+                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                    </figcaption>
+                  </figure>                     
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                  </div>
+                </li>
+                <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-1.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                    <figcaption>
+                      <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
+                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                    </figcaption>
+                  </figure>                      
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                  </div>
+                </li>
+                <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/women/girl-4.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                    <figcaption>
+                      <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
+                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                    </figcaption>
+                  </figure>                     
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                  </div>
+                  <!-- product badge -->
+                  <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                </li>    
+                <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-4.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                     <figcaption>
+                      <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
+                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                    </figcaption>
+                  </figure>                     
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                  </div>
+                  <!-- product badge -->
+                  <span class="aa-badge aa-hot" href="#">HOT!</span>
+                </li> 
+                <!-- start single product item -->
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src="img/women/girl-1.png" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                     <figcaption>
+                      <h4 class="aa-product-title"><a href="#">This is Title</a></h4>
+                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                    </figcaption>
+                  </figure>                     
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                  </div>
+                  <!-- product badge -->
+                  <span class="aa-badge aa-sale" href="#">SALE!</span>
+                </li>                                                                                   
+              </ul>
+              <!-- quick view modal -->                  
+              <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">                      
+                    <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <div class="row">
+                        <!-- Modal view slider -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">                              
+                          <div class="aa-product-view-slider">                                
+                            <div class="simpleLens-gallery-container" id="demo-1">
+                              <div class="simpleLens-container">
+                                  <div class="simpleLens-big-image-container">
+                                      <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
+                                          <img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                      </a>
+                                  </div>
+                              </div>
+                              <div class="simpleLens-thumbnails-container">
+                                  <a href="#" class="simpleLens-thumbnail-wrapper"
+                                     data-lens-image="img/view-slider/large/polo-shirt-1.png"
+                                     data-big-image="img/view-slider/medium/polo-shirt-1.png">
+                                      <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                                  </a>                                    
+                                  <a href="#" class="simpleLens-thumbnail-wrapper"
+                                     data-lens-image="img/view-slider/large/polo-shirt-3.png"
+                                     data-big-image="img/view-slider/medium/polo-shirt-3.png">
+                                      <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                                  </a>
 
-                    <div class="col-md-6 template-by">
-                        <p>Template By <a href="https://htmlcodex.com">HTML Codex</a></p>
-                    </div>
-                </div>
-            </div>
+                                  <a href="#" class="simpleLens-thumbnail-wrapper"
+                                     data-lens-image="img/view-slider/large/polo-shirt-4.png"
+                                     data-big-image="img/view-slider/medium/polo-shirt-4.png">
+                                      <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                                  </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Modal view content -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="aa-product-view-content">
+                            <h3>T-Shirt</h3>
+                            <div class="aa-price-block">
+                              <span class="aa-product-view-price">$34.99</span>
+                              <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                            <h4>Size</h4>
+                            <div class="aa-prod-view-size">
+                              <a href="#">S</a>
+                              <a href="#">M</a>
+                              <a href="#">L</a>
+                              <a href="#">XL</a>
+                            </div>
+                            <div class="aa-prod-quantity">
+                              <form action="">
+                                <select name="" id="">
+                                  <option value="0" selected="1">1</option>
+                                  <option value="1">2</option>
+                                  <option value="2">3</option>
+                                  <option value="3">4</option>
+                                  <option value="4">5</option>
+                                  <option value="5">6</option>
+                                </select>
+                              </form>
+                              <p class="aa-prod-category">
+                                Category: <a href="#">Polo T-Shirt</a>
+                              </p>
+                            </div>
+                            <div class="aa-prod-view-bottom">
+                              <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                        
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div>
+              <!-- / quick view modal -->   
+            </div>  
+          </div>
         </div>
-        <!-- Footer Bottom End -->       
-        
-        <!-- Back to Top -->
-        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-        
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/slick/slick.min.js"></script>
-        
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
-    </body>
+      </div>
+    </div>
+  </section>
+  <!-- / product category -->
+
+
+  <!-- Subscribe section -->
+  <section id="aa-subscribe">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-subscribe-area">
+            <h3>Subscribe our newsletter </h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
+            <form action="" class="aa-subscribe-form">
+              <input type="email" name="" id="" placeholder="Enter your Email">
+              <input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Subscribe section -->
+
+  <!-- footer -->  
+  <footer id="aa-footer">
+    <!-- footer bottom -->
+    <div class="aa-footer-top">
+     <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+          <div class="aa-footer-top-area">
+            <div class="row">
+              <div class="col-md-3 col-sm-6">
+                <div class="aa-footer-widget">
+                  <h3>Main Menu</h3>
+                  <ul class="aa-footer-nav">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Our Services</a></li>
+                    <li><a href="#">Our Products</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="aa-footer-widget">
+                  <div class="aa-footer-widget">
+                    <h3>Knowledge Base</h3>
+                    <ul class="aa-footer-nav">
+                      <li><a href="#">Delivery</a></li>
+                      <li><a href="#">Returns</a></li>
+                      <li><a href="#">Services</a></li>
+                      <li><a href="#">Discount</a></li>
+                      <li><a href="#">Special Offer</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="aa-footer-widget">
+                  <div class="aa-footer-widget">
+                    <h3>Useful Links</h3>
+                    <ul class="aa-footer-nav">
+                      <li><a href="#">Site Map</a></li>
+                      <li><a href="#">Search</a></li>
+                      <li><a href="#">Advanced Search</a></li>
+                      <li><a href="#">Suppliers</a></li>
+                      <li><a href="#">FAQ</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="aa-footer-widget">
+                  <div class="aa-footer-widget">
+                    <h3>Contact Us</h3>
+                    <address>
+                      <p> 25 Astor Pl, NY 10003, USA</p>
+                      <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
+                      <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
+                    </address>
+                    <div class="aa-footer-social">
+                      <a href="#"><span class="fa fa-facebook"></span></a>
+                      <a href="#"><span class="fa fa-twitter"></span></a>
+                      <a href="#"><span class="fa fa-google-plus"></span></a>
+                      <a href="#"><span class="fa fa-youtube"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
+    </div>
+    <!-- footer-bottom -->
+    <div class="aa-footer-bottom">
+      <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+          <div class="aa-footer-bottom-area">
+            <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
+            <div class="aa-footer-payment">
+              <span class="fa fa-cc-mastercard"></span>
+              <span class="fa fa-cc-visa"></span>
+              <span class="fa fa-paypal"></span>
+              <span class="fa fa-cc-discover"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </footer>
+  <!-- / footer -->
+  <!-- Login Modal -->  
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">                      
+        <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>Login or Register</h4>
+          <form class="aa-login-form" action="">
+            <label for="">Username or Email address<span>*</span></label>
+            <input type="text" placeholder="Username or email">
+            <label for="">Password<span>*</span></label>
+            <input type="password" placeholder="Password">
+            <button class="aa-browse-btn" type="submit">Login</button>
+            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+            <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+            <div class="aa-register-now">
+              Don't have an account?<a href="account.html">Register now!</a>
+            </div>
+          </form>
+        </div>                        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+
+    
+  <!-- jQuery library -->
+  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js}"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script th:src="@{js/bootstrap.js}"></script>  
+  <!-- SmartMenus jQuery plugin -->
+  <script type="text/javascript" th:src="@{js/jquery.smartmenus.js}"></script>
+  <!-- SmartMenus jQuery Bootstrap Addon -->
+  <script type="text/javascript" th:src="@{js/jquery.smartmenus.bootstrap.js}"></script>  
+  <!-- To Slider JS -->
+  <script th:src="@{js/sequence.js}"></script>
+  <script th:src="@{js/sequence-theme.modern-slide-in.js}"></script>  
+  <!-- Product view slider -->
+  <script type="text/javascript" th:src="@{js/jquery.simpleGallery.js}"></script>
+  <script type="text/javascript" th:src="@{js/jquery.simpleLens.js}"></script>
+  <!-- slick slider -->
+  <script type="text/javascript" th:src="@{js/slick.js}"></script>
+  <!-- Price picker slider -->
+  <script type="text/javascript" th:src="@{js/nouislider.js}"></script>
+  <!-- Custom js -->
+  <script th:src="@{js/custom.js}"></script>
+
+  </body>
 </html>

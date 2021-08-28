@@ -33,7 +33,7 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**","/img/**", "/js/**","lib/**", "login/**");
+		web.ignoring().antMatchers("/css/**","/img/**", "/js/**","scss/**", "fonts/**");
 	}
 	
 	@Bean
@@ -66,15 +66,15 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 		//http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(3600);
 	
 		http.authorizeRequests()
-		.antMatchers("/", "/home").permitAll()
+		.antMatchers("/").permitAll()
 		.anyRequest().permitAll()
 		.and().formLogin().loginPage("/login").permitAll()
 		.usernameParameter("email")
 		.passwordParameter("password")
 		.loginProcessingUrl("/dologin")
 		.defaultSuccessUrl("/").permitAll()
-		.and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(3600)
-		.and().oauth2Login().loginPage("/login").permitAll()
+//		.and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(39000)
+		.and().oauth2Login().loginPage("/account").permitAll()
 		.userInfoEndpoint().userService(customerOAuth2Service)
 		.and().successHandler(successHandler)
 		.failureHandler(failureHandler)

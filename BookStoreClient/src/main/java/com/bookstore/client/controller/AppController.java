@@ -44,7 +44,7 @@ public class AppController {
 	
 	private Authentication authentication;
 
-	@RequestMapping(value = {"/", "/home"})
+	@RequestMapping(value = {"/"}) // ,method = RequestMethod.GET)
 	public String showHomeView(Model model) {
 		System.out.println("pass: " +PasswordManager.getBCrypPassword("12345678"));
 		
@@ -96,10 +96,10 @@ public class AppController {
 	
 	@RequestMapping(value = {"/login"} , method = RequestMethod.GET)
 	public String showLoginView(Model model) {
-		return "login";
+		return "account";
 	}
 	
-	@GetMapping("/register")
+	@GetMapping("/account")
 	public String showRegisterView(Model model) {
 		
 		CustomerForm customerForm = new CustomerForm();
@@ -109,7 +109,7 @@ public class AppController {
 		System.out.println("check: " + customerForm.toString());
 		model.addAttribute("customerForm", customerForm);
 		
-		return "register";
+		return "account";
 	}
 
 	
@@ -141,13 +141,13 @@ public class AppController {
 		}
 		
 		if(error) {
-			return "redirect:/register";
+			return "redirect:/account";
 		}
 		
 		System.out.println("checkCustomerInfo: " + customerForm.toString());
 		
 		if (bindingResult.hasErrors()) {
-			return "register";
+			return "account";
 		}
 		//register new account;
 		
