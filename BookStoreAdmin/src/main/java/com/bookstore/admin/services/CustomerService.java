@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ public class CustomerService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	public static int PAGE_SIZE = 15;
+	
 	public List<Customer> getAllCustomer(){
 		return customerRepository.findAll();
 	}
@@ -31,6 +36,7 @@ public class CustomerService {
 			
 			customer.setPassword(encodePassword);
 		}
+		
 		customerRepository.save(customer);
 	}
 	
@@ -40,5 +46,29 @@ public class CustomerService {
 	
 	public Customer getCustomerById(Integer id) {
 		return customerRepository.getById(id);
+	}
+	
+	public List<Customer> getListSearchCustomerByEmail(String email){
+		return customerRepository.getListSearchCustomerByEmail(email);
+	}
+	
+	public List<Customer> fullTextSearchCustomerByEmail(String email){
+		return customerRepository.fullTextSearchCustomerByEmail(email);
+	}
+	
+	public Customer getCustomerByPhoneNumber(String phoneNumber) {
+		return customerRepository.getCustomerByPhoneNumber(phoneNumber);
+	}
+	
+	public Page<Customer> getCustomerWithPage(int pageNum){
+		Pageable pageable;
+		
+		if(pageNum > 1) {
+			pageable = PageRequest.of(pageNum - 1, CustomerService.PAGE_SIZE);
+		} else {
+			pageable = PageRequest.of(0, CustomerService.PAGE_SIZE);
+		}
+		
+		return customerRepository.findAll(pageable);
 	}
 }

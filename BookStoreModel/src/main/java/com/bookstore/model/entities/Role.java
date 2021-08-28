@@ -32,9 +32,9 @@ public class Role {
 	@Column(name = "description")
 	private String description;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "role_id"),
-			inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+//	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "role_id"),
+//			inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users = new HashSet<>();
 
 	public Integer getId() {

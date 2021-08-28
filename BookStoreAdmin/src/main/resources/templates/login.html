@@ -37,7 +37,9 @@
 						Login to continue
 					</span>
 					
-					
+					<div th:if="${loginError}">
+						<span class="txt1">[[${loginError}]]</span>
+					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Username is required">
 						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100"></span>
@@ -114,8 +116,6 @@
 	<script th:src="@{vendor/countdowntime/countdowntime.js}"></script>
 <!--===============================================================================================-->
 	<script th:src="@{js/main-signup-form-05.js}"></script>
-	
-
 
 </body>
 </html>

@@ -17,4 +17,26 @@ public class CategoryService {
 	public List<Category> getAllCategory(){
 		return categoryRepository.findAll();
 	}
+	
+	public void deleteCategoryById(Integer id) {
+		categoryRepository.deleteById(id);
+	}
+	
+	public void saveCategory(Category category) {
+		categoryRepository.save(category);
+	}
+	
+	public Category getCategoryById(Integer id) {
+		Category category = categoryRepository.getById(id);
+		return category;
+	}
+	
+	public Category getCategoryByName(String name) {
+		Category category = categoryRepository.getCategoryByName(name);
+		return category;
+	}
+	
+	public List<Category> fullTextSearchCategoryByName(String name){
+		return categoryRepository.fullTextSearchCategoryByName(name);
+	}
 }

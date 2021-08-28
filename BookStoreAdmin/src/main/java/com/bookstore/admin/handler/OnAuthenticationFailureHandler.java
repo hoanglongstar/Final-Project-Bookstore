@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Component
 public class OnAuthenticationFailureHandler implements AuthenticationFailureHandler{
@@ -16,7 +17,9 @@ public class OnAuthenticationFailureHandler implements AuthenticationFailureHand
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
+		System.out.println("failed");
 		
+//		redirectAttributes.addAttribute("login_error", redirectAttributes)
 		response.sendRedirect("/login_error");
 	}
 

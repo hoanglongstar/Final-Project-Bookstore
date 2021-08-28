@@ -15,7 +15,7 @@ public class FileUploadHelper {
 	public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
 		
 		Path uploadPath = Paths.get(uploadDir);
-		
+		System.out.println();
 		if(Files.notExists(uploadPath, LinkOption.NOFOLLOW_LINKS)) {
 			Files.createDirectories(uploadPath);
 		}

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "categories")
@@ -22,9 +24,11 @@ public class Category {
 	private Integer id;
 	
 	@Column(name = "name")
+	@Size(min = 4, max = 30, message = "Please enter category name")
 	private String name;
 	
 	@Column(name = "code")
+	@Size(min = 4, max = 10, message = "Please enter category code")
 	private String code;
 	
 	@Column(name = "description")
@@ -105,6 +109,17 @@ public class Category {
 
 	public void setSubCategory(Set<Category> subCategory) {
 		this.subCategory = subCategory;
+	}
+	
+	@Transient
+	public String getPhotoPath() {
+		if(photo == null || photo.equals("")) {
+			return "../images/category.png";
+		}
+		if(id != null & photo != null) {
+			return "/category-photos/" + id + "/" + photo;
+		}
+		return null;
 	}
 	
 }

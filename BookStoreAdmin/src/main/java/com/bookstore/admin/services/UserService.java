@@ -48,4 +48,8 @@ public class UserService {
 	public void deleteUserById(Integer id) {
 		userRepository.deleteById(id);
 	}
+	
+//	public List<User> fullTextSearchUserByUsername(String username) {
+//		return userRepository.fullTextSearchUserByUsername(username);
+//	}
 }

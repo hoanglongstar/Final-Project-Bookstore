@@ -113,7 +113,7 @@
 	                            <div class="card-body">
 	                                    <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Role Name</label>
-	                                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="text" th:field="*{name}" name="name"
 	                                                class="form-control ps-0 form-control-line">

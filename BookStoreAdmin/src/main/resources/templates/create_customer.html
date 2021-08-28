@@ -82,7 +82,7 @@
 	                    <div class="col-lg-4 col-xlg-3 col-md-5">
 	                        <div class="card">
 	                            <div class="card-body profile-card">
-	                                <center class="mt-4"> <img th:src="@{${customer.photoPath}}" alt="Avatar" id="thumbnail" 
+	                                <center class="mt-4"> <img th:src="@{${customer.photoPath}}" alt="Customer_Image" id="thumbnail" 
 	                                        class="rounded-circle" width="150" />
 	                                    <h4 class="card-title mt-2">Hanna Gover</h4>
 	                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
@@ -113,7 +113,7 @@
 	                            <div class="card-body">
 	                                   <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Email</label>
-	                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="text" th:field="*{email}" name="email"
 	                                                class="form-control ps-0 form-control-line">
@@ -122,7 +122,7 @@
 	                                   </div>
 	                                   <div class="form-group">
 	                                        <label for="example-email" class="col-md-12">First Name</label>
-	                                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="text" th:field="*{firstName}" name="firstName"
 	                                                class="form-control ps-0 form-control-line">
@@ -131,7 +131,7 @@
 	                                   </div>
 	                                   <div class="form-group">
 	                                        <label for="example-email" class="col-md-12">Last Name</label>
-	                                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="text" th:field="*{lastName}" name="lastName"
 	                                                class="form-control ps-0 form-control-line">
@@ -147,7 +147,7 @@
 	                                   </div>
 	                                   <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Password</label>
-	                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="password" th:field="*{password}" name="password"
 	                                                class="form-control ps-0 form-control-line">
@@ -157,7 +157,7 @@
 	                                    
 	                                    <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Phone Number</label>
-	                                        <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="text" th:field="*{phoneNumber}" name="phoneNumber"
 	                                                class="form-control ps-0 form-control-line">
@@ -165,36 +165,36 @@
 	                                        </div>
 	                                    </div>
 	                                    
-	                                    <!--<div th:object="${address}">
+	                                    <div >
 	                                    	<div class="form-group">
 		                                        <label class="col-md-12 mb-0">Street</label>
 		                                        <div class="col-md-12">
-		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.street}"
+		                                            <input type="text" th:value="${address.street}" th:name="address" th:field="${address.street}"
 		                                                class="form-control ps-0 form-control-line">
 		                                        </div>
 	                                    	</div>
 	                                    	<div class="form-group">
 		                                        <label class="col-md-12 mb-0">Ward</label>
 		                                        <div class="col-md-12">
-		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.ward}"
+		                                            <input type="text" th:value="${address.ward}" th:name="address" th:field="${address.ward}"
 		                                                class="form-control ps-0 form-control-line">
 		                                        </div>
 	                                    	</div>
 	                                    	<div class="form-group">
 		                                        <label class="col-md-12 mb-0">District</label>
 		                                        <div class="col-md-12">
-		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.district}"
+		                                            <input type="text" th:value="${address.district}" th:name="address" th:field="${address.district}"
 		                                                class="form-control ps-0 form-control-line">
 		                                        </div>
 	                                    	</div>
 	                                    	<div class="form-group">
 		                                        <label class="col-md-12 mb-0">City</label>
 		                                        <div class="col-md-12">
-		                                            <input type="text" th:field="${customer.addresses}" th:value="${address.city}"
+		                                            <input type="text" th:value="${address.city}" th:name="address" th:field="${address.city}"
 		                                                class="form-control ps-0 form-control-line">
 		                                        </div>
 	                                    	</div>
-	                                    </div>-->
+	                                    </div>
 	                                    
 	                                    <div class="form-group">
 	                                        <div class="col-sm-12 d-flex">
@@ -243,16 +243,16 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script th:src="@{assets/plugins/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/plugins/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script th:src="@{assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{js/app-style-switcher.js}"></script>
+    <script th:src="@{/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/app-style-switcher.js}"></script>
     <!--Wave Effects -->
-    <script th:src="@{js/waves.js}"></script>
+    <script th:src="@{/js/waves.js}"></script>
     <!--Menu sidebar -->
-    <script th:src="@{js/sidebarmenu.js}"></script>
+    <script th:src="@{/js/sidebarmenu.js}"></script>
     <!--Custom JavaScript -->
-    <script th:src="@{js/custom.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
     <script type="text/javascript">
     	function readUrl(input) {
 			if(input.files && input.files[0]) {

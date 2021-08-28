@@ -118,13 +118,36 @@
                                                 <td class="align-middle align-self-center text-center"></td>
                                                 <td class="align-middle align-self-center text-center"><h5 class="font-weight-bold">[[${invoice.totalPayable}]]</h5></td>
                                             </tr>
-                                            <tr>
-                                                <td class="align-middle align-self-center "><h5 class="font-weight-bold">STATUS</h5></td>
-                                                <td class="align-middle align-self-center text-center"></td>
-                                                <td class="align-middle align-self-center text-center"></td>
-                                                <td class="align-middle align-self-center text-center"></td>
-                                                <td class="align-middle align-self-center text-center"><h5 class="font-weight-bold">[[${invoice.status}]]</h5></td>
-                                            </tr>
+                                            <form th:action="@{/update_invoive_status}" method="POST">
+                                            	<tr>
+	                                                <td class="align-middle align-self-center "><h5 class="font-weight-bold">STATUS</h5></td>
+	                                                <td class="align-middle align-self-center text-center">
+	                                                	<input type="hidden" th:field="${invoiceForm.id}"/>
+	                                                </td>
+	                                                <td class="align-middle align-self-center text-center"></td>
+	                                                <td class="align-middle align-self-center text-center"></td>
+                                            		<td class="align-middle align-self-center text-center">
+					                					<select th:disabled="${#authorization.expression('hasAuthority(''SHIPPER'')') and (invoice.status.name == 'PROCESSING' or invoice.status.name == 'CANCELLED')}" class="form-select shadow-none col-md-2 ml-auto" th:field="${invoiceForm.status}">
+										                    <th:block th:each="status : ${listStatus}">
+										                    	<option th:disabled="${#authorization.expression('hasAuthority(''SHIPPER'')') and (status.name == 'PROCESSING' or status.name == 'CANCELLED')}" th:value="${status}">[[${status}]]</option>
+										                    </th:block>
+										                </select>
+                                                	</td>
+                                            	</tr>
+                                            	<tr>
+                                            		<td class="align-middle align-self-center "></td>
+	                                                <td class="align-middle align-self-center text-center"></td>
+	                                                <td class="align-middle align-self-center text-center"></td>
+	                                                <td class="align-middle align-self-center text-center"></td>
+	                                                <td class="align-middle align-self-center text-center">
+											            <div class="form-group align-self-center">
+					                                        <div class="col-sm-12 d-flex flex-row-reverse">
+					                                            <button th:disabled="${#authorization.expression('hasAuthority(''SHIPPER'')') and (invoice.status.name == 'PROCESSING' or invoice.status.name == 'CANCELLED')}" type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Update</button>
+					                                        </div>
+					                                    </div>
+	                                                </td>
+                                            	</tr>
+                                            </form>
                                         </tbody>
                                     </table>
                                 </div>

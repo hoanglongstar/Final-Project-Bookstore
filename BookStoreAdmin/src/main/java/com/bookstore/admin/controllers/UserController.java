@@ -9,9 +9,9 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -254,7 +254,7 @@ public class UserController {
 		return "redirect:/dashboard";
 	}
 	
-	@RequestMapping(value = "/update_profile", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String showProfileView(Model model) {
 		
 		User user = getCurrentUser();
@@ -264,7 +264,7 @@ public class UserController {
 		return "profile";
 	}
 	
-	@RequestMapping(value = "/update_profile", method = RequestMethod.POST)
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String checkUserInfo(@RequestParam("fileImage") MultipartFile multipartFile, @ModelAttribute("user") User user) {
 		
 		System.out.println("checkUserInfo :: " + user.getPhotoPath());
@@ -282,10 +282,10 @@ public class UserController {
 			}
 		}
 		
-//		user.setEnabled(true);
+		user.setEnabled(true);
 		
 		userService.saveUser(user);
-		return "redirect:/user";
+		return "redirect:/profile";
 	}
 	
 	@Transient
@@ -303,5 +303,23 @@ public class UserController {
 		User currentUser = userService.getUserByUsername(username);
 
 		return currentUser;
+	}
+	
+	@GetMapping(value = "/search_user")
+	public String searchUserView(Model model, @Param("username") String username) {
+		User user = userService.getUserByUsername(username);
+		
+		UserData userData = user.copyValueFromUserEntity();
+		
+		model.addAttribute("listUsers", userData);
+		return "search_user";
+	}
+	
+	@RequestMapping("/delete_user/{id}")
+	public String deleteUser(@PathVariable(name = "id") Integer id) {
+		
+		userService.deleteUserById(id);
+		
+		return "redirect:/user";
 	}
 }

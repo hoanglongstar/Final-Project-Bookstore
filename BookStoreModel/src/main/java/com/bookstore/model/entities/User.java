@@ -180,7 +180,10 @@ public class User {
 	}
 	
 	@Transient
-	public String getPhotoPath() {
+	public String getPhotoPath() {System.out.println("getPhotoPath :: " + avatar);
+		if(avatar == null || avatar.equals("")) {
+			return "../images/avatar.jpg";
+		}
 		if(id != null & avatar != null) {
 			return "/profile-photos/" + id + "/" + avatar;
 		}

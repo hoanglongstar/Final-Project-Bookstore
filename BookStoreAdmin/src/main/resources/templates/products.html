@@ -81,9 +81,33 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Basic Table</h4>
-                                <h6 class="card-subtitle">Add class <code>.table</code></h6>
+                                <div class="row">
+	                            	<div th:replace="fragment :: top-table-product"></div>
+                            	</div>
                                 <div  class="table-responsive">
+                                	<div class="row">
+	                                	<form th:action="@{/productsByCategory}" method="GET">
+		                                	<div class="col-sm-12">
+		                                		<div class="d-md-flex">
+				                                	<div class="col-sm-2">
+					                					<select class="form-select shadow-none col-md-2 ml-auto" th:name="categorySelected">
+					                						<option th:value="All">All</option>
+										                    <th:block th:each="category : ${listCategories}">
+										                    	<option th:value="${category.name}">[[${category.name}]]</option>
+										                    </th:block>
+										                </select>
+										            </div>
+										            <div class="form-group">
+				                                        <div class="col-sm-2 d-flex">
+				                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Search</button>
+				                                        </div>
+				                                    </div>
+				                                    
+			                                    </div>
+	                                		</div>
+	                                	</form>
+		                                	
+                                	</div>
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>
@@ -95,6 +119,7 @@
                                                 <th class="border-top-0 text-center">Quantity</th>
                                                 <th class="border-top-0 text-center">Price</th>
                                                 <th class="border-top-0 text-center">Sale Price</th>
+                                                <th class="border-top-0 text-center">Status</th>
                                                 <th class="border-top-0 text-center">Edit</th>
                                                 <th class="border-top-0 text-center">Delete</th>
                                             </tr>
@@ -109,6 +134,7 @@
                                                 <td class="align-middle align-self-center text-center" th:text="${product.quantity}"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${product.price}"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${product.salePrice}"></td>
+                                                <td class="align-middle align-self-center text-center" th:text="${product.status}"></td>
                                                 <td class="align-middle align-self-center text-center">
                                                 	<div class="align-self-center">
 								                        <div class="upgrade-btn">
@@ -128,6 +154,21 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="align-middle align-self-center text-center">
+                                	<a th:if="${currentPage > 1}" th:href="@{/product/1}">&lt;&lt;</a>
+                                	
+                                	<a th:if="${currentPage > 1}" th:href="@{'/product/' + ${currentPage - 1}}">&lt;</a>
+                                	
+                                	<span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                		<a th:if="${currentPage != i}" th:href="@{'/product/' + ${i}}">[[${i}]]</a>
+                                		<span th:unless="${currentPage != i}">[[${i}]]</span>
+                                	</span>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/product/' + ${currentPage + 1}}">&gt;</a>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/product/' + ${totalPages}}">&gt;&gt;</a>
+                                	  
                                 </div>
                             </div>
                         </div>
@@ -167,16 +208,16 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script th:src="@{assets/plugins/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/plugins/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script th:src="@{assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{js/app-style-switcher.js}"></script>
+    <script th:src="@{/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/app-style-switcher.js}"></script>
     <!--Wave Effects -->
-    <script th:src="@{js/waves.js}"></script>
+    <script th:src="@{/js/waves.js}"></script>
     <!--Menu sidebar -->
-    <script th:src="@{js/sidebarmenu.js}"></script>
+    <script th:src="@{/js/sidebarmenu.js}"></script>
     <!--Custom JavaScript -->
-    <script th:src="@{js/custom.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
 </body>
 
 </html>

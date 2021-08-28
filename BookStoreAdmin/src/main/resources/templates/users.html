@@ -81,8 +81,9 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Basic Table</h4>
-                                <h6 class="card-subtitle">Add class <code>.table</code></h6>
+                                <div class="row">
+	                            	<div th:replace="fragment :: top-table-user"></div>
+                            	</div>
                                 <div  class="table-responsive">
                                     <table class="table user-table no-wrap">
                                         <thead>
@@ -161,16 +162,16 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script th:src="@{assets/plugins/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/plugins/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script th:src="@{assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{js/app-style-switcher.js}"></script>
+    <script th:src="@{/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/app-style-switcher.js}"></script>
     <!--Wave Effects -->
-    <script th:src="@{js/waves.js}"></script>
+    <script th:src="@{/js/waves.js}"></script>
     <!--Menu sidebar -->
-    <script th:src="@{js/sidebarmenu.js}"></script>
+    <script th:src="@{/js/sidebarmenu.js}"></script>
     <!--Custom JavaScript -->
-    <script th:src="@{js/custom.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
     
 </body>
 

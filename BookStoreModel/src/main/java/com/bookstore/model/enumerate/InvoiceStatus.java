@@ -1,7 +1,7 @@
 package com.bookstore.model.enumerate;
 
 public enum InvoiceStatus {
-	RECEIVED,
+	DELIVERED,
 	CANCELLED,
 	PROCESSING,
 	DELIVERING

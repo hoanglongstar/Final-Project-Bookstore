@@ -30,7 +30,7 @@ public class Address {
 	@Column(name = "street")
 	private String street;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Customer customer;
 
 	public Integer getId() {
@@ -73,11 +73,11 @@ public class Address {
 		this.street = street;
 	}
 
-	public Customer getCustomers() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomers(Customer customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 	

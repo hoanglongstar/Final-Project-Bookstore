@@ -83,8 +83,9 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Basic Table</h4>
-                                <h6 class="card-subtitle">Add class <code>.table</code></h6>
+                                <div class="row">
+	                            	<div th:replace="fragment :: top-table-invoice"></div>
+                            	</div>
                                 <div  class="table-responsive">
                                     <table class="table user-table no-wrap">
                                         <thead>
@@ -116,6 +117,21 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="align-middle align-self-center text-center">
+                                	<a th:if="${currentPage > 1}" th:href="@{/invoice/1}">&lt;&lt;</a>
+                                	
+                                	<a th:if="${currentPage > 1}" th:href="@{'/invoice/' + ${currentPage - 1}}">&lt;</a>
+                                	
+                                	<span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                		<a th:if="${currentPage != i}" th:href="@{'/invoice/' + ${i}}">[[${i}]]</a>
+                                		<span th:unless="${currentPage != i}">[[${i}]]</span>
+                                	</span>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/invoice/' + ${currentPage + 1}}">&gt;</a>
+                                	
+                                	<a th:if="${currentPage < totalPages}" th:href="@{'/invoice/' + ${totalPages}}">&gt;&gt;</a>
+                                	  
                                 </div>
                             </div>
                         </div>
@@ -155,16 +171,16 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script th:src="@{assets/plugins/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/plugins/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script th:src="@{assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{js/app-style-switcher.js}"></script>
+    <script th:src="@{/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/app-style-switcher.js}"></script>
     <!--Wave Effects -->
-    <script th:src="@{js/waves.js}"></script>
+    <script th:src="@{/js/waves.js}"></script>
     <!--Menu sidebar -->
-    <script th:src="@{js/sidebarmenu.js}"></script>
+    <script th:src="@{/js/sidebarmenu.js}"></script>
     <!--Custom JavaScript -->
-    <script th:src="@{js/custom.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
     
     <script>
     	function rowClicked(value){
