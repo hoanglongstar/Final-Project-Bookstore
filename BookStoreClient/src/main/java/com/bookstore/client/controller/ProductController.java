@@ -115,47 +115,47 @@ public class ProductController {
 		return "category_product";
 	}
 	
-	@RequestMapping("/addtocart")
-	public String byProductHandler(HttpServletRequest request, Model model, @RequestParam(value = "code", defaultValue = "") String code) {
-		
-		Product product = productService.getByCode(code);
-		System.out.println("code: " + code);
-
-		
-		if (product != null) {
-			CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
-			cartInfo.addProduct(product, 1);
-			System.out.println("code: " + product);
-		}
-		
-		return "redirect:/shopping_cart";
-	}
+//	@RequestMapping("/addtocart")
+//	public String byProductHandler(HttpServletRequest request, Model model, @RequestParam(value = "code", defaultValue = "") String code) {
+//		
+//		Product product = productService.getByCode(code);
+//		System.out.println("code: " + code);
+//
+//		
+//		if (product != null) {
+//			CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
+//			cartInfo.addProduct(product, 1);
+//			System.out.println("code: " + product);
+//		}
+//		
+//		return "redirect:/shopping_cart";
+//	}
 	
-	@RequestMapping("/shopping_cart")
-	public String showCartView(HttpServletRequest request, Model model) {
-		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
-		
+//	@RequestMapping("/shopping_cart")
+//	public String showCartView(HttpServletRequest request, Model model) {
+//		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
+//		
+////		for(CartLineInfo cartLine : cartInfo.getCartLines()) {
+////			System.out.println("ten san pham : " + cartLine.getProduct().getName());
+////			System.out.println("so luong : " + cartLine.getQuantity());
+////			System.out.println("Unit price : " + cartLine.getUnitPrice());
+////		}
+//		
+//		model.addAttribute("cartInfo", cartInfo);
+//		model.addAttribute("totalCartInfo", cartInfo.totalCartInfo());
+//		
+//		return "cart";
+//	}
+	
+//	@PostMapping("/update_cart")
+//	public String updateCart(@ModelAttribute("cartInfo") CartInfo cartInfo ,HttpServletRequest request, Model model) {
+////		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
 //		for(CartLineInfo cartLine : cartInfo.getCartLines()) {
 //			System.out.println("ten san pham : " + cartLine.getProduct().getName());
 //			System.out.println("so luong : " + cartLine.getQuantity());
 //			System.out.println("Unit price : " + cartLine.getUnitPrice());
 //		}
-		
-		model.addAttribute("cartInfo", cartInfo);
-		model.addAttribute("totalCartInfo", cartInfo.totalCartInfo());
-		
-		return "cart";
-	}
-	
-	@PostMapping("/update_cart")
-	public String updateCart(@ModelAttribute("cartInfo") CartInfo cartInfo ,HttpServletRequest request, Model model) {
-//		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
-		for(CartLineInfo cartLine : cartInfo.getCartLines()) {
-			System.out.println("ten san pham : " + cartLine.getProduct().getName());
-			System.out.println("so luong : " + cartLine.getQuantity());
-			System.out.println("Unit price : " + cartLine.getUnitPrice());
-		}
-		System.out.println("updateCart" + cartInfo.getCartLines().size());
-		return "redirect:/shopping_cart";
-	}
+//		System.out.println("updateCart" + cartInfo.getCartLines().size());
+//		return "redirect:/shopping_cart";
+//	}
 }

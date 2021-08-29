@@ -20,16 +20,14 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-	
-	
-	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	public void saveCustomer(Customer c) {
-		PasswordManager passwordManager = new PasswordManager();
-		String encodePassword = passwordManager.encode(c.getPassword());
-		
 		Pattern bcryPattern = Pattern.compile("^[$]2[abxy]?[$](?:0[4-9]|[12][0-9]|3[01])[$][./0-9a-zA-Z]{53}$");
 		
 		if (!bcryPattern.matcher(c.getPassword()).matches()) {
+			String encodePassword = bCryptPasswordEncoder.encode(c.getPassword());
 			c.setPassword(encodePassword);
 		}
 		
