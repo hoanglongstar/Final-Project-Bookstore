@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -33,7 +34,7 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**","/img/**", "/js/**","scss/**", "fonts/**");
+		web.ignoring().antMatchers("/css/**","/img/**", "/js/**","/scss/**", "/fonts/**");
 	}
 	
 	@Bean
@@ -64,11 +65,12 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		//http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(3600);
-	
+		http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.anyRequest().permitAll()
-		.and().formLogin().loginPage("/login").permitAll()
+		.and().formLogin().loginPage("/").permitAll()
 		.usernameParameter("email")
 		.passwordParameter("password")
 		.loginProcessingUrl("/dologin")

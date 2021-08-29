@@ -13,7 +13,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         enable_lazy_load_no_trans: true
         format_sql: true
-    show-sql: true
+    show-sql: false
   security:
     oauth2:
       client:

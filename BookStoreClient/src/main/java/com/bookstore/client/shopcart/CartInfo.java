@@ -74,8 +74,8 @@ public class CartInfo {
 		return null;
 	}
 	
-	public Float totalCartInfo( ) {
-		float sum = 0;
+	public Double totalCartInfo( ) {
+		double sum = 0;
 		for(CartLineInfo line : cartLines) {
 			sum = sum + line.getTotal();
 			

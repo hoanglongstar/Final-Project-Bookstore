@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"	xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,24 +8,24 @@
     <title>Daily Shop | Cart Page</title>
     
     <!-- Font awesome -->
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">   
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">   
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
-    <link href="css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+    <link th:href="@{/css/jquery.smartmenus.bootstrap.css}" rel="stylesheet">
     <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" href="css/jquery.simpleLens.css">    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.simpleLens.css}">    
     <!-- slick slider -->
-    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/slick.css}">
     <!-- price picker slider -->
-    <link rel="stylesheet" type="text/css" href="css/nouislider.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nouislider.css}">
     <!-- Theme color -->
-    <link id="switcher" href="css/theme-color/default-theme.css" rel="stylesheet">
+    <link id="switcher" th:href="@{/css/theme-color/default-theme.css}" rel="stylesheet">
     <!-- Top Slider CSS -->
-    <link href="css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
+    <link th:href="@{/css/sequence-theme.modern-slide-in.css}" rel="stylesheet" media="all">
 
     <!-- Main style sheet -->
-    <link href="css/style.css" rel="stylesheet">    
+    <link th:href="@{/css/style.css}" rel="stylesheet">    
 
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -357,29 +358,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="img/man/polo-shirt-1.png" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                        <td>$250</td>
-                        <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                        <td>$250</td>
-                      </tr>
-                      <tr>
-                        <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="img/man/polo-shirt-2.png" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                        <td>$150</td>
-                        <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                        <td>$150</td>
-                      </tr>
-                      <tr>
-                        <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="img/man/polo-shirt-3.png" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                        <td>$50</td>
-                        <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                        <td>$50</td>
+                    <form th:action="@{/update_cart}" method="post" > 
+                      <tr th:each="cartLine, varStatus: ${cartInfo.cartLines}" th:id="'cartLine' + ${varStatus.count}">
+                        <td><a class="remove" th:cartLine="${varStatus.count}" th:href="@{'/restapi/shopcart_delete/'+${cartLine.product.code}}" ><fa class="fa fa-close"></fa></a></td>
+                        <td><a href="#"><img th:src="@{${cartLine.product.photoPath}}" alt="img"></a></td>
+                        <td><a class="aa-cart-title" href="#">[[${cartLine.product.name}]]</a></td>
+                        <td>$[[${cartLine.unitPrice}]]</td>
+                        <td>
+							<div class="quantity">
+											<input id="minus" type="button" value="-" class="minus" th:pid="${cartLine.product.code}">
+											<input type="hidden" th:name="|cartLines[${varStatus.index}].id|" th:value="${cartLine.product.id}">
+											<input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLine.quantity}" class="qty" th:id="'quantity' + ${cartLine.product.code}" /> 
+											<input
+												id="plus" type="button" value="+" class="plus"
+												th:pid="${cartLine.product.code}">
+							</div>
+						</td>
+                        <td ><span th:id="'itemSubtotal' + ${cartLine.product.code}" class="amount cartline-total">[[${cartLine.total}]]</span></td>
                       </tr>
                       <tr>
                         <td colspan="6" class="aa-cart-view-bottom">
@@ -390,6 +385,7 @@
                           <input class="aa-cart-view-btn" type="submit" value="Update Cart">
                         </td>
                       </tr>
+                      </form>
                       </tbody>
                   </table>
                 </div>
@@ -405,7 +401,7 @@
                    </tr>
                    <tr>
                      <th>Total</th>
-                     <td>$450</td>
+                     <td th:id="cartInfoTotal">$[[${totalCartInfo}]]</td>
                    </tr>
                  </tbody>
                </table>
@@ -561,23 +557,50 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.js"></script>  
+    <script th:src="@{/js/bootstrap.js}"></script>  
     <!-- SmartMenus jQuery plugin -->
-    <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.smartmenus.js}"></script>
     <!-- SmartMenus jQuery Bootstrap Addon -->
-    <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>  
+    <script type="text/javascript" th:src="@{/js/jquery.smartmenus.bootstrap.js}"></script>  
     <!-- To Slider JS -->
-    <script src="js/sequence.js"></script>
-    <script src="js/sequence-theme.modern-slide-in.js"></script>  
+    <script th:src="@{/js/sequence.js}"></script>
+    <script th:src="@{/js/sequence-theme.modern-slide-in.js}"></script>  
     <!-- Product view slider -->
-    <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-    <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.simpleGallery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.simpleLens.js}"></script>
     <!-- slick slider -->
-    <script type="text/javascript" src="js/slick.js"></script>
+    <script type="text/javascript" th:src="@{/js/slick.js}"></script>
     <!-- Price picker slider -->
-    <script type="text/javascript" src="js/nouislider.js"></script>
+    <script type="text/javascript" th:src="@{/js/nouislider.js}"></script>
     <!-- Custom js -->
-    <script src="js/custom.js"></script> 
+    
+    <script th:src="@{/js/custom.js}"></script>
+    <!--shopping cart  -->
+    <script type="text/javascript">
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+	</script>
+    <script th:src="@{/js/shoppingcart.js}"></script>
+    
+    <!--photo url  -->
+	<script type="text/javascript">
+    	function readUrl(input) {
+			if(input.files && input.files[0]) {
+				var reader = new FileReader();
+				
+				reader.onload = function(e) {
+					$("#photoprofile").attr('src', e.target.result)
+				}
+				reader.readAsDataURL(input.files[0])
+			}
+		}
+		
+		$(document).ready(function() {
+			$("#imgProfile").change(function() {
+				readUrl(this)
+			})
+		});
+    </script> 
 
   </body>
 </html>

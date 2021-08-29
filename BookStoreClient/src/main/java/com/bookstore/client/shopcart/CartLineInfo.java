@@ -6,8 +6,8 @@ public class CartLineInfo {
 
 	private Product product;
 	private int quantity;
-	private float unitPrice;
-	private float total;
+	private double unitPrice;
+	private double total;
 	
 	public CartLineInfo() {
 		this.quantity = 0;
@@ -27,13 +27,13 @@ public class CartLineInfo {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public float getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
-	public void setUnitPrice(float unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public float getTotal() {
+	public double getTotal() {
 		total = unitPrice*quantity;
 		return total;
 	}
