@@ -53,6 +53,9 @@ public class Product  implements Serializable{
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<InvoiceDetail> invoiceDetail = new HashSet<>();
 	
+	@Column(name = "status", unique = false, nullable = true, length = 64)
+	private String status;
+	
 	@Column(name = "photo")
 	private String photo;
 	
@@ -154,6 +157,20 @@ public class Product  implements Serializable{
 
 	public void setInvoiceDetail(Set<InvoiceDetail> invoiceDetail) {
 		this.invoiceDetail = invoiceDetail;
+	}
+
+	public String getStatus() {
+		if(this.quantity == 0) {
+			status = "Out of Stock";
+		} else {
+			status = "In Stock";
+		}
+		return status;
+	}
+
+	public void setStatus(String status) {
+		status = getStatus();
+		this.status = status;
 	}
 
 	@Transient
