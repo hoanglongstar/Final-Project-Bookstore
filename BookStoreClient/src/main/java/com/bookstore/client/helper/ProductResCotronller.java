@@ -57,25 +57,25 @@ public class ProductResCotronller {
 		return listAuto;
 	}
 	
-	@PostMapping("/restapi/shopcart_update/{code}/{qty}")
-	public String shopcartUpdateQuantity(HttpServletRequest request, @PathVariable(value = "code") String code, @PathVariable(value = "qty") Integer quantity) {
-		
-		System.out.println("shopcartUpdateQuantity: " + code + " --> " + quantity);
-		
-		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
-		
-		boolean productFound = false;
-		
-		for (CartLineInfo cartLineInfo : cartInfo.getCartLines()) {
-			if (cartLineInfo.getProduct().getCode().equals(code)) {
-				cartLineInfo.setQuantity(quantity);
-				productFound = true;
-			}
-		}
-		
-		if (productFound) {
-			return "Updated!";
-		}
-		return "Product Not Found";
-	}
+//	@PostMapping("/restapi/shopcart_update/{code}/{qty}")
+//	public String shopcartUpdateQuantity(HttpServletRequest request, @PathVariable(value = "code") String code, @PathVariable(value = "qty") Integer quantity) {
+//		
+//		System.out.println("shopcartUpdateQuantity: " + code + " --> " + quantity);
+//		
+//		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
+//		
+//		boolean productFound = false;
+//		
+//		for (CartLineInfo cartLineInfo : cartInfo.getCartLines()) {
+//			if (cartLineInfo.getProduct().getCode().equals(code)) {
+//				cartLineInfo.setQuantity(quantity);
+//				productFound = true;
+//			}
+//		}
+//		
+//		if (productFound) {
+//			return "Updated!";
+//		}
+//		return "Product Not Found";
+//	}
 }
