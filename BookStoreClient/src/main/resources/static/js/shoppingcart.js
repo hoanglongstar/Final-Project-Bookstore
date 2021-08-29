@@ -31,8 +31,6 @@ $(document).ready(function() {
 			type: "POST",
 			url: url,
 			beforeSend: function(xhr) {
-				console.log(csrfHeaderName);
-				console.log(csrfValue);
 				xhr.setRequestHeader(csrfHeaderName, csrfValue);
 			}
 		}).done(function(response) {
@@ -57,7 +55,7 @@ $(document).ready(function() {
 		
 		newSubTotal = parseFloat(productPrice) * quantity;
 		
-		$("#itermSubtotal" + productCode).text(newSubTotal + '');
+		$("#itemSubtotal" + productCode).text(newSubTotal + '');
 	}
 	
 	function updateCartTotal() {
