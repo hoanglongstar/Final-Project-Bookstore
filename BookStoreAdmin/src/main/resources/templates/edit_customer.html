@@ -99,7 +99,7 @@
 	                                            </a></div>
 	                                    </div>
 	                                    <div>
-	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" >
+	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" style="display: none;">
 	                                    	<input type="hidden" th:field="*{photoUrl}">
 	                                    </div>
 	                                </center>
@@ -173,11 +173,12 @@
 					                                            <input type="text" th:value="${address.street} + ', ' + ${address.ward} + ', ' + ${address.district} + ', ' + ${address.city}" readonly
 					                                                class="form-control ps-0 form-control-line">
 			                                                </div>
-			                                                <div class="upgrade-btn col-sm-2 text-center">
+			                                                <div class="upgrade-btn col-sm-2 text-center d-flex flex-row-reverse">
+			                                                	<a th:href="@{/delete_address/{id}(id=${address.id})}"
+									                                class="btn btn-success d-none d-md-inline-block text-white ">Del</a><span> </span>
 									                            <a th:href="@{/edit_address/{id}(id=${address.id})}"
 									                                class="btn btn-success d-none d-md-inline-block text-white ">Edit</a>
-								                                <a th:href="@{/delete_address/{id}(id=${address.id})}"
-									                                class="btn btn-success d-none d-md-inline-block text-white ">Del</a>
+								                                
 									                        </div>
 		                                    			</div><br>
 													</th:block>

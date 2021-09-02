@@ -82,32 +82,54 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-	                            	<div th:replace="fragment :: top-table-product"></div>
+	                            	<form class="app-search" th:action="@{/search_product}" method="GET" id="searchProductForm">
+	                            		<div class="row">
+			                            	<div class="col-sm-12">
+												<div class="d-md-flex">
+													<div class="col-sm-7 ms-auto">
+														<h4 class="card-title">Product List</h4>
+														<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
+													</div>
+													<div class="col-sm-3 ms-auto">
+														<ul class="navbar-nav me-auto mt-md-0 ">
+												            <!-- ============================================================== -->
+												            <!-- Search -->
+												            <!-- ============================================================== -->
+												
+												            <li class="nav-item hidden-sm-down">
+												                <!--<form class="app-search" th:action="@{/search_product}" method="GET" id="searchProductForm">-->
+												                    <input type="text" name="name" class="form-control" placeholder="Search for..."> 
+												                    <!--<a class="srh-btn" onclick="document.getElementById('searchProductForm').submit()"><i class="ti-search"></i></a>-->
+												                <!--</form>-->
+												            </li>
+												        </ul>
+	                                				</div>
+	                                				<div class="col-sm-2">
+						                					<select class="form-select shadow-none col-md-2 ml-auto" th:name="selectedCategory">
+						                						<option th:value="All">All</option>
+											                    <th:block th:each="category : ${listCategories}">
+											                    	<option th:value="${category.name}" th:selected="${category.name} == ${selectedCategory.name}">[[${category.name}]]</option>
+											                    </th:block>
+											                </select>
+										            </div>
+												</div>
+			                            	</div>
+	                            		</div>
+	                            		<div class="row">
+	                            			<div class="col-sm-12">
+												<div class="d-md-flex flex-row-reverse">
+										            <div class="form-group">
+					                                        <div class="col-sm-2 d-flex">
+					                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Search</button>
+					                                        </div>
+				                                    </div>
+	                                			</div>
+	                            			</div>
+	                            		</div>
+							         </form>
                             	</div>
                                 <div  class="table-responsive">
-                                	<div class="row">
-	                                	<form th:action="@{/productsByCategory}" method="GET">
-		                                	<div class="col-sm-12">
-		                                		<div class="d-md-flex">
-				                                	<div class="col-sm-2">
-					                					<select class="form-select shadow-none col-md-2 ml-auto" th:name="categorySelected">
-					                						<option th:value="All">All</option>
-										                    <th:block th:each="category : ${listCategories}">
-										                    	<option th:value="${category.name}" th:selected="${category.name} == ${selectedCategory.name}">[[${category.name}]]</option>
-										                    </th:block>
-										                </select>
-										            </div>
-										            <div class="form-group">
-				                                        <div class="col-sm-2 d-flex">
-				                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Search</button>
-				                                        </div>
-				                                    </div>
-				                                    
-			                                    </div>
-	                                		</div>
-	                                	</form>
-		                                	
-                                	</div>
+          
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>

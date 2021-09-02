@@ -1,6 +1,7 @@
 package com.bookstore.admin.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -162,33 +163,28 @@ public class AppController {
 	}
 	
 	@GetMapping(value = "/search_product")
-	public String searchProductView(Model model, @Param("name") String name) {
-		List<Product> listProducts = productService.fullTextSearchProduct(name);
-		model.addAttribute("listProducts", listProducts);
-		return "search_product";
-	}
-	
-	@GetMapping(value = "/productsByCategory")
-	public String getProductsByCategory(Model model, @RequestParam(name = "categorySelected") String categorySelected) {
-//		System.out.println("getProductsByCategory :: " + categorySelected);
+	public String searchProductView(Model model, @Param("name") String name, @RequestParam(name = "selectedCategory") String categorySelected) {
 		
-		if(categorySelected.equals("All")) {
-			return "redirect:/product/1";
-		} 
-		
+		List<Product> listProducts = new ArrayList<Product>();
+		List<Category> listCategories = categoryService.getAllCategory();
 		Category category = categoryService.getCategoryByName(categorySelected);
 		
-		List<Product> listProducts = productService.getListProductByCategory(category);
-		List<Category> listCategories = categoryService.getAllCategory();
-
-		model.addAttribute("listCategories", listCategories);
+		if(categorySelected.equals("All") && name.equals("")) {
+			return "redirect:/product/1";
+		} else if (name.equals("") && !categorySelected.equals("All")) {
+			listProducts = productService.getListProductByCategory(category);
+		} else if (!name.equals("") && categorySelected.equals("All")) {
+			listProducts = productService.fullTextSearchProduct(name);
+		} else {
+			listProducts = productService.searchProductByNameAndCategory(name, category.getId());
+		}
+		
 		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("selectedCategory", category);
 		
 		return "search_product";
 	}
-	
-	
 	
 	@RequestMapping("/delete_product/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Integer id) {

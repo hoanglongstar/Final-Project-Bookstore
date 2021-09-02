@@ -25,6 +25,22 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+	<style>
+		.change-avatar{
+			position: relative
+		}
+		.avatar{
+			display: block
+		}
+		.camera{
+			bottom: 5%;
+			right: 15%;
+		}
+		.camera:hover{
+			cursor: pointer;
+			opacity: 50%;
+		}
+	</style>
 </head>
 <body>
 	<div th:fragment="top-area">
@@ -170,7 +186,7 @@
 						<h4 class="card-title">Customer List</h4>
 						<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-3 d-flex flex-row-reverse">
 						<ul class="navbar-nav me-auto mt-md-0 ">
 				            <!-- ============================================================== -->
 				            <!-- Search -->
@@ -211,32 +227,6 @@
 				        </ul>
 					</div>
 		 		</div>
-			</div>
-		</div>
-	</div>
-	<div th:fragment="top-table-product">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="d-md-flex">
-					<div class="col-sm-9 ms-auto">
-						<h4 class="card-title">Product List</h4>
-						<!--<h7 style="color: red;">Add class <code>.table</code></h7>-->
-					</div>
-					<div class="col-sm-3 ms-auto">
-						<ul class="navbar-nav me-auto mt-md-0 ">
-				            <!-- ============================================================== -->
-				            <!-- Search -->
-				            <!-- ============================================================== -->
-				
-				            <li class="nav-item hidden-sm-down">
-				                <form class="app-search" th:action="@{/search_product}" method="GET" id="searchProductForm">
-				                    <input type="text" name="name" class="form-control" placeholder="Search for..."> 
-				                    <a class="srh-btn" onclick="document.getElementById('searchProductForm').submit()"><i class="ti-search"></i></a>
-				                </form>
-				            </li>
-				        </ul>
-					</div>
-	            </div>
 			</div>
 		</div>
 	</div>

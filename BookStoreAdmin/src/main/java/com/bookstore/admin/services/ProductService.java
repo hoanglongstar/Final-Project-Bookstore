@@ -18,7 +18,7 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	public static int PAGE_SIZE = 1;
+	public static int PAGE_SIZE = 15;
 	
 	public List<Product> getAllProducts(){
 		return productRepository.findAll();
@@ -54,5 +54,9 @@ public class ProductService {
 		}
 		
 		return productRepository.findAll(pageable);
+	}
+	
+	public List<Product> searchProductByNameAndCategory(String name, Integer id){
+		return productRepository.searchProductByNameAndCategory(name, id);
 	}
 }

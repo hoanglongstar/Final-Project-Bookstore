@@ -82,8 +82,13 @@
 	                    <div class="col-lg-4 col-xlg-3 col-md-5">
 	                        <div class="card">
 	                            <div class="card-body profile-card">
-	                                <center class="mt-4"> <img th:src="@{${user.photoPath}}" alt="Avatar" id="thumbnail" 
-	                                        class="rounded-circle" width="150" />
+	                                <center class="mt-4"> 
+	                                	<div class="change-avatar">
+	                                		<img th:src="@{${user.photoPath}}" alt="Avatar" id="thumbnail" class="rounded-circle avatar" width="150" />
+	                                		<label for="imgProfile">
+	                                			<img src="/images/change_avatar.png" class="rounded-circle camera" width="30" style="position: absolute;">
+	                                		</label>
+	                                	</div>
 	                                    <h4 class="card-title mt-2">Hanna Gover</h4>
 	                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
 	                                    <div class="row justify-content-center">
@@ -99,7 +104,7 @@
 	                                            </a></div>
 	                                    </div>
 	                                    <div>
-	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" >
+	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" style="display: none;">
 	                                    	<input type="hidden" th:field="*{avatar}">
 	                                    </div>
 	                                </center>
