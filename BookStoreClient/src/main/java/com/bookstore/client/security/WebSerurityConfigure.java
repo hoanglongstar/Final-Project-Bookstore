@@ -75,7 +75,7 @@ public class WebSerurityConfigure extends WebSecurityConfigurerAdapter{
 		.passwordParameter("password")
 		.loginProcessingUrl("/dologin")
 		.defaultSuccessUrl("/").permitAll()
-//		.and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(39000)
+		.and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(39000)
 		.and().oauth2Login().loginPage("/account").permitAll()
 		.userInfoEndpoint().userService(customerOAuth2Service)
 		.and().successHandler(successHandler)
