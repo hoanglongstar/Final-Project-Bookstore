@@ -348,14 +348,7 @@
               <div class="col-md-12">
                 <div class="aa-myaccount-login">
                 <h4>Profile</h4>
-                 <form th:action="@{/my_account}" method="post" enctype="multipart/form-data" th:object="${customer}" class="aa-login-form">
-                  <!-- <label for="">Username or Email address<span>*</span></label>
-                   <input type="text" placeholder="Username or email">
-                   <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
-                    <button type="submit" class="aa-browse-btn">Login</button>
-                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p> -->
+                 <form th:action="@{/profile}" method="post" enctype="multipart/form-data" th:object="${customer}" class="aa-login-form">
                     	<div class="col-md-8">
 							<img th:src="@{${customer.photoPath}}" alt="Avatar" id="photoprofile" class="rounded-circle" width="150" /> 
 							<input type="file" th:name="fileImage" id="imgProfile" accept="image/*"> 
@@ -365,7 +358,7 @@
 						<br>
 
 						<div class="col-md-6">
-							<input class="form-control" type="text" disabled="disabled" placeholder="id" th:field="*{id}">
+							<input class="form-control" type="text" readonly="readonly" placeholder="id" th:field="*{id}">
 						</div>
 						<div class="col-md-6">
 							<input class="form-control" type="text" placeholder="First Name" th:field="*{firstName}">
@@ -380,7 +373,7 @@
 							<input class="form-control" type="text" placeholder="Email" th:field="*{email}">
 						</div>
 						<div class="col-md-6">
-							<input class="form-control" type="text" placeholder="Address">
+							<input class="form-control" type="text" placeholder="Address" th:field="*{password}">
 						</div>
 						<div class="col-md-3">		
 							<button type="submit" class="aa-browse-btn ">update</button>

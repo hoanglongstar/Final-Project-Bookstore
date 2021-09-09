@@ -20,5 +20,6 @@ public class ShopCartSessionUtil {
 	
 	public static void removeCartInSession(HttpServletRequest request) {
 		request.getSession().removeAttribute(SHOPCART);
+		
 	}
 }

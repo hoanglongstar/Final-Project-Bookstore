@@ -99,7 +99,7 @@ public class AppController {
 		return "account";
 	}
 	
-	@GetMapping("/account")
+	@GetMapping("/register")
 	public String showRegisterView(Model model) {
 		
 		CustomerForm customerForm = new CustomerForm();
@@ -109,7 +109,7 @@ public class AppController {
 		System.out.println("check: " + customerForm.toString());
 		model.addAttribute("customerForm", customerForm);
 		
-		return "account";
+		return "register";
 	}
 
 	
@@ -141,13 +141,13 @@ public class AppController {
 		}
 		
 		if(error) {
-			return "redirect:/account";
+			return "redirect:/register";
 		}
 		
 		System.out.println("checkCustomerInfo: " + customerForm.toString());
 		
 		if (bindingResult.hasErrors()) {
-			return "account";
+			return "register";
 		}
 		//register new account;
 		

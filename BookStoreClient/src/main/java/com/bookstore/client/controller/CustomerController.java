@@ -49,10 +49,10 @@ public class CustomerController {
 //		return "my-account";
 //	}
 	
-	@RequestMapping(value = "/my_account", method = RequestMethod.POST)
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String checkNewCustomer(@Valid Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile multipartFile, Model model) {
 		if(bindingResult.hasErrors()) {
-			return "create_customer";
+			return "profile";
 		}
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
@@ -71,6 +71,6 @@ public class CustomerController {
 		customer.setEnabled(true);
 		customerService.saveCustomer(customer);
 		
-		return "redirect:/my_account";
+		return "redirect:/profile";
 	}
 }

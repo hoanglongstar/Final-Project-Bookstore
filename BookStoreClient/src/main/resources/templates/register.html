@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"	xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
                 xmlns:sec="http://www.thyemleaf.org/thymeleaf-extras-springsecurity5">
   <head>
     <meta charset="utf-8">
@@ -8,25 +8,24 @@
     <title>Daily Shop | Account Page</title>
     
     <!-- Font awesome -->
-    <link th:href="@{css/font-awesome.css}" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
     <!-- Bootstrap -->
-    <link th:href="@{css/bootstrap.css}" rel="stylesheet">   
+    <link href="css/bootstrap.css" rel="stylesheet">   
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
-    <link th:href="@{css/jquery.smartmenus.bootstrap.css}" rel="stylesheet">
+    <link href="css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
     <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/jquery.simpleLens.css}">    
+    <link rel="stylesheet" type="text/css" href="css/jquery.simpleLens.css">    
     <!-- slick slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/slick.css}">
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
     <!-- price picker slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/nouislider.css}">
+    <link rel="stylesheet" type="text/css" href="css/nouislider.css">
     <!-- Theme color -->
-    <link id="switcher" th:href="@{css/theme-color/default-theme.css}" rel="stylesheet">
-    <!-- <link id="switcher" th:href="@{css/theme-color/bridge-theme.css}" rel="stylesheet"> -->
+    <link id="switcher" href="css/theme-color/default-theme.css" rel="stylesheet">
     <!-- Top Slider CSS -->
-    <link th:href="@{css/sequence-theme.modern-slide-in.css}" rel="stylesheet" media="all">
+    <link href="css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
 
     <!-- Main style sheet -->
-    <link th:href="@{css/style.css}" rel="stylesheet">   
+    <link href="css/style.css" rel="stylesheet">    
 
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -345,22 +344,60 @@
        <div class="col-md-12">
         <div class="aa-myaccount-area">         
             <div class="row">
-              <div class="col-md-6">
-                 <div class="aa-myaccount-login">
-                  <h4>Login</h4>
-                  <form th:action="@{/dologin}" method="post" class="aa-login-form">
-                    <label for="">Username or Email address<span>*</span></label>
-                    <input type="text" name="email" name="password" placeholder="Username or email">
-                    <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
-                    <button type="submit" class="aa-browse-btn">Login</button>
-                    <label class="rememberme" for="rememberme"><input name="remember-me" type="checkbox" id="rememberme"> Remember me
-                    </label>
-                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-                    <div class="aa-register-now">
-                      Don't have an account?<a th:href="@{/register}"> Register now!</a>
-                    </div>
-                  </form>
+              <div class="col-md-12">
+                <div class="aa-myaccount-register">                 
+                 <h4>Register</h4>
+                 <form th:object="${customerForm}" th:action="@{/register}" method="post" class="aa-login-form">
+			      		<div class="form-group mb-3" data-validate="Username is reauired">
+			      			<label  for="email">Email<span>*</span></label>
+			      			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</span>
+							<span th:if="${error_duplicate_email}">[[${error_duplicate_email}]]</span>
+			      			<input type="email" th:field="*{email}" name="email" class="form-control" placeholder="E-mail" required="required">
+			      		</div>
+		            <div class="form-group mb-3" data-validate="Password is required">
+		            	<label for="password">Password<span>*</span></label>
+		              	<input type="password" th:field="*{password}" name="password" class="form-control" id="password1" placeholder="Password" required>
+		              	<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</span>
+		            </div>
+                    <div class="form-group mb-3" data-validate="Password is required">
+						<label >Retype Password<span>*</span></label>
+						<input class="form-control" type="password" name="retypepass" placeholder="Type your password again" id="password2" required="required">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+                    <div class="form-group mb-3" data-validate = "Username is reauired">
+						<label >First Name<span>*</span></label>
+						<input th:field="*{firstName}" class="form-control" type="text" name="firstName" placeholder="Type your first name">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName error</span>
+						
+					</div>
+					
+					<div class="form-group mb-3" data-validate = "Username is reauired">
+						<label >Last Name<span>*</span></label>
+						<input th:field="*{lastName}" class="form-control" type="text" name="lastName" placeholder="Type your last name">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName error</span>
+						
+					</div>
+					
+					<div class="form-group mb-3" data-validate = "Username is reauired">
+						<label >Phone Number<span>*</span></label>
+						<input th:field="*{phoneNumber}" class="form-control" type="text" name="phoneNumber" placeholder="Type your phone number">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">password error</span><br>
+						<span th:if="${error_duplicate_phone}">[[${error_duplicate_phone}]]</span>
+					</div>
+					
+					<div class="form-group mb-3" data-validate = "Username is reauired">
+						<label >Address<span>*</span></label>
+						<input th:field="*{address}" class="form-control" type="text" name="address" placeholder="Type your adrress">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+		            <div class="aa-register-now">
+		            	<button type="submit" class="aa-register-now btn btn-primary submit px-3">Sign In</button>
+		            </div>
+
+		          </form>             
                 </div>
               </div>
             </div>          
@@ -480,7 +517,7 @@
             <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
             <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
             <div class="aa-register-now">
-              Don't have an account?<a href="account.html">Register now!</a>
+              Don't have an account?<a href="register.html">Register now!</a>
             </div>
           </form>
         </div>                        
@@ -491,25 +528,25 @@
 
     
   <!-- jQuery library -->
-  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script th:src="@{js/bootstrap.js}"></script>  
+  <script src="js/bootstrap.js"></script>  
   <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" th:src="@{js/jquery.smartmenus.js}"></script>
+  <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
   <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" th:src="@{js/jquery.smartmenus.bootstrap.js}"></script>  
+  <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>  
   <!-- To Slider JS -->
-  <script th:src="@{js/sequence.js}"></script>
-  <script th:src="@{js/sequence-theme.modern-slide-in.js}"></script>  
+  <script src="js/sequence.js"></script>
+  <script src="js/sequence-theme.modern-slide-in.js"></script>  
   <!-- Product view slider -->
-  <script type="text/javascript" th:src="@{js/jquery.simpleGallery.js}"></script>
-  <script type="text/javascript" th:src="@{js/jquery.simpleLens.js}"></script>
+  <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
+  <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
   <!-- slick slider -->
-  <script type="text/javascript" th:src="@{js/slick.js}"></script>
+  <script type="text/javascript" src="js/slick.js"></script>
   <!-- Price picker slider -->
-  <script type="text/javascript" th:src="@{js/nouislider.js}"></script>
+  <script type="text/javascript" src="js/nouislider.js"></script>
   <!-- Custom js -->
-  <script th:src="@{js/custom.js}"></script>
+  <script src="js/custom.js"></script> 
   
 
   </body>

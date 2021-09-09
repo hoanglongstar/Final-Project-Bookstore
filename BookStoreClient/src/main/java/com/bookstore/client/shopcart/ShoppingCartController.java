@@ -60,4 +60,11 @@ public class ShoppingCartController {
 	public String checkoutShoppingCart() {
 		return "checkout";
 	}
+	
+	@GetMapping("/deletecart")
+	public String removeCart(HttpServletRequest request) {
+		ShopCartSessionUtil.removeCartInSession(request);
+		
+		return "redirect:/shopping_cart";
+	}
 }
