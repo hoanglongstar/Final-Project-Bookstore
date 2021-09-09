@@ -249,9 +249,9 @@ public class Customer implements Serializable{
 		if(photoUrl == null || photoUrl.equals("")) {
 			return "../images/avatar.jpg";
 		}
-		if(id != null & photoUrl != null) {
+		if(id != null & (photoUrl != null || photoUrl.equals(""))) {
 			
-			return "/customer-photos/" + id + "/" + photoUrl;
+			return "http://localhost:8081/files/" + photoUrl;
 			
 		}
 		return null;

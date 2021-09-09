@@ -7,17 +7,22 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,6 +30,8 @@ import com.bookstore.admin.handler.AppConstant;
 import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.CategoryService;
 import com.bookstore.admin.services.ProductService;
+import com.bookstore.admin.storage.StorageFileNotFoundException;
+import com.bookstore.admin.storage.StorageService;
 import com.bookstore.model.entities.Category;
 import com.bookstore.model.entities.Product;
 
@@ -36,6 +43,25 @@ public class AppController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	private final StorageService storageService;
+	
+	@Autowired
+	public AppController(StorageService storageService) {
+		this.storageService = storageService;
+	}
+	
+	@GetMapping("/files/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFile(@PathVariable String filename){
+		Resource file = storageService.loadAsResource(filename);
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+	}
+	
+	@ExceptionHandler(StorageFileNotFoundException.class)
+	public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc){
+		return ResponseEntity.notFound().build();
+	}
 	
 	@GetMapping("/login")
 	public String showLoginView() {
@@ -116,7 +142,9 @@ public class AppController {
 		}
 		product.setEnabled(true);
 		productService.saveProduct(product);
-		
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId());
+		}
 		return "redirect:/product/1";
 	}
 	
@@ -157,7 +185,9 @@ public class AppController {
 		}
 		product.setEnabled(true);
 		productService.saveProduct(product);
-		
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId());
+		}
 		return "redirect:/product/1";
 	}
 	

@@ -98,7 +98,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="user : ${listUsers}">
+                                            <tr th:each="user : ${listUsers}" >
                                                 <td class="align-middle align-self-center text-center" th:text="${user.id}"></td>
                                                 <td class="align-middle align-self-center text-center"><img th:src="@{${user.photoPath}}" alt="user" class="rounded-circle" width="30"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${user.fullName}"></td>
@@ -123,6 +123,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    
                                 </div>
                             </div>
                         </div>

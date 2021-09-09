@@ -195,8 +195,8 @@ public class Product  implements Serializable{
 		if(photo == null || photo.equals("")) {
 			return "../images/book.jpeg";
 		}
-		if(id != null & photo != null) {
-			return "/product-photos/" + id + "/" + photo;
+		if(id != null & (photo != null || photo.equals(""))) {
+			return "http://localhost:8081/files/" + photo;
 		}
 		return null;
 	}

@@ -11,6 +11,7 @@ import com.bookstore.admin.storage.StorageProperties;
 import com.bookstore.admin.storage.StorageService;
 
 @SpringBootApplication
+//@EnableConfigurationProperties
 @EnableConfigurationProperties(StorageProperties.class)
 @EntityScan({"com.bookstore.model"})
 public class BookStoreAdminApplication {
@@ -22,7 +23,7 @@ public class BookStoreAdminApplication {
 	@Bean
 	CommandLineRunner init(StorageService storageService) {
 		return (args) -> {
-			storageService.deleteAll();
+//			storageService.deleteAll();
 			storageService.init();
 		};
 	}

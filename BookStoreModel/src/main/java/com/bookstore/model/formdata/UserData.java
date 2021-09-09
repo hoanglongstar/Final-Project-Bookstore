@@ -14,9 +14,6 @@ import com.bookstore.model.entities.User;
 
 public class UserData {
 	
-	@Value("${external.resources.path}")
-	private String path;
-	
 	private Integer id;
 	
 //	private String photoPath;
@@ -93,7 +90,8 @@ public class UserData {
 			return "../images/avatar.jpg";
 		}
 		if(id != null & avatar != null) {
-			return "../profile-photos/" + id + "/" + avatar;
+//			return "../profile-photos/" + id + "/" + avatar;
+			return "http://localhost:8081/files/" + avatar;
 		}
 		return null;
 	}

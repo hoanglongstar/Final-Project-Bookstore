@@ -186,8 +186,9 @@ public class User {
 		if(avatar == null || avatar.equals("")) {
 			return "../images/avatar.jpg";
 		}
-		if(id != null & avatar != null) {
-			return "../profile-photos/" + id + "/" + avatar;
+		if(id != null & (avatar != null || avatar.equals(""))) {
+			
+			return "http://localhost:8081/files/" + avatar;
 		}
 		return null;
 	}

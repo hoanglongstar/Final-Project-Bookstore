@@ -6,11 +6,14 @@ import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bookstore.admin.handler.AppConstant;
+import com.bookstore.model.enumerate.EntityType;
+
 public interface StorageService {
 
 	void init();
 	
-	void store(MultipartFile file);
+	void store(MultipartFile file, String photoPath);
 	
 	Stream<Path> loadAll();
 	

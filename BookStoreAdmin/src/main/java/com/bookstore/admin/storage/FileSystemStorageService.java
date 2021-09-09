@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -16,10 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bookstore.admin.handler.AppConstant;
+import com.bookstore.model.enumerate.EntityType;
+
 @Service
 public class FileSystemStorageService implements StorageService {
 
-	private final Path rootLocation;
+	private Path rootLocation;
 	
 	@Autowired
 	public FileSystemStorageService(StorageProperties properties) {
@@ -36,11 +40,12 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	@Override
-	public void store(MultipartFile file) {
+	public void store(MultipartFile file, String photoPath) {
 		try {
 			if(file.isEmpty()) {
 				throw new StorageException("Fail to store empty file.");
 			}
+			this.rootLocation = Paths.get(photoPath);
 			Path destinationFile = this.rootLocation.resolve(
 					Paths.get(file.getOriginalFilename()))
 					.normalize().toAbsolutePath();
@@ -48,6 +53,9 @@ public class FileSystemStorageService implements StorageService {
 				throw new StorageException("Cannot store file outside current directory.");
 			}
 			try (InputStream inputStream = file.getInputStream()) {
+				if(Files.notExists(destinationFile, LinkOption.NOFOLLOW_LINKS)) {
+					Files.createDirectories(destinationFile);
+				}
 				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 			}
 		} catch (Exception e) {

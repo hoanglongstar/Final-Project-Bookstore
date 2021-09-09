@@ -40,6 +40,7 @@ import com.bookstore.admin.storage.StorageFileNotFoundException;
 import com.bookstore.admin.storage.StorageService;
 import com.bookstore.model.entities.Role;
 import com.bookstore.model.entities.User;
+import com.bookstore.model.enumerate.EntityType;
 import com.bookstore.model.formdata.UserData;
 import com.bookstore.model.formdata.UserDataForConfirmPassword;
 
@@ -73,18 +74,6 @@ public class UserController {
 		return "users";
 	}
 	
-	@GetMapping("/files/{filename:.+}")
-	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String filename){
-		Resource file = storageService.loadAsResource(filename);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-	}
-	
-	@ExceptionHandler(StorageFileNotFoundException.class)
-	public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc){
-		return ResponseEntity.notFound().build();
-	}
-	
 	@GetMapping("/create_user")
 	public String showCreateNewUserView(Model model) {
 		User user = new User();
@@ -115,10 +104,13 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		storageService.store(multipartFile);
+		
 		user.setEnabled(true);
 		
 		userService.saveUser(user);
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId());
+		}
 		return "redirect:/user";
 	}
 	
@@ -164,7 +156,10 @@ public class UserController {
 		}
 
 		user.setEnabled(true);
-
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId());
+		}
+		
 		userService.saveUser(user);
 		return "redirect:/user";
 	}

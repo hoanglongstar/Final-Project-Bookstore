@@ -26,6 +26,7 @@ import com.bookstore.admin.handler.AppConstant;
 import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.AddressService;
 import com.bookstore.admin.services.CustomerService;
+import com.bookstore.admin.storage.StorageService;
 import com.bookstore.model.entities.Address;
 import com.bookstore.model.entities.Customer;
 
@@ -37,6 +38,13 @@ public class CustomerController {
 	
 	@Autowired
 	private AddressService addressService;
+	
+	private final StorageService storageService;
+	
+	@Autowired
+	public CustomerController(StorageService storageService) {
+		this.storageService = storageService;
+	}
 	
 	@GetMapping("/customer")
 	public String showCustomerListView(Model model) {
@@ -119,6 +127,10 @@ public class CustomerController {
 			addressService.saveAddress(address);
 		}
 		
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId());
+		}
+		
 		return "redirect:/customer/1";
 	}
 	
@@ -158,7 +170,9 @@ public class CustomerController {
 		
 //		customer.setEnabled(true);
 		customerService.save(customer);
-		
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId());
+		}
 		return "redirect:/customer/1";
 		
 	}

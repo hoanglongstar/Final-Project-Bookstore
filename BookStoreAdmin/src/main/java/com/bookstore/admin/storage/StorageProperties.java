@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("storage")
 public class StorageProperties {
 
-	private String location = "../Resource";
+	private String location = "../image-folder";
 	
 	public String getLocation() {
 		return location;

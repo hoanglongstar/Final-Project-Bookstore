@@ -117,7 +117,7 @@ public class Category {
 			return "../images/category.png";
 		}
 		if(id != null & photo != null) {
-			return "/category-photos/" + id + "/" + photo;
+			return "http://localhost:8081/files/" + photo;
 		}
 		return null;
 	}

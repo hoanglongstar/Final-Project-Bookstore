@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bookstore.admin.handler.AppConstant;
 import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.CategoryService;
+import com.bookstore.admin.storage.StorageService;
 import com.bookstore.model.entities.Category;
 
 @Controller
@@ -29,6 +30,13 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	private final StorageService storageService;
+	
+	@Autowired
+	public CategoryController(StorageService storageService) {
+		this.storageService = storageService;
+	}
 	
 	@GetMapping("/category")
 	public String showCategoryListView(Model model) {
@@ -77,6 +85,9 @@ public class CategoryController {
 		}
 		category.setEnabled(true);
 		categoryService.saveCategory(category);
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.CATEGORY_PHOTO_DIR + "/" + category.getId());
+		}
 		return "redirect:/category";
 	}
 	
@@ -110,6 +121,9 @@ public class CategoryController {
 		}
 		category.setEnabled(true);
 		categoryService.saveCategory(category);
+		if(!multipartFile.isEmpty()) {
+			storageService.store(multipartFile, AppConstant.CATEGORY_PHOTO_DIR + "/" + category.getId());
+		}
 		return "redirect:/category";
 	}
 	
