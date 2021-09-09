@@ -1,6 +1,7 @@
 package com.bookstore.admin.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,22 @@ public class CustomerService {
 	}
 	
 	public void deleteCustomerById(Integer id) {
-		customerRepository.deleteById(id);
+		Optional<Customer> optionalCustomer = customerRepository.findById(id);
+		optionalCustomer.ifPresent(pro -> customerRepository.deleteById(id));
 	}
 	
+//	public Boolean checkCustomerExist(Integer id) {
+//		Boolean isExist = false;
+//		Optional<Customer> optionalCustomer = customerRepository.findById(id);
+//		optionalCustomer.ifPresent(pro -> isExist = true);
+//	}
+	
 	public Customer getCustomerById(Integer id) {
-		return customerRepository.getById(id);
+		Optional<Customer> optionalCustomer = customerRepository.findById(id);
+		if( optionalCustomer.isPresent()) {
+			return customerRepository.getById(id);
+		}
+		return null;
 	}
 	
 	public List<Customer> getListSearchCustomerByEmail(String email){
@@ -60,6 +72,10 @@ public class CustomerService {
 		return customerRepository.getCustomerByPhoneNumber(phoneNumber);
 	}
 	
+	public Customer getCustomerbyEmail(String email) {
+		return customerRepository.getCustomerByEmail(email);
+	}
+	
 	public Page<Customer> getCustomerWithPage(int pageNum){
 		Pageable pageable;
 		
@@ -70,5 +86,32 @@ public class CustomerService {
 		}
 		
 		return customerRepository.findAll(pageable);
+	}
+	
+	public Boolean checkNewCustomerEmailExist(String email) {
+		Customer customer = getCustomerbyEmail(email);
+		
+		if(customer != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean checkNewCustomerPhoneNumberExist(String phoneNumber) {
+		Customer customer = getCustomerByPhoneNumber(phoneNumber);
+		
+		if(customer != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean checkCustomerPhoneExist(String phoneNumber, Integer id) {
+		Customer customer = getCustomerByPhoneNumber(phoneNumber);
+		
+		if(customer != null && customer.getId() != id) {
+			return true;
+		}
+		return false;
 	}
 }

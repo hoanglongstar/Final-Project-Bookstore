@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -60,12 +61,16 @@ public class Product  implements Serializable{
 	private String photo;
 	
 	@Column(name = "quantity")
+	@NotNull(message = "Please enter product quantity")
 	private Integer quantity;
 	
 	@Column(name = "price")
+	@Min(value = 0,message = "Must greater than 0")
 	private Float price;
 	
 	@Column(name = "sale_price")
+	@Min(value = 0,message = "Must greater than 0")
+	@Min(value = 0)
 	private Float salePrice;
 	
 	@Column(name = "enabled")

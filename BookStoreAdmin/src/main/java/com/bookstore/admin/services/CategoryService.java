@@ -36,7 +36,35 @@ public class CategoryService {
 		return category;
 	}
 	
+	public Category getCategoryByCode(String code) {
+		return categoryRepository.getCategoryByCode(code);
+	}
+	
 	public List<Category> fullTextSearchCategoryByName(String name){
 		return categoryRepository.fullTextSearchCategoryByName(name);
+	}
+	
+	public Boolean checkNewCategoryName(String name) {
+		Category category = getCategoryByName(name);
+		if(category != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean checkNewCategoryCode(String code) {
+		Category category = getCategoryByCode(code);
+		if(category != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean checkCategoryName(String name, Integer id) {
+		Category category = getCategoryByName(name);
+		if(category != null && category.getId() != id) {
+			return true;
+		}
+		return false;
 	}
 }

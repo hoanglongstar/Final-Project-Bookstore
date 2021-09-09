@@ -6,8 +6,6 @@ import javax.validation.constraints.Size;
 
 import com.bookstore.model.entities.Customer;
 
-import javax.validation.constraints.Email;
-
 
 
 public class CustomerForm {

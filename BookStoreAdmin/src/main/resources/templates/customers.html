@@ -96,10 +96,10 @@
                                                 <th class="border-top-0 align-middle align-self-center">Last Name</th>
                                                 <th class="border-top-0 align-middle align-self-center text-center">Date Of Birth</th>
                                                 <th class="border-top-0 align-middle align-self-center text-center">Phone Number</th>
-                                                <th class="border-top-0 align-middle align-self-center text-center">Rank</th>
+                                                <!--<th class="border-top-0 align-middle align-self-center text-center">Rank</th>-->
                                                 <th class="border-top-0 align-middle align-self-center text-center">Create Date</th>
                                                 <th class="border-top-0 align-middle align-self-center text-center">Edit</th>
-                                                <th class="border-top-0 align-middle align-self-center text-center">Delete</th>
+                                                <!--<th class="border-top-0 align-middle align-self-center text-center">Delete</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -111,7 +111,7 @@
                                                 <td class="align-middle align-self-center" th:text="${customer.lastName}"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${customer.dateOfBirth}"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${customer.phoneNumber}"></td>
-                                                <td class="align-middle align-self-center text-center" th:text="${customer.rank}"></td>
+                                                <!--<td class="align-middle align-self-center text-center" th:text="${customer.rank}"></td>-->
                                                 <td class="align-middle align-self-center text-center" th:text="${customer.createDate}"></td>
                                                 
                                                 <td class="align-middle align-self-center text-center">
@@ -122,14 +122,14 @@
 								                        </div>
 								                    </div>
                                                 </td>
-                                                <td class="align-middle align-self-center text-center">
+                                                <!--<td class="align-middle align-self-center text-center">
                                                 	<div class="align-self-center">
 								                        <div class="upgrade-btn">
 								                            <a th:href="@{/delete_customer/{id}(id=${customer.id})}"
 								                                class="btn btn-success d-none d-md-inline-block text-white">Delete</a>
 								                        </div>
 								                    </div>
-                                                </td>
+                                                </td>-->
                                             </tr>
                                         </tbody>
                                     </table>

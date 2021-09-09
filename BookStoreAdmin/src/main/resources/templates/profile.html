@@ -82,24 +82,16 @@
 	                    <div class="col-lg-4 col-xlg-3 col-md-5">
 	                        <div class="card">
 	                            <div class="card-body profile-card">
-	                                <center class="mt-4"> <img th:src="@{${user.photoPath}}" alt="Avatar" id="pro_thumbnail" 
-	                                        class="rounded-circle" width="150" />
-	                                    <h4 class="card-title mt-2">Hanna Gover</h4>
-	                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
-	                                    <div class="row justify-content-center">
-	                                        <div class="col-4">
-	                                            <a href="javascript:void(0)" class="link">
-	                                                <i class="icon-people" aria-hidden="true"></i>
-	                                                <span class="font-normal">254</span>
-	                                            </a></div>
-	                                        <div class="col-4">
-	                                            <a href="javascript:void(0)" class="link">
-	                                                <i class="icon-picture" aria-hidden="true"></i>
-	                                                <span class="font-normal">54</span>
-	                                            </a></div>
-	                                    </div>
+	                                <center class="mt-4"> 
+	                                <div class="change-photo">
+	                                		<img th:src="@{${user.photoPath}}" alt="Avatar" id="thumbnail" class="rounded-circle" width="150" />
+	                                		<label for="imgProfile">
+	                                			<img src="/images/select_photo.png" class="rounded-circle camera" width="30" style="position: absolute;">
+	                                		</label>
+	                                	</div>	
+	                                
 	                                    <div>
-	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" >
+	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" style="display: none;">
 	                                    	<input type="hidden" th:field="*{avatar}">
 	                                    </div>
 	                                </center>
@@ -181,7 +173,7 @@
 	                                    </div>
 	
 	                                    <div class="form-group">
-	                                        <div class="col-sm-12 d-flex">
+	                                        <div class="col-sm-12 d-flex flex-row-reverse">
 	                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Update</button>
 	                                        </div>
 	                                    </div>
@@ -244,7 +236,7 @@
 				var reader = new FileReader();
 				
 				reader.onload = function(e) {
-					$("#pro_thumbnail").attr('src', e.target.result)
+					$("#thumbnail").attr('src', e.target.result)
 				}
 				reader.readAsDataURL(input.files[0])
 			}

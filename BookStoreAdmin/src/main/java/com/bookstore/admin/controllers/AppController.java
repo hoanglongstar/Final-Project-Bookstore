@@ -25,18 +25,11 @@ import com.bookstore.admin.handler.AppConstant;
 import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.CategoryService;
 import com.bookstore.admin.services.ProductService;
-import com.bookstore.admin.services.UserService;
 import com.bookstore.model.entities.Category;
 import com.bookstore.model.entities.Product;
 
 @Controller
 public class AppController {
-	
-	@Autowired
-	private UserService userService;
-	
-//	@Autowired
-//	private RoleService roleService;
 	
 	@Autowired
 	private ProductService productService;
@@ -67,7 +60,7 @@ public class AppController {
 		List<Category> listCategories = categoryService.getAllCategory();
 		model.addAttribute("listProducts",listProducts);
 		model.addAttribute("listCategories", listCategories);
-		return "products";
+		return "redirect:/product/1";
 	}
 	
 	@RequestMapping(value = {"/product/{pageNum}"})
@@ -132,6 +125,10 @@ public class AppController {
 		
 		Product product = productService.getProductByCode(code);
 		
+		if(product == null) {
+			return "redirect:/product/1";
+		}
+		
 		model.addAttribute("product", product);
 		model.addAttribute("listCategory", categoryService.getAllCategory());
 		
@@ -140,10 +137,12 @@ public class AppController {
 	
 	@RequestMapping(value = "/edit_product", method = RequestMethod.POST)
 	public String saveProduct(@Valid Product product, BindingResult bindingResult, @RequestParam("fileImage") MultipartFile multipartFile, RedirectAttributes redirectAttributes, Model model) {
+		
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("listCategory",categoryService.getAllCategory());
 			return "/edit_product";
 		}
+		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
 		if(!fileName.equals("")) {
@@ -168,7 +167,7 @@ public class AppController {
 		List<Product> listProducts = new ArrayList<Product>();
 		List<Category> listCategories = categoryService.getAllCategory();
 		Category category = categoryService.getCategoryByName(categorySelected);
-		
+		System.out.println("searchProductView :: " + name);System.out.println("searchProductView :: " + categorySelected);
 		if(categorySelected.equals("All") && name.equals("")) {
 			return "redirect:/product/1";
 		} else if (name.equals("") && !categorySelected.equals("All")) {
@@ -188,10 +187,10 @@ public class AppController {
 	
 	@RequestMapping("/delete_product/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Integer id) {
-		
+
 		productService.deleteProductById(id);
 		
-		return "redirect:/product";
+		return "redirect:/product/1";
 	}
 	
 	@RequestMapping("/login_error")

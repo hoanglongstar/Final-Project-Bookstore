@@ -82,13 +82,13 @@ public class UserDataForConfirmPassword {
 //		return userData;
 	}
 	
-	@Transient
-	public String getPhotoPath() {
-		if(id != null & avatar != null) {
-			return "/profile-photos/" + id + "/" + avatar;
-		}
-		return null;
-	}
+//	@Transient
+//	public String getPhotoPath() {
+//		if(id != null & avatar != null) {
+//			return "/profile-photos/" + id + "/" + avatar;
+//		}
+//		return null;
+//	}
 
 	public Integer getId() {
 		return id;

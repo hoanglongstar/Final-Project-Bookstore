@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +43,7 @@ public class CustomerController {
 		List<Customer> listCustomer = customerService.getAllCustomer();
 		model.addAttribute("listCustomer", listCustomer);
 
-		return "customers";
+		return "redirect:/customer/1";
 	}
 	
 	@RequestMapping(value = "customer/{pageNum}")
@@ -74,7 +73,7 @@ public class CustomerController {
 		
 		customerService.deleteCustomerById(id);
 		
-		return "redirect:/customer";
+		return "redirect:/customer/1";
 	}
 	
 	@GetMapping("/create_customer")
@@ -110,8 +109,8 @@ public class CustomerController {
 		}
 		
 		Set<Address> newAddress = new HashSet<Address>();
-		
-		customer.setEnabled(true);
+
+//		customer.setEnabled(true);
 		customerService.save(customer);
 		
 		if(!address.getStreet().equals("") && !address.getWard().equals("") && !address.getDistrict().equals("") && !address.getCity().equals("")) {
@@ -120,23 +119,25 @@ public class CustomerController {
 			addressService.saveAddress(address);
 		}
 		
-		return "redirect:/customer";
+		return "redirect:/customer/1";
 	}
 	
 	@GetMapping("/edit_customer/{id}")
 	public String showEditCustomerView(@PathVariable(name = "id") Integer id, Model model) {
 		
 		Customer customer = customerService.getCustomerById(id);
-		System.out.println(customer.getPhotoPath());
-		System.out.println(customer.getPhotoUrl());
-		model.addAttribute("customer", customer);
 		
-		return "edit_customer";
+		if(customer != null) {
+			model.addAttribute("customer", customer);
+			return "edit_customer";
+		}
+		return "redirect:/customer/1";
 	}
 	
 	@RequestMapping(value = "/edit_customer", method = RequestMethod.POST)
-	public String checkCustomerInfo(@Valid Customer customer, @RequestParam("fileImage") MultipartFile multipartFile, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
+	public String checkCustomerInfo(@Valid Customer customer, BindingResult bindingResult, @RequestParam("fileImage") MultipartFile multipartFile, RedirectAttributes redirectAttributes) {
+		
+		
 		if(bindingResult.hasErrors()) {
 			return "/edit_customer";
 		}
@@ -155,10 +156,10 @@ public class CustomerController {
 			}
 		}
 		
-		customer.setEnabled(true);
+//		customer.setEnabled(true);
 		customerService.save(customer);
 		
-		return "redirect:/customer";
+		return "redirect:/customer/1";
 		
 	}
 	

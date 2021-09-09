@@ -1,29 +1,34 @@
 package com.bookstore.admin.controllers;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bookstore.admin.handler.AppConstant;
@@ -31,6 +36,8 @@ import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.helper.PasswordManager;
 import com.bookstore.admin.services.RoleService;
 import com.bookstore.admin.services.UserService;
+import com.bookstore.admin.storage.StorageFileNotFoundException;
+import com.bookstore.admin.storage.StorageService;
 import com.bookstore.model.entities.Role;
 import com.bookstore.model.entities.User;
 import com.bookstore.model.formdata.UserData;
@@ -45,6 +52,13 @@ public class UserController {
 	@Autowired
 	private RoleService roleService;
 	
+	private final StorageService storageService;
+	
+	@Autowired
+	public UserController(StorageService storageService) {
+		this.storageService = storageService;
+	}
+	
 	@GetMapping("/user")
 	public String showUsersView(Model model) {
 		List<User> listUsers = userService.getAllUsers();
@@ -54,14 +68,22 @@ public class UserController {
 		for(User user : listUsers) {
 			copyListUser.add(user.copyValueFromUserEntity());
 		}
-
+		
 		model.addAttribute("listUsers", copyListUser);
 		return "users";
 	}
 	
-	//*************************
-	//*    Create New User    *
-	//*************************
+	@GetMapping("/files/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFile(@PathVariable String filename){
+		Resource file = storageService.loadAsResource(filename);
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+	}
+	
+	@ExceptionHandler(StorageFileNotFoundException.class)
+	public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc){
+		return ResponseEntity.notFound().build();
+	}
 	
 	@GetMapping("/create_user")
 	public String showCreateNewUserView(Model model) {
@@ -93,10 +115,9 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-
+		storageService.store(multipartFile);
 		user.setEnabled(true);
 		
-		System.out.println(user.getRoles().size());
 		userService.saveUser(user);
 		return "redirect:/user";
 	}
@@ -106,54 +127,30 @@ public class UserController {
 	//*************************
 	
 	@RequestMapping(value = "/edit_user/{id}", method = RequestMethod.GET)
-	public ModelAndView showEditUserView(@PathVariable(name = "id") Integer id) {
-		
-//		UserData userData = new UserData();
-		
-		ModelAndView modelAndView = new ModelAndView("edit_user");
+	public String showEditUserView(@PathVariable(name = "id") Integer id, Model model) {
 		
 		User user = userService.getUserById(id);
+		if(user != null) {
+			List<Role> listRoles = roleService.getAllRoles();
+			
+			model.addAttribute("user",user);
+			model.addAttribute("listRoles",listRoles);
+			return "edit_user";
+		}
 		
-//		UserData userData = user.copyValueFromUserEntity();
-				
-//		System.out.println("Edit User View: " + user.getAvatar());
-		
-		List<Role> listRoles = roleService.getAllRoles();
-		
-		modelAndView.addObject("user",user);
-		modelAndView.addObject("listRoles",listRoles);
-
-		return modelAndView;
+		return "redirect:/user";
 	}
 	
 	@RequestMapping(value = "/edit_user", method = RequestMethod.POST)
 	public String checkExistUserInfo(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile multipartFile, Model model) {
-
-//		String path = "";
-//		User user = new User();
-//		System.out.println("checkExistUserInfo");
-		
-		System.out.println("checkExistUserInfo :: " + user.getDateOfBirth());
 		
 		if(bindingResult.hasErrors()) {
-			System.out.println("---------------------------------------"+user.getDateOfBirth());
-			System.out.println("---------------------------------------"+bindingResult.hasErrors());
-			System.out.println("---------------------------------------"+bindingResult.toString());
-			System.out.println((Date) (user.getDateOfBirth()));
 			List<Role> listRoles = roleService.getAllRoles();
 			model.addAttribute("listRoles",listRoles);
-			
-//			System.out.println("checkExistUserInfo :: " + user.getPhotoPath());
-//			System.out.println("EDIT USER: " + user.getId());
-//			model.addAttribute("listRoles", roleService.getAllRoles());
-//			path = "/edit_user/" + user.getId();
-			System.out.println("has errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-			
 			return "/edit_user";
 		}
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
 
 		if(!fileName.equals("")) {
 			user.setAvatar(fileName);
@@ -165,13 +162,9 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-//		Date sqlDate = (Date) (user.getDateOfBirth());
-//		user.setDateOfBirth(sqlDate);
-//		user = user.updateUserFormData();
 
 		user.setEnabled(true);
-		
-//		System.out.println(userData.getRoles().size());
+
 		userService.saveUser(user);
 		return "redirect:/user";
 	}
@@ -307,11 +300,13 @@ public class UserController {
 	
 	@GetMapping(value = "/search_user")
 	public String searchUserView(Model model, @Param("username") String username) {
-		User user = userService.getUserByUsername(username);
+		User user = userService.fullTextSearchUsername(username);
+		UserData userData = new UserData();
+		if(user != null) {
+			userData = user.copyValueFromUserEntity();
+			model.addAttribute("listUsers", userData);
+		}
 		
-		UserData userData = user.copyValueFromUserEntity();
-		
-		model.addAttribute("listUsers", userData);
 		return "search_user";
 	}
 	

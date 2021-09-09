@@ -19,6 +19,9 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	@Query("SELECT c FROM Category c WHERE c.name = :name")
 	public Category getCategoryByName(@Param("name") String name); 
 	
+	@Query("SELECT c FROM Category c WHERE c.code = :code")
+	public Category getCategoryByCode(@Param("code") String code); 
+	
 	@Query(value = "SELECT * FROM categories WHERE MATCH(name) against (?1)", nativeQuery = true)
 	public List<Category> fullTextSearchCategoryByName(String name);
 }

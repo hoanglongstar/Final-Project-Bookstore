@@ -82,24 +82,15 @@
 	                    <div class="col-lg-4 col-xlg-3 col-md-5">
 	                        <div class="card">
 	                            <div class="card-body profile-card">
-	                                <center class="mt-4"> <img th:src="@{${product.photoPath}}" alt="Product_Image" id="thumbnail" 
-	                                        class="rounded-circle" width="150" />
-	                                    <h4 class="card-title mt-2">Hanna Gover</h4>
-	                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
-	                                    <div class="row justify-content-center">
-	                                        <div class="col-4">
-	                                            <a href="javascript:void(0)" class="link">
-	                                                <i class="icon-people" aria-hidden="true"></i>
-	                                                <span class="font-normal">254</span>
-	                                            </a></div>
-	                                        <div class="col-4">
-	                                            <a href="javascript:void(0)" class="link">
-	                                                <i class="icon-picture" aria-hidden="true"></i>
-	                                                <span class="font-normal">54</span>
-	                                            </a></div>
-	                                    </div>
+	                                <center class="mt-4"> 
+	                                	<div class="change-photo">
+	                                		<img th:src="@{${product.photoPath}}" alt="Product_Image" id="thumbnail" class="rounded-square photo" width="150" />
+	                                		<label for="imgProduct">
+	                                			<img src="/images/select_photo.png" class="rounded-circle camera" width="30" style="position: absolute;">
+	                                		</label>
+	                                	</div>	
 	                                    <div>
-	                                    	<input type="file" th:name="fileImage" id="imgProduct" accept="image/*" >
+	                                    	<input type="file" th:name="fileImage" id="imgProduct" accept="image/*" style="display: none;">
 	                                    	<input type="hidden" th:field="*{photo}">
 	                                    </div>
 	                                </center>
@@ -114,16 +105,17 @@
 	                                <form th:action="@{/save_product}" th:method="post" th:object="${product}" class="form-horizontal form-material mx-2">
 	                                    <div class="form-group">
 		                                        <div class="col-md-12">
-	                                            <input type="hidden" th:field="*{id}"
+	                                            <input type="hidden" th:field="*{id}" id="productId"
 	                                                class="form-control ps-0 form-control-line">
 	                                        </div>
 	                                    </div>
 	                                    <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Name</label>
+	                                        <span style="font-size: 12px; color: red;" id="available"></span>
 	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{name}"
-	                                                class="form-control ps-0 form-control-line">
+	                                            <input type="text" th:field="*{name}" id="productName" 
+	                                                class="form-control ps-0 form-control-line" onfocusout="checkProductName()">
 	                                        </div>
 	                                    </div>
 	                                    <div class="form-group">
@@ -143,7 +135,7 @@
 		                                    		<th:block th:each="category : ${listCategory}">
 														<input type="radio" th:field="*{category}" 
 															th:text="${category.name}"
-															th:value="${category.id}"
+															th:value="${category.id}" th:disabled="${category.name == 'All'}"
 															class="m-2"/><br>
 													</th:block>
 		                                    	</ul>
@@ -173,22 +165,24 @@
 	                                    </div>
 	                                    <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Price</label>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
 	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{price}"
+	                                            <input type="number" th:field="*{price}" 
 	                                                class="form-control ps-0 form-control-line">
 	                                        </div>
 	                                    </div>
 	                                    <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Sale Price</label>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('salePrice')}" th:errors="*{salePrice}"></span>
 	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{salePrice}"
+	                                            <input type="number" th:field="*{salePrice}" 
 	                                                class="form-control ps-0 form-control-line">
 	                                        </div>
 	                                    </div>
 	                                    
 	                                    <div class="form-group">
-	                                        <div class="col-sm-12 d-flex">
-	                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Update</button>
+	                                        <div class="col-sm-12 d-flex flex-row-reverse">
+	                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white" id="update-product-btn">Update</button>
 	                                        </div>
 	                                    </div>
 	                                

@@ -33,4 +33,26 @@ public class RoleService {
 	public List<Role> fullTextSearchRoleByName(String name){
 		return roleRepository.fullTextSearchRoleByName(name);
 	}
+	
+	public Role getRoleByName(String name) {
+		return roleRepository.getRoleByName(name);
+	}
+	
+	public Boolean checkRoleNameExist(String name, Integer id) {
+		Role role = getRoleByName(name);
+		
+		if(role != null && role.getId() != id) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean checkNewRoleNameExist(String name) {
+		Role role = getRoleByName(name);
+		
+		if(role != null) {
+			return true;
+		}
+		return false;
+	}
 }

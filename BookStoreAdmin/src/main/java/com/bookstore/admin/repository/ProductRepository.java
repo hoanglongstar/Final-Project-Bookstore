@@ -25,4 +25,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	@Query(value = "SELECT * FROM products WHERE MATCH(name) against (?1) AND category_id = (?2)", nativeQuery = true)
 	public List<Product> searchProductByNameAndCategory(String name, Integer categoryId);
+	
+	@Query("SELECT p FROM Product p WHERE p.name = :name")
+	public Product getProductByName(@Param("name") String name);
+	
+	@Query(value = "SELECT * FROM products WHERE MATCH(name) against (?1)", nativeQuery = true)
+	public Product getTextProductName(String name);
 }

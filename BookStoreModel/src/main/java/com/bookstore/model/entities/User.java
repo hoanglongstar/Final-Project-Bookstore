@@ -29,7 +29,7 @@ public class User {
 	private Integer id;
 	
 	@Column(name = "full_name")
-	@Size(min = 1, max = 64, message = "Please enter your fullname!")
+	@Size(min = 1, max = 64, message = "Please enter your fullname")
 	private String fullName;
 	
 	@Column(name = "username")
@@ -50,12 +50,14 @@ public class User {
 	private String address;
 	
 	@Column(name = "phone_number")
+	@Size(min = 10, max = 10, message = "Invalid phone number")
 	private String phoneNumber;
 	
 	@Column(name = "date_of_birth")
 	private java.sql.Date dateOfBirth;
 	
 	@Column(name = "identity_number")
+	@Size(min = 9, max = 12, message = "Invalid ID number")
 	private String identityNumber;
 	
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
@@ -180,26 +182,14 @@ public class User {
 	}
 	
 	@Transient
-	public String getPhotoPath() {System.out.println("getPhotoPath :: " + avatar);
+	public String getPhotoPath() {
 		if(avatar == null || avatar.equals("")) {
 			return "../images/avatar.jpg";
 		}
 		if(id != null & avatar != null) {
-			return "/profile-photos/" + id + "/" + avatar;
+			return "../profile-photos/" + id + "/" + avatar;
 		}
 		return null;
 	}
 
-	
-//	public UserData getUserInfo() {
-//		UserData userData = new UserData();
-//		
-//		userData.setId(id);
-//		userData.setFullName(fullName);
-//		userData.setUsername(username);
-//		userData.setPassword(password);
-//		userData.setRoles(roles);
-//		
-//		return userData;
-//	}
 }

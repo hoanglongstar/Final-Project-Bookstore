@@ -75,8 +75,6 @@ public class CategoryController {
 				e.printStackTrace();
 			}
 		}
-		
-		System.out.println("createNewCategory :: " + category.getParent().getId());
 		category.setEnabled(true);
 		categoryService.saveCategory(category);
 		return "redirect:/category";

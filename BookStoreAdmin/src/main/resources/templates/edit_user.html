@@ -83,26 +83,12 @@
 	                        <div class="card">
 	                            <div class="card-body profile-card">
 	                                <center class="mt-4"> 
-	                                	<div class="change-avatar">
-	                                		<img th:src="@{${user.photoPath}}" alt="Avatar" id="pro_thumbnail" class="rounded-circle avatar" width="150" />
+	                                	<div class="change-photo">
+	                                		<img th:src="@{${user.photoPath}}" alt="Avatar" id="pro_thumbnail" class="rounded-circle photo" width="150" />
 	                                		<label for="imgProfile">
-	                                			<img src="/images/change_avatar.png" class="rounded-circle camera" width="30" style="position: absolute;">
+	                                			<img src="/images/select_photo.png" class="rounded-circle camera" width="30" style="position: absolute;">
 	                                		</label>
 	                                	</div>
-	                                    <h4 class="card-title mt-2">Hanna Gover</h4>
-	                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
-	                                    <div class="row justify-content-center">
-	                                        <div class="col-4">
-	                                            <a href="javascript:void(0)" class="link">
-	                                                <i class="icon-people" aria-hidden="true"></i>
-	                                                <span class="font-normal">254</span>
-	                                            </a></div>
-	                                        <div class="col-4">
-	                                            <a href="javascript:void(0)" class="link">
-	                                                <i class="icon-picture" aria-hidden="true"></i>
-	                                                <span class="font-normal">54</span>
-	                                            </a></div>
-	                                    </div>
 	                                    <div>
 	                                    	<input type="file" th:name="fileImage" id="imgProfile" accept="image/*" style="display: none;">
 	                                    	<input type="hidden" th:field="*{avatar}">
@@ -119,7 +105,7 @@
 	                                    <div class="form-group">
 	                                        <label class="col-md-12 mb-0">ID</label>
 	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{id}" readonly
+	                                            <input type="text" th:field="*{id}" readonly id="user-id"
 	                                                class="form-control ps-0 form-control-line">
 	                                        </div>
 	                                    </div>
@@ -136,7 +122,7 @@
 	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 	                                        <div class="col-md-12">
 	                                            <input type="text" th:field="*{username}"
-	                                                class="form-control ps-0 form-control-line" 
+	                                                class="form-control ps-0 form-control-line" readonly
 	                                                >
 	                                        </div>
 	                                    </div>
@@ -152,22 +138,26 @@
 	                                    <div class="form-group">
 	                                        <label class="col-md-12">Date of Birth</label>
 	                                        <div class="col-md-12">
-	                                            <input type="date" th:field="*{dateOfBirth}"
+	                                            <input type="date" th:field="*{dateOfBirth}" id="datepicker"
 	                                                class="form-control ps-0 form-control-line">
 	                                        </div>
 	                                    </div>
 	                                    <div class="form-group">
 	                                        <label class="col-md-12">Identity Number</label>
+	                                        <span style="font-size: 12px; color: red;" id="available-id"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('identityNumber')}" th:errors="*{identityNumber}" id="id-validation"></span>
 	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{identityNumber}" 
-	                                                class="form-control ps-0 form-control-line">
+	                                            <input type="text" th:field="*{identityNumber}" name="identityNumber" id="identity-number"
+	                                                class="form-control ps-0 form-control-line" onfocusout="checkUserIdentityNumber()">
 	                                        </div>
 	                                    </div>
 	                                    <div class="form-group">
 	                                        <label class="col-md-12">Phone Number</label>
+	                                        <span style="font-size: 12px; color: red;" id="available-phone"></span>
+	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" id="phone-validation"></span>
 	                                        <div class="col-md-12">
-	                                            <input type="text" th:field="*{phoneNumber}" 
-	                                                class="form-control ps-0 form-control-line">
+	                                            <input type="text" th:field="*{phoneNumber}" name="phoneNumber" id="phone-number"
+	                                                class="form-control ps-0 form-control-line" onfocusout="checkUserPhoneNumber()">
 	                                        </div>
 	                                    </div>
 										<div class="form-group">
@@ -194,8 +184,8 @@
 	                                    </div> 
 	
 	                                    <div class="form-group">
-	                                        <div class="col-sm-12 d-flex">
-	                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white">Update</button>
+	                                        <div class="col-sm-12 d-flex flex-row-reverse">
+	                                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white" id="update-user-btn">Update</button>
 	                                        </div>
 	                                    </div>
 
@@ -268,6 +258,13 @@
 				readUrl(this)
 			})
 		});
+    </script>
+    <script>
+        $(document).ready(function(){
+			if(!Date.parse($("#datepicker").val())) {
+				document.getElementById('datepicker').valueAsDate = new Date();
+			}
+		})
     </script>
 </body>
 

@@ -1,6 +1,7 @@
 package com.bookstore.admin.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,19 @@ public class ProductService {
 	}
 	
 	public void deleteProductById(Integer id) {
-		productRepository.deleteById(id);
+		Optional<Product> optionalProduct = productRepository.findById(id);
+		optionalProduct.ifPresent(pro -> productRepository.deleteById(id));
+	}
+	
+	public Boolean checkProductExist(String name, Integer id) {
+		Product product = getProductByName(name);
+		
+		if(product != null && product.getId() != id) {
+			return true;
+		} 
+		
+		return false;
+		
 	}
 	
 	public List<Product> fullTextSearchProduct(String name){
@@ -58,5 +71,27 @@ public class ProductService {
 	
 	public List<Product> searchProductByNameAndCategory(String name, Integer id){
 		return productRepository.searchProductByNameAndCategory(name, id);
+	}
+	
+	public Product getProductByName(String name) {
+		return productRepository.getProductByName(name);
+	}
+	
+	public Boolean checkCodeExist(String code) {
+		Product product = getProductByCode(code);
+		
+		if(product != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean checkNameExist(String name) {
+		Product product = getProductByName(name);
+		
+		if(product != null) {
+			return true;
+		}
+		return false;
 	}
 }

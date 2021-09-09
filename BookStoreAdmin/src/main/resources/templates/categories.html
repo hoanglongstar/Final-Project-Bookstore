@@ -106,7 +106,7 @@
                                                 <td class="align-middle align-self-center text-center">	
                                                 	<div class=" align-self-center">
 								                        <div class="upgrade-btn">
-								                            <a th:href="@{/edit_category/{id}(id=${category.id})}"
+								                            <a th:href="@{/edit_category/{id}(id=${category.id})}" th:unless="${category.name == 'All'}"
 								                                class="btn btn-success d-none d-md-inline-block text-white text-center">Edit</a>
 								                        </div>
 								                    </div>

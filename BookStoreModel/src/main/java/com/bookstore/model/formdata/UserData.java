@@ -7,10 +7,15 @@ import java.util.Set;
 
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.bookstore.model.entities.Role;
 import com.bookstore.model.entities.User;
 
 public class UserData {
+	
+	@Value("${external.resources.path}")
+	private String path;
 	
 	private Integer id;
 	
@@ -80,9 +85,6 @@ public class UserData {
 			this.role += userRole.getName() + ", ";
 		}
 		
-//		userData.setRole(role.substring(0, role.length() - 2));
-		
-//		return userData;
 	}
 	
 	@Transient

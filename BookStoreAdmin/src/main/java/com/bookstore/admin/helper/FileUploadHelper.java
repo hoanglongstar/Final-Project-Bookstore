@@ -15,14 +15,16 @@ public class FileUploadHelper {
 	public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
 		
 		Path uploadPath = Paths.get(uploadDir);
-		System.out.println();
+
 		if(Files.notExists(uploadPath, LinkOption.NOFOLLOW_LINKS)) {
 			Files.createDirectories(uploadPath);
 		}
 		
 		InputStream inputStream = multipartFile.getInputStream();
 		Path filePath = uploadPath.resolve(fileName);
-		
+		System.out.println("FileUploadHelper ::  uploadDir ::" + uploadDir);
+		System.out.println("FileUploadHelper ::  fileName ::" + fileName);
+		System.out.println("FileUploadHelper ::  uploadPath ::" + uploadPath);
 		Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
 	}
 }
