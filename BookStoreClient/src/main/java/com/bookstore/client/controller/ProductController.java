@@ -95,7 +95,7 @@ public class ProductController {
 		List<Category> listCategory = categoryService.getRootCategory();
 		model.addAttribute("categories", listCategory);
 		
-		return "category_product";
+		return "category";
 	}
 	
 	@GetMapping(value = {"/categoryproducts/{id}"} )
@@ -112,7 +112,7 @@ public class ProductController {
 		List<Product> listProduct = productService.getProductCategory(category);
 		model.addAttribute("products", listProduct);
 		
-		return "category_product";
+		return "category";
 	}
 	
 //	@RequestMapping("/addtocart")
