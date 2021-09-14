@@ -1,7 +1,5 @@
 package com.bookstore.client.controller;
 
-import java.io.IOException;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bookstore.client.handler.AppConstant;
-import com.bookstore.client.helper.FileUploadHelper;
 import com.bookstore.client.services.CustomerService;
+import com.bookstore.client.storage.StorageService;
 import com.bookstore.model.entities.Customer;
 
 @Controller
@@ -29,6 +24,13 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	private final StorageService storageService;
+	
+	@Autowired
+	public CustomerController(StorageService storageService) {
+		this.storageService = storageService;
+	}
 	
 	@GetMapping(value = ("/profile"))
 	public String showViewMyAccount(Authentication authentication, Model model ) {
@@ -57,15 +59,21 @@ public class CustomerController {
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		
-		if(!fileName.equals("")) {
-			customer.setPhotoUrl(fileName);
-			String uploadDir = AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//		if(!fileName.equals("")) {
+//			customer.setPhotoUrl(fileName);
+//			String uploadDir = AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId();
+//			
+//			try {
+//				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		
+		if(!multipartFile.isEmpty()) {
+			customer.setPhotoUrl("customer-photosslash" + customer.getId() + "slash" + fileName);
+			String uploadDir = "customer-photos/" + customer.getId();
+			storageService.store(uploadDir, multipartFile);
 		}
 		
 		customer.setEnabled(true);

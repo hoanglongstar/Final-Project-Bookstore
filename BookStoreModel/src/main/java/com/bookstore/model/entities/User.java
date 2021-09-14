@@ -187,7 +187,6 @@ public class User {
 			return "../images/avatar.jpg";
 		}
 		if(id != null & (avatar != null || avatar.equals(""))) {
-			System.out.println("user entity :: " + avatar);
 			return "http://localhost:8081/files/" + avatar;
 		}
 		return null;

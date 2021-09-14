@@ -287,7 +287,7 @@
                 <!-- start single product item -->
                 <li th:each ="product : ${products}" enctype="multipart/form-data" th:object="${product}">
                   <figure>
-                    <a class="aa-product-img" th:href="@{'/productdetail/' + ${product.id}}"><img th:src="@{${product.photoPath}}"  alt="sach"></a>
+                    <a class="aa-product-img" th:href="@{'/productdetail/' + ${product.id}}"><img th:src="@{'http://localhost:8080' + ${product.photoPath}}"  alt="sach"></a>
                     <a class="aa-add-card-btn" th:href="|/addtocart?code=${product.code}|"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">[[${product.name}]]</a></h4>

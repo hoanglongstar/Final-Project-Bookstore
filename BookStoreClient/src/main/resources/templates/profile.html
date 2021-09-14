@@ -8,25 +8,25 @@
     <title>Daily Shop | Profile Page</title>
     
     <!-- Font awesome -->
-    <link th:href="@{css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
     <!-- Bootstrap -->
-    <link th:href="@{css/bootstrap.css}" rel="stylesheet">   
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">   
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
-    <link th:href="@{css/jquery.smartmenus.bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.smartmenus.bootstrap.css}" rel="stylesheet">
     <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/jquery.simpleLens.css}">    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.simpleLens.css}">    
     <!-- slick slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/slick.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/slick.css}">
     <!-- price picker slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/nouislider.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nouislider.css}">
     <!-- Theme color -->
-    <link id="switcher" th:href="@{css/theme-color/default-theme.css}" rel="stylesheet">
+    <link id="switcher" th:href="@{/css/theme-color/default-theme.css}" rel="stylesheet">
     <!-- <link id="switcher" th:href="@{css/theme-color/bridge-theme.css}" rel="stylesheet"> -->
     <!-- Top Slider CSS -->
-    <link th:href="@{css/sequence-theme.modern-slide-in.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/sequence-theme.modern-slide-in.css}" rel="stylesheet" media="all">
 
     <!-- Main style sheet -->
-    <link th:href="@{css/style.css}" rel="stylesheet">   
+    <link th:href="@{/css/style.css}" rel="stylesheet">   
 
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -262,7 +262,7 @@
                 <h4>Profile</h4>
                  <form th:action="@{/profile}" method="post" enctype="multipart/form-data" th:object="${customer}" class="aa-login-form">
                     	<div class="col-md-8">
-							<img th:src="@{${customer.photoPath}}" alt="Avatar" id="photoprofile" class="rounded-circle" width="150" /> 
+							<img th:src="@{'http://localhost:8080' + ${customer.photoPath}}" alt="Avatar" id="photoprofile" class="rounded-circle" width="150" /> 
 							<input type="file" th:name="fileImage" id="imgProfile" accept="image/*"> 
 							<input type="hidden" th:field="*{photoUrl}">
 							<br>
@@ -421,25 +421,25 @@
 
     
   <!-- jQuery library -->
-  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script th:src="@{js/bootstrap.js}"></script>  
+  <script th:src="@{/js/bootstrap.js}"></script>  
   <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" th:src="@{js/jquery.smartmenus.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.smartmenus.js}"></script>
   <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" th:src="@{js/jquery.smartmenus.bootstrap.js}"></script>  
+  <script type="text/javascript" th:src="@{/js/jquery.smartmenus.bootstrap.js}"></script>  
   <!-- To Slider JS -->
-  <script th:src="@{js/sequence.js}"></script>
-  <script th:src="@{js/sequence-theme.modern-slide-in.js}"></script>  
+  <script th:src="@{/js/sequence.js}"></script>
+  <script th:src="@{/js/sequence-theme.modern-slide-in.js}"></script>  
   <!-- Product view slider -->
-  <script type="text/javascript" th:src="@{js/jquery.simpleGallery.js}"></script>
-  <script type="text/javascript" th:src="@{js/jquery.simpleLens.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.simpleGallery.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.simpleLens.js}"></script>
   <!-- slick slider -->
-  <script type="text/javascript" th:src="@{js/slick.js}"></script>
+  <script type="text/javascript" th:src="@{/js/slick.js}"></script>
   <!-- Price picker slider -->
-  <script type="text/javascript" th:src="@{js/nouislider.js}"></script>
+  <script type="text/javascript" th:src="@{/js/nouislider.js}"></script>
   <!-- Custom js -->
-  <script th:src="@{js/custom.js}"></script>
+  <script th:src="@{/js/custom.js}"></script>
   <!--photo url  -->
 	<script type="text/javascript">
     	function readUrl(input) {

@@ -43,10 +43,10 @@ public class OrderServiecs {
 		}
 		invoice.setDetails(listInvoiceDetail);
 		invoice.setStatus(InvoiceStatus.NEW);
-		
+		invoice.setTotalPayable(cartInfo.totalCartInfo());
 		invoice.setCode(System.currentTimeMillis() + "");
 		orderResponsitory.save(invoice);
-
+		
 		return invoice.getCode();	
 	}
 }
