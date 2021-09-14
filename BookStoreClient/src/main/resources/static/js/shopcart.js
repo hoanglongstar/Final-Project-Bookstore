@@ -31,6 +31,8 @@ $(document).ready(function() {
 			type: "POST",
 			url: url,
 			beforeSend: function(xhr) {
+				console.log(csrfHeaderName);
+				console.log(csrfValue);
 				xhr.setRequestHeader(csrfHeaderName, csrfValue);
 			}
 		}).done(function(response) {
@@ -76,7 +78,7 @@ $(document).ready(function() {
 		cartLineNumber = $(this).attr("cartLine");
 		cartLineItem = $("#cartLine" + cartLineNumber);
 		$.ajax({
-			type: "POST",
+			type: "GET",
 			url: url,
 			beforeSend: function(xhr) {
 				console.log(csrfHeaderName);
@@ -84,7 +86,7 @@ $(document).ready(function() {
 				xhr.setRequestHeader(csrfHeaderName, csrfValue);
 			}
 		}).done(function(response) {
-			if (response !== 'Removed!') {
+			if (response !== 'Removed') {
 				alert(response);
 			} else {
 				cartLineItem.remove();

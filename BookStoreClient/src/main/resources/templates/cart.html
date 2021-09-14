@@ -205,97 +205,9 @@
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="index.html">Home</a></li>
-              <li><a href="#">Men <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
-                </ul>
+              <li><a th:href="@{productlist}">Product <span class="caret"></span></a>
               </li>
-              <li><a href="#">Women <span class="caret"></span></a>
-                <ul class="dropdown-menu">  
-                  <li><a href="#">Kurta & Kurti</a></li>                                                                
-                  <li><a href="#">Trousers</a></li>              
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>                
-                  <li><a href="#">Sarees</a></li>
-                  <li><a href="#">Shoes</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>
-                      <li><a href="#">And more.. <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Rings</a></li>
-                          <li><a href="#">Earrings</a></li>
-                          <li><a href="#">Jewellery Sets</a></li>
-                          <li><a href="#">Lockets</a></li>
-                          <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                       
-                          <li><a href="#">Jeans</a></li>
-                          <li><a href="#">Polo T-Shirts</a></li>
-                          <li><a href="#">SKirts</a></li>
-                          <li><a href="#">Jackets</a></li>
-                          <li><a href="#">Tops</a></li>
-                          <li><a href="#">Make Up</a></li>
-                          <li><a href="#">Hair Care</a></li>
-                          <li><a href="#">Perfumes</a></li>
-                          <li><a href="#">Skin Care</a></li>
-                          <li><a href="#">Hand Bags</a></li>
-                          <li><a href="#">Single Bags</a></li>
-                          <li><a href="#">Travel Bags</a></li>
-                          <li><a href="#">Wallets & Belts</a></li>                        
-                          <li><a href="#">Sunglases</a></li>
-                          <li><a href="#">Nail</a></li>                       
-                        </ul>
-                      </li>                   
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#">Kids <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#">Sports</a></li>
-             <li><a href="#">Digital <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Camera</a></li>
-                  <li><a href="#">Mobile</a></li>
-                  <li><a href="#">Tablet</a></li>
-                  <li><a href="#">Laptop</a></li>                                                
-                  <li><a href="#">Accesories</a></li>                
-                </ul>
-              </li>
-              <li><a href="#">Furniture</a></li>            
+              <li><a th:href="@{/categoryproducts}">Category</a></li>           
                <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
@@ -360,18 +272,16 @@
                     <tbody>
                     <form th:action="@{/update_cart}" method="post" > 
                       <tr th:each="cartLine, varStatus: ${cartInfo.cartLines}" th:id="'cartLine' + ${varStatus.count}">
-                        <td><a class="remove" th:cartLine="${varStatus.count}" th:href="@{'/restapi/shopcart_delete/'+${cartLine.product.code}}" ><fa class="fa fa-close"></fa></a></td>
+                        <td><a class="remove-cartline" th:cartLine="${varStatus.count}" th:href="@{'/restapi/shopcart_delete/'+${cartLine.product.code}}" ><fa class="fa fa-close"></fa></a></td>
                         <td><a href="#"><img th:src="@{${cartLine.product.photoPath}}" alt="img"></a></td>
                         <td><a class="aa-cart-title" href="#">[[${cartLine.product.name}]]</a></td>
-                        <td>$[[${cartLine.unitPrice}]]</td>
+                        <td>[[${cartLine.unitPrice}]]</td>
                         <td>
 							<div class="quantity">
-											<input id="minus" type="button" value="-" class="minus" th:pid="${cartLine.product.code}">
-											<input type="hidden" th:name="|cartLines[${varStatus.index}].id|" th:value="${cartLine.product.id}">
-											<input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLine.quantity}" class="qty" th:id="'quantity' + ${cartLine.product.code}" /> 
-											<input
-												id="plus" type="button" value="+" class="plus"
-												th:pid="${cartLine.product.code}">
+								<input id="qty-minus" type="button" value="-" class="minus" th:pid="${cartLine.product.code}">
+								<input type="hidden" th:name="|cartLines[${varStatus.index}].id|" th:value="${cartLine.product.id}">
+								<input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLine.quantity}" class="aa-cart-quantity" th:id="'quantity' + ${cartLine.product.code}" /> 
+								<input id="qty-plus" type="button" value="+" class="plus" th:pid="${cartLine.product.code}">
 							</div>
 						</td>
                         <td ><span th:id="'itemSubtotal' + ${cartLine.product.code}" class="amount cartline-total">[[${cartLine.total}]]</span></td>
@@ -405,7 +315,7 @@
                    </tr>
                  </tbody>
                </table>
-               <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a th:href="@{/checkout}" class="aa-cart-view-btn">Proced to Checkout</a>
              </div>
            </div>
          </div>
@@ -580,7 +490,7 @@
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
 	</script>
-    <script th:src="@{/js/shoppingcart.js}"></script>
+    <script th:src="@{/js/shopcart.js}"></script>
     
     <!--photo url  -->
 	<script type="text/javascript">

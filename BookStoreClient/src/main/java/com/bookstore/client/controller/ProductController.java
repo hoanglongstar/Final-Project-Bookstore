@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.client.services.CategoryService;
@@ -130,7 +131,7 @@ public class ProductController {
 //		
 //		return "redirect:/shopping_cart";
 //	}
-//	
+	
 //	@RequestMapping("/shopping_cart")
 //	public String showCartView(HttpServletRequest request, Model model) {
 //		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
@@ -158,4 +159,18 @@ public class ProductController {
 //		System.out.println("updateCart" + cartInfo.getCartLines().size());
 //		return "redirect:/shopping_cart";
 //	}
+	@RequestMapping(value = "/productdetail/{id}")
+	public String viewProduct(Model model,  @PathVariable ("id") Integer id) {
+		Product product = productService.getById(id);
+		
+//		List<Product> listProducts =  new ArrayList<>();
+//		listProducts.addAll(product.getId());
+		
+
+		List<Product> listProduct = productService.getById(product);
+		model.addAttribute("products", listProduct);
+		
+		return "product-detail";
+	}
+
 }

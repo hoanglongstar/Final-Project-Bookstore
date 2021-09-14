@@ -4,5 +4,6 @@ public enum InvoiceStatus {
 	DELIVERED,
 	CANCELLED,
 	PROCESSING,
-	DELIVERING
+	DELIVERING,
+	NEW
 }

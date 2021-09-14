@@ -8,25 +8,25 @@
     <title>Daily Shop | Product Detail</title>
     
     <!-- Font awesome -->
-    <link th:href="@{css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
     <!-- Bootstrap -->
-    <link th:href="@{css/bootstrap.css}" rel="stylesheet">   
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">   
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
-    <link th:href="@{css/jquery.smartmenus.bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.smartmenus.bootstrap.css}" rel="stylesheet">
     <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/jquery.simpleLens.css}">    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.simpleLens.css}">    
     <!-- slick slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/slick.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/slick.css}">
     <!-- price picker slider -->
-    <link rel="stylesheet" type="text/css" th:href="@{css/nouislider.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nouislider.css}">
     <!-- Theme color -->
-    <link id="switcher" th:href="@{css/theme-color/default-theme.css}" rel="stylesheet">
+    <link id="switcher" th:href="@{/css/theme-color/default-theme.css}" rel="stylesheet">
     <!-- <link id="switcher" th:href="@{css/theme-color/bridge-theme.css}" rel="stylesheet"> -->
     <!-- Top Slider CSS -->
-    <link th:href="@{css/sequence-theme.modern-slide-in.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/sequence-theme.modern-slide-in.css}" rel="stylesheet" media="all">
 
     <!-- Main style sheet -->
-    <link th:href="@{css/style.css}" rel="stylesheet">   
+    <link th:href="@{/css/style.css}" rel="stylesheet">   
 
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -69,12 +69,12 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <img src="img/flag/english.jpg" alt="english flag">ENGLISH
+                      <img th:src="@{/img/flag/english.jpg}" alt="english flag">ENGLISH
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><img src="img/flag/french.jpg" alt="">FRENCH</a></li>
-                      <li><a href="#"><img src="img/flag/english.jpg" alt="">ENGLISH</a></li>
+                      <li><a href="#"><img th:src="@{/img/flag/french.jpg}" alt="">FRENCH</a></li>
+                      <li><a href="#"><img th:src="@{/img/flag/english.jpg}" alt="">ENGLISH</a></li>
                     </ul>
                   </div>
                 </div>
@@ -131,7 +131,7 @@
                   <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
                 </a>
                 <!-- img based logo -->
-                <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
+                <!-- <a href="index.html"><img th:src="@{/img/logo.jpg" alt="logo img}"></a> -->
               </div>
               <!-- / logo  -->
                <!-- cart box -->
@@ -144,7 +144,7 @@
                 <div class="aa-cartbox-summary">
                   <ul>
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                      <a class="aa-cartbox-img" href="#"><img th:src="@{/img/woman-small-2.jpg}" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="#">Product Name</a></h4>
                         <p>1 x $250</p>
@@ -152,7 +152,7 @@
                       <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
                     </li>
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
+                      <a class="aa-cartbox-img" href="#"><img th:src="@{/img/woman-small-1.jpg}" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="#">Product Name</a></h4>
                         <p>1 x $250</p>
@@ -323,7 +323,7 @@
  
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-   <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <img th:src="@{/img/fashion/fashion-header-bg-8.jpg}" alt="fashion img">
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -341,7 +341,7 @@
 
   <!-- product category -->
   <section id="aa-product-details">
-    <div class="container">
+    <div class="container" th:each ="product : ${products}">
       <div class="row">
         <div class="col-md-12">
           <div class="aa-product-details-area">
@@ -352,17 +352,17 @@
                   <div class="aa-product-view-slider">                                
                     <div id="demo-1" class="simpleLens-gallery-container">
                       <div class="simpleLens-container">
-                        <div class="simpleLens-big-image-container"><a data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
+                        <div class="simpleLens-big-image-container"><a data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img th:src="@{/img/view-slider/medium/polo-shirt-1.png}" class="simpleLens-big-image"></a></div>
                       </div>
                       <div class="simpleLens-thumbnails-container">
                           <a data-big-image="img/view-slider/medium/polo-shirt-1.png" data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                            <img th:src="@{/img/view-slider/thumbnail/polo-shirt-1.png}">
                           </a>                                    
                           <a data-big-image="img/view-slider/medium/polo-shirt-3.png" data-lens-image="img/view-slider/large/polo-shirt-3.png" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                            <img th:src="@{/img/view-slider/thumbnail/polo-shirt-3.png}">
                           </a>
                           <a data-big-image="img/view-slider/medium/polo-shirt-4.png" data-lens-image="img/view-slider/large/polo-shirt-4.png" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                            <img th:src="@{/img/view-slider/thumbnail/polo-shirt-4.png}">
                           </a>
                       </div>
                     </div>
@@ -371,7 +371,7 @@
                 <!-- Modal view content -->
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="aa-product-view-content">
-                    <h3>T-Shirt</h3>
+                    <h3>[[${product.name}]]</h3>
                     <div class="aa-price-block">
                       <span class="aa-product-view-price">$34.99</span>
                       <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
@@ -444,7 +444,7 @@
                         <div class="media">
                           <div class="media-left">
                             <a href="#">
-                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                              <img class="media-object" th:src="@{/img/testimonial-img-3.jpg}" alt="girl image">
                             </a>
                           </div>
                           <div class="media-body">
@@ -464,7 +464,7 @@
                         <div class="media">
                           <div class="media-left">
                             <a href="#">
-                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                              <img class="media-object" th:src="@{/img/testimonial-img-3.jpg}" alt="girl image">
                             </a>
                           </div>
                           <div class="media-body">
@@ -518,7 +518,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/man/polo-shirt-2.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
                       <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
@@ -536,7 +536,7 @@
                  <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-2.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/women/girl-2.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -554,7 +554,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/man/t-shirt-1.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/man/t-shirt-1.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                   </figure>
                   <figcaption>
@@ -572,7 +572,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-3.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/women/girl-3.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -588,7 +588,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-1.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/man/polo-shirt-1.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
@@ -604,7 +604,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-4.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/women/girl-4.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -622,7 +622,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-4.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/man/polo-shirt-4.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
                       <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
@@ -640,7 +640,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-1.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img th:src="@{/img/women/girl-1.png}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
                       <h4 class="aa-product-title"><a href="#">This is Title</a></h4>
@@ -670,7 +670,7 @@
                               <div class="simpleLens-container">
                                   <div class="simpleLens-big-image-container">
                                       <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
-                                          <img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                          <img th:src="@{/img/view-slider/medium/polo-shirt-1.png}" class="simpleLens-big-image">
                                       </a>
                                   </div>
                               </div>
@@ -678,18 +678,18 @@
                                   <a href="#" class="simpleLens-thumbnail-wrapper"
                                      data-lens-image="img/view-slider/large/polo-shirt-1.png"
                                      data-big-image="img/view-slider/medium/polo-shirt-1.png">
-                                      <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                                      <img th:src="@{/img/view-slider/thumbnail/polo-shirt-1.png}">
                                   </a>                                    
                                   <a href="#" class="simpleLens-thumbnail-wrapper"
                                      data-lens-image="img/view-slider/large/polo-shirt-3.png"
                                      data-big-image="img/view-slider/medium/polo-shirt-3.png">
-                                      <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                                      <img th:src="@{/img/view-slider/thumbnail/polo-shirt-3.png}">
                                   </a>
 
                                   <a href="#" class="simpleLens-thumbnail-wrapper"
                                      data-lens-image="img/view-slider/large/polo-shirt-4.png"
                                      data-big-image="img/view-slider/medium/polo-shirt-4.png">
-                                      <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                                      <img th:src="@{/img/view-slider/thumbnail/polo-shirt-4.png}">
                                   </a>
                               </div>
                             </div>
@@ -888,23 +888,23 @@
   <!-- jQuery library -->
   <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js}"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script th:src="@{js/bootstrap.js}"></script>  
+  <script th:src="@{/js/bootstrap.js}"></script>  
   <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" th:src="@{js/jquery.smartmenus.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.smartmenus.js}"></script>
   <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" th:src="@{js/jquery.smartmenus.bootstrap.js}"></script>  
+  <script type="text/javascript" th:src="@{/js/jquery.smartmenus.bootstrap.js}"></script>  
   <!-- To Slider JS -->
-  <script th:src="@{js/sequence.js}"></script>
-  <script th:src="@{js/sequence-theme.modern-slide-in.js}"></script>  
+  <script th:src="@{/js/sequence.js}"></script>
+  <script th:src="@{/js/sequence-theme.modern-slide-in.js}"></script>  
   <!-- Product view slider -->
-  <script type="text/javascript" th:src="@{js/jquery.simpleGallery.js}"></script>
-  <script type="text/javascript" th:src="@{js/jquery.simpleLens.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.simpleGallery.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.simpleLens.js}"></script>
   <!-- slick slider -->
-  <script type="text/javascript" th:src="@{js/slick.js}"></script>
+  <script type="text/javascript" th:src="@{/js/slick.js}"></script>
   <!-- Price picker slider -->
-  <script type="text/javascript" th:src="@{js/nouislider.js}"></script>
+  <script type="text/javascript" th:src="@{/js/nouislider.js}"></script>
   <!-- Custom js -->
-  <script th:src="@{js/custom.js}"></script>
+  <script th:src="@{/js/custom.js}"></script>
 
   </body>
 </html>

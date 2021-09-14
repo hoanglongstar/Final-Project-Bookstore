@@ -16,13 +16,17 @@ import com.bookstore.model.entities.Product;
 @Service
 public class ProductService {
 	
-	public static int PAGE_SIZE = 6;
+	public static int PAGE_SIZE = 8;
 	
 	@Autowired
 	public ProductReponsitory productReponsitory;
 	
 	public List<Product> getAllProduct(){
 		return productReponsitory.findAll();
+	}
+	
+	public Product getById(Integer id) {
+		return productReponsitory.getById(id);
 	}
 	
 	public Page<Product> getProductsWithPage(int pagenum){
@@ -56,5 +60,10 @@ public class ProductService {
 	
 	public Product getByCode(String code) {
 		return productReponsitory.getProductByCode(code);
+	}
+
+	public List<Product> getById(Product productId) {
+		List<Product> listProducts = productReponsitory.getProductById(productId.getId());
+		return listProducts;
 	}
 }

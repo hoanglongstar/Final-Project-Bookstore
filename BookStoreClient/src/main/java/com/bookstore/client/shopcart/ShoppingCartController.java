@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bookstore.client.services.OrderServiecs;
 import com.bookstore.client.services.ProductService;
 import com.bookstore.model.entities.Product;
 
@@ -21,6 +22,9 @@ public class ShoppingCartController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private OrderServiecs orderService;
 	
 	@RequestMapping("/addtocart")
 	public String byProductHandler(HttpServletRequest request, Model model, @RequestParam(value = "code", defaultValue = "") String code) {
@@ -57,7 +61,10 @@ public class ShoppingCartController {
 	}
 	
 	@GetMapping("/checkout")
-	public String checkoutShoppingCart() {
+	public String checkoutShoppingCart(HttpServletRequest req, Model model) {
+		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(req);
+		model.addAttribute("orderCode", orderService.saveOrder(cartInfo));
+		ShopCartSessionUtil.removeCartInSession(req);
 		return "checkout";
 	}
 	

@@ -16,6 +16,9 @@ public interface ProductReponsitory extends JpaRepository<Product, Integer> {
 	@Query(value = "SELECT * FROM products WHERE MATCH(name) AGAINST (?1)", nativeQuery = true)
 	public List<Product> fullTextSearchProductByName(String name);
 	
+	@Query(value = "SELECT * FROM products WHERE id  = ?1 ", nativeQuery =  true)
+	public List<Product> getProductById(@Param("long") Integer productid );
+	
 	@Query(value = "SELECT * FROM products WHERE category_id  = ?1 ", nativeQuery =  true)
 	public List<Product> getProductByCategoryId(@Param("long") Integer categoryid );
 	
@@ -24,5 +27,5 @@ public interface ProductReponsitory extends JpaRepository<Product, Integer> {
 	
 	@Query("SELECT p FROM Product p WHERE p.code = :code")
 	public Product getProductByCode(@Param("code") String code);
-
+	
 }

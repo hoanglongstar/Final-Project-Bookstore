@@ -100,6 +100,14 @@ public class Invoice implements Serializable{
 	public void setStatus(InvoiceStatus status) {
 		this.status = status;
 	}
+
+	public Set<InvoiceDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Set<InvoiceDetail> details) {
+		this.details = details;
+	}
 	
 	
 }
