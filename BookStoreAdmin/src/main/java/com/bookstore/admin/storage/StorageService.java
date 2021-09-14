@@ -13,7 +13,8 @@ public interface StorageService {
 
 	void init();
 	
-	void store(MultipartFile file, String photoPath);
+//	void store(MultipartFile file, String photoPath);
+	void store(String uploadDir, MultipartFile file);
 	
 	Stream<Path> loadAll();
 	

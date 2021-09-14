@@ -1,6 +1,5 @@
 package com.bookstore.admin.controllers;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bookstore.admin.handler.AppConstant;
-import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.AddressService;
 import com.bookstore.admin.services.CustomerService;
 import com.bookstore.admin.storage.StorageService;
@@ -102,23 +99,11 @@ public class CustomerController {
 		if(bindingResult.hasErrors()) {
 			return "/create_customer";
 		}
-//		System.out.println("aasjgjjgggag :: " + address.getCity());
+
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		
-		if(!fileName.equals("")) {
-			customer.setPhotoUrl(fileName);
-			String uploadDir =  AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 		
 		Set<Address> newAddress = new HashSet<Address>();
 
-//		customer.setEnabled(true);
 		customerService.save(customer);
 		
 		if(!address.getStreet().equals("") && !address.getWard().equals("") && !address.getDistrict().equals("") && !address.getCity().equals("")) {
@@ -128,7 +113,10 @@ public class CustomerController {
 		}
 		
 		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId());
+			customer.setPhotoUrl("customer-photosslash" + customer.getId() + "slash" + fileName);
+			String uploadDir = "customer-photos/" + customer.getId();
+			storageService.store(uploadDir, multipartFile);
+			customerService.save(customer);
 		}
 		
 		return "redirect:/customer/1";
@@ -155,24 +143,15 @@ public class CustomerController {
 		}
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-
+		
 		if(!fileName.equals("")) {
-			customer.setPhotoUrl(fileName);
-			String uploadDir = AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			customer.setPhotoUrl("customer-photosslash" + customer.getId() + "slash" + fileName);
+			String uploadDir = "customer-photos/" + customer.getId();
+			storageService.store(uploadDir, multipartFile);
+			customerService.save(customer);
 		}
 		
-//		customer.setEnabled(true);
 		customerService.save(customer);
-		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.CUSTOMER_PHOTO_DIR + "/" + customer.getId());
-		}
 		return "redirect:/customer/1";
 		
 	}

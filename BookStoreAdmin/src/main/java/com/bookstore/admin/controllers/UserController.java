@@ -3,32 +3,25 @@ package com.bookstore.admin.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bookstore.admin.handler.AppConstant;
@@ -36,11 +29,9 @@ import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.helper.PasswordManager;
 import com.bookstore.admin.services.RoleService;
 import com.bookstore.admin.services.UserService;
-import com.bookstore.admin.storage.StorageFileNotFoundException;
 import com.bookstore.admin.storage.StorageService;
 import com.bookstore.model.entities.Role;
 import com.bookstore.model.entities.User;
-import com.bookstore.model.enumerate.EntityType;
 import com.bookstore.model.formdata.UserData;
 import com.bookstore.model.formdata.UserDataForConfirmPassword;
 
@@ -68,7 +59,10 @@ public class UserController {
 		
 		for(User user : listUsers) {
 			copyListUser.add(user.copyValueFromUserEntity());
+			
 		}
+		
+		
 		
 		model.addAttribute("listUsers", copyListUser);
 		return "users";
@@ -93,24 +87,26 @@ public class UserController {
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-
-		if(!fileName.equals("")) {
-			user.setAvatar(fileName);
-			String uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
+//		if(!fileName.equals("")) {
+//			user.setAvatar("profile-photosslash" + user.getId() + "slash" + fileName);
+//			String uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId();
+//			
+//			try {
+//				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}	
 		user.setEnabled(true);
-		
 		userService.saveUser(user);
-		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId());
-		}
+		
+		if(!fileName.equals("")) {
+			user.setAvatar("profile-photosslash" + user.getId() + "slash" + fileName);
+			String uploadDir = "profile-photos/" + user.getId();
+			storageService.store(uploadDir, multipartFile);
+			userService.saveUser(user);
+		}	
+		
 		return "redirect:/user";
 	}
 	
@@ -145,27 +141,17 @@ public class UserController {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
 		if(!fileName.equals("")) {
-			user.setAvatar(fileName);
-			String uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			user.setAvatar("profile-photosslash" + user.getId() + "slash" + fileName);
+			String uploadDir = "profile-photos/" + user.getId();
+			storageService.store(uploadDir, multipartFile);
 		}
 
-		user.setEnabled(true);
-		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId());
-		}
-		
 		userService.saveUser(user);
 		return "redirect:/user";
 	}
 	
 	@RequestMapping(value = "/confirm_old_password", method = RequestMethod.GET)
-	public String showConfirOldPasswordView(Model model) {
+	public String checkUserPassword(Model model) {
 		
 		UserDataForConfirmPassword userData = new UserDataForConfirmPassword();
 		
@@ -175,12 +161,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/confirm_old_password", method = RequestMethod.POST)
-	public String checkUserPassword(@Valid UserDataForConfirmPassword userData, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String checkUserPassword(@ModelAttribute("userData") UserDataForConfirmPassword userData, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 		
 		Boolean error = false;
 		
 		if(bindingResult.hasErrors()) {
-			System.out.println("not enough charater");
+//			UserDataForConfirmPassword userData = new UserDataForConfirmPassword();
+//			model.addAttribute("userData", userData);
 			return "/confirm_old_password";
 		}
 		

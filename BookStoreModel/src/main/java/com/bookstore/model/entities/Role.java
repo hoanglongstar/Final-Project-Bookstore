@@ -24,7 +24,7 @@ public class Role {
 	private Integer id;
 	
 	@Column(name = "role_name")
-	@Size(min = 1, max = 24, message = "Role name length must be between 6 and 24 characters")
+	@Size(min = 6, max = 24, message = "Role name length must be between 6 and 24 characters")
 	private String name;
 	
 	@Column(name = "description")

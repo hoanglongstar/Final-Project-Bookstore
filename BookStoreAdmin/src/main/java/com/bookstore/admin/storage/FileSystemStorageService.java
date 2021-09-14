@@ -1,5 +1,6 @@
 package com.bookstore.admin.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -28,6 +29,7 @@ public class FileSystemStorageService implements StorageService {
 	@Autowired
 	public FileSystemStorageService(StorageProperties properties) {
 		this.rootLocation = Paths.get(properties.getLocation());
+		System.out.println("FileSystemStorageService :: " + rootLocation);
 	}
 	
 	@Override
@@ -40,16 +42,16 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	@Override
-	public void store(MultipartFile file, String photoPath) {
+	public void store(String uploadDir, MultipartFile file) {
 		try {
 			if(file.isEmpty()) {
 				throw new StorageException("Fail to store empty file.");
 			}
-			this.rootLocation = Paths.get(photoPath);
+			Path uploadPath = Paths.get(uploadDir);
 			Path destinationFile = this.rootLocation.resolve(
-					Paths.get(file.getOriginalFilename()))
+					uploadPath.resolve(file.getOriginalFilename()))
 					.normalize().toAbsolutePath();
-			if((!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath()))){
+			if((!destinationFile.getParent().equals(this.rootLocation.resolve(uploadPath).toAbsolutePath()))){
 				throw new StorageException("Cannot store file outside current directory.");
 			}
 			try (InputStream inputStream = file.getInputStream()) {
@@ -83,7 +85,7 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public Resource loadAsResource(String filename) {
-		try {
+		try {System.out.println("load as resource");
 			Path file = load(filename);
 			Resource resource = new UrlResource(file.toUri());
 			if(resource.exists() || resource.isReadable()) {

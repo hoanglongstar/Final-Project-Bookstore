@@ -123,7 +123,7 @@ public class InvoiceController {
 		
 		List<InvoiceDetail> invoiceDetail = invoiceDetailService.getInvoiceDetail(invoice);
 		
-		if(invoiceForm.getStatus() == InvoiceStatus.PROCESSING) {
+		if(invoiceForm.getStatus() == InvoiceStatus.DELIVERING) {
 			try {
 				EmailServiceImp.sendInvoiceStatusEmail(javaMailSender, htmlTemplateEngine, invoice, invoiceDetail, Locale.getDefault());
 			} catch (MessagingException e) {

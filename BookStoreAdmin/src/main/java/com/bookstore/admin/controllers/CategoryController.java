@@ -1,6 +1,5 @@
 package com.bookstore.admin.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bookstore.admin.handler.AppConstant;
-import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.CategoryService;
 import com.bookstore.admin.storage.StorageService;
 import com.bookstore.model.entities.Category;
@@ -73,20 +70,14 @@ public class CategoryController {
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-		if(!fileName.equals("")) {
-			category.setPhoto(fileName);
-			String uploadDir = AppConstant.CATEGORY_PHOTO_DIR + "/" + category.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 		category.setEnabled(true);
 		categoryService.saveCategory(category);
+		
 		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.CATEGORY_PHOTO_DIR + "/" + category.getId());
+			category.setPhoto("category-photosslash" + category.getId() + "slash" + fileName);
+			String uploadDir = "category-photos/" + category.getId();
+			storageService.store(uploadDir, multipartFile);
+			categoryService.saveCategory(category);
 		}
 		return "redirect:/category";
 	}
@@ -110,20 +101,13 @@ public class CategoryController {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
 		if(!fileName.equals("")) {
-			category.setPhoto(fileName);
-			String uploadDir = AppConstant.CATEGORY_PHOTO_DIR + "/" + category.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			category.setPhoto("category-photosslash" + category.getId() + "slash" + fileName);
+			String uploadDir = "category-photos/" + category.getId();
+			storageService.store(uploadDir, multipartFile);
 		}
 		category.setEnabled(true);
 		categoryService.saveCategory(category);
-		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.CATEGORY_PHOTO_DIR + "/" + category.getId());
-		}
+
 		return "redirect:/category";
 	}
 	

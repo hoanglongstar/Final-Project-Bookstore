@@ -90,9 +90,12 @@ public class UserData {
 			return "../images/avatar.jpg";
 		}
 		if(id != null & avatar != null) {
-//			return "../profile-photos/" + id + "/" + avatar;
+
+//			String[] ava = avatar.split("/");
+			System.out.println("user data :: " + avatar);
 			return "http://localhost:8081/files/" + avatar;
 		}
+		
 		return null;
 	}
 

@@ -22,9 +22,6 @@ public class FileUploadHelper {
 		
 		InputStream inputStream = multipartFile.getInputStream();
 		Path filePath = uploadPath.resolve(fileName);
-		System.out.println("FileUploadHelper ::  uploadDir ::" + uploadDir);
-		System.out.println("FileUploadHelper ::  fileName ::" + fileName);
-		System.out.println("FileUploadHelper ::  uploadPath ::" + uploadPath);
 		Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
 	}
 }

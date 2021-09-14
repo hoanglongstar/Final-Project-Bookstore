@@ -104,7 +104,6 @@
 	                                				</div>
 	                                				<div class="col-sm-2">
 						                					<select class="form-select shadow-none col-md-2 ml-auto" th:name="selectedCategory">
-						                						<option th:value="All">All</option>
 											                    <th:block th:each="category : ${listCategories}">
 											                    	<option th:value="${category.name}">[[${category.name}]]</option>
 											                    </th:block>

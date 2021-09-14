@@ -19,7 +19,7 @@ public class OnAuthenticationSuccessHandler implements AuthenticationSuccessHand
 		
 		System.out.println("OnAuthenticationSuccessHandler::");
 		
-		response.sendRedirect("/dashboard");
+		response.sendRedirect("/");
 	}
 
 }

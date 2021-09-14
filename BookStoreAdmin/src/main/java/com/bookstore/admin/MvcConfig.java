@@ -25,6 +25,7 @@ public class MvcConfig implements WebMvcConfigurer{
 	
 	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
 		Path uploadDir = Paths.get(dirName);
+
 //		String uploadPath = uploadDir.toFile().getAbsolutePath();
 		String uploadPath2 = "";
 		try {
@@ -32,15 +33,10 @@ public class MvcConfig implements WebMvcConfigurer{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		System.out.println("MvcConfig :: " + uploadPath);
-//		System.out.println("MvcConfig :: " + dirName);
-		
+
 		if(dirName.startsWith("../")) {
 			dirName.replace("../", "");
 		}
-		
-		System.out.println("------------------- " + uploadPath2);
-		
 		registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:" + uploadPath2 + "/");
 	}
 }

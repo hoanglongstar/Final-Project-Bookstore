@@ -1,6 +1,5 @@
 package com.bookstore.admin.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bookstore.admin.handler.AppConstant;
-import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.services.CategoryService;
 import com.bookstore.admin.services.ProductService;
 import com.bookstore.admin.storage.StorageFileNotFoundException;
@@ -51,9 +48,10 @@ public class AppController {
 		this.storageService = storageService;
 	}
 	
-	@GetMapping("/files/{filename:.+}")
+	@GetMapping("/files/{filename}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename){
+		filename = filename.replace("slash", "/");
 		Resource file = storageService.loadAsResource(filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
@@ -77,7 +75,7 @@ public class AppController {
 	@RequestMapping("/")
 	public String showHomeView(Model model) {
 		System.out.println("showHomeView");
-		return "dashboard";
+		return "redirect:/profile";
 	}
 	
 	@GetMapping("/product")
@@ -130,20 +128,23 @@ public class AppController {
 		}
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-		if(!fileName.equals("")) {
-			product.setPhoto(fileName);
-			String uploadDir = AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		if(!fileName.equals("")) {
+//			product.setPhoto(fileName);
+//			String uploadDir = AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId();
+//			System.out.println("product id : " + product.getId());
+//			try {
+//				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		product.setEnabled(true);
 		productService.saveProduct(product);
 		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId());
+			product.setPhoto("product-photosslash" + product.getId() + "slash" + fileName);
+			String uploadDir = "product-photos/" + product.getId();
+			storageService.store(uploadDir, multipartFile);
+			productService.saveProduct(product);
 		}
 		return "redirect:/product/1";
 	}
@@ -173,21 +174,15 @@ public class AppController {
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-		if(!fileName.equals("")) {
-			product.setPhoto(fileName);
-			String uploadDir = AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if(!multipartFile.isEmpty()) {
+			product.setPhoto("product-photosslash" + product.getId() + "slash" + fileName);
+			String uploadDir = "product-photos/" + product.getId();
+			storageService.store(uploadDir, multipartFile);
 		}
+		
 		product.setEnabled(true);
 		productService.saveProduct(product);
-		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, AppConstant.PRODUCT_PHOTO_DIR + "/" + product.getId());
-		}
+
 		return "redirect:/product/1";
 	}
 	

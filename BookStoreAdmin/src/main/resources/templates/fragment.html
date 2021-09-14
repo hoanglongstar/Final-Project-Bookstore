@@ -101,23 +101,23 @@
 	            <!-- ============================================================== -->
 	            <!-- Right side toggle and nav items -->
 	            <!-- ============================================================== -->
-	            <ul class="navbar-nav">
+	            <ul class="navbar-nav  mt-md-0 col-sm-1">
 	                <!-- ============================================================== -->
 	                <!-- User profile and search -->
 	                <!-- ============================================================== -->
-	                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+	                <li class="nav-item dropdown sm-down" sec:authorize="isAuthenticated()">
 	                    <a sec:authentication="principal.fullName" class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 	                    <span class="me-5"></span>
-	                    <ul class="me-3 dropdown-menu hidden" aria-labelledby="navbarDropdown">
+	                    <ul class="me-3 dropdown-menu hidden" aria-labelledby="navbarDropdown" style="padding-top: 5px; margin-right: 5px;">
 	                    	<li class="sidebar-item" sec:authorize="isAuthenticated()">
-	                    		<a class="sidebar-link waves-effect waves-dark sidebar-link" href="/confirm_old_password">
+	                    		<a class="sidebar-link waves-effect waves-dark sidebar-link" href="/confirm_old_password" style="color: slategray; bottom: 3px;">
 	                    			<i class="me-2"></i>
 	                    			<i class="me-1 fas fa-exchange-alt" aria-hidden="true"></i><span class="hide-menu">Change Password</span>
 	                    		</a>
 	                    	</li>
-	                    	<hr/>
+	                    	<hr style="height: 1px; margin: 0rem;"/>
 	                    	<li class="sidebar-item" sec:authorize="isAuthenticated()">
-	                    		<a class="sidebar-link waves-effect waves-dark sidebar-link" onclick="document.getElementById('formlogout').submit()">
+	                    		<a class="sidebar-link waves-effect waves-dark sidebar-link" onclick="document.getElementById('formlogout').submit()" style="color: slategray; top: 3px">
 	                    			<i class="me-2"></i>
 	                    			<i class="me-1 fas fa-sign-out-alt" aria-hidden="true"></i><span class="hide-menu">Logout</span>
 	                    		</a>
