@@ -136,7 +136,7 @@
 		                                    		<th:block th:each="category : ${listCategory}">
 														<input type="radio" th:field="*{parent}" 
 															th:text="${category.name}"
-															th:value="${category.id}"
+															th:value="${category.id}" th:disabled="${category.name == 'All'}"
 															class="m-2"/><br>
 													</th:block>
 		                                    	</ul>

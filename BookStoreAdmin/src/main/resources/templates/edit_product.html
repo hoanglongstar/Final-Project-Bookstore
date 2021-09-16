@@ -125,13 +125,13 @@
 	                                    <div class="form-group">
 	                                        <label class="col-md-12 mb-0">Category</label>
 	                                        <span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
-	                                        <div class="col-sm-12 border-bottom">
+	                                        <div class="col-sm-12 border-bottom" style="columns: 3; -webkit-columns: 3; -moz-columns: 3;">
 		                                    	<ul>
 		                                    		<th:block th:each="category : ${listCategory}">
 														<input type="radio" th:field="*{category}" 
-															th:text="${category.name}"
 															th:value="${category.id}" th:disabled="${category.name == 'All'}"
-															class="m-2"/><br>
+															class="m-2"/>
+														<label th:text="${category.name}"></label><br>
 													</th:block>
 		                                    	</ul>
 	                                        </div>

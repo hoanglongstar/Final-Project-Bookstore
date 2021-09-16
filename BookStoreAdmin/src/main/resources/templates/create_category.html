@@ -131,7 +131,7 @@
 		                                    	<ul>
 		                                    		<li th:each="category : ${listCategory}">
 		                                    			<div class="col-md-12">
-		                                    				<input type="checkbox" th:field="*{parent}" th:value="${category.id}">
+		                                    				<input type="checkbox" th:field="*{parent}" th:value="${category.id}" th:disabled="${category.name == 'All'}">
 		                                            		<label th:text="${category.name}"></label>
 		                                    			</div>
 		                                    		</li>

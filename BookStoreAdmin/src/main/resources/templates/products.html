@@ -130,7 +130,7 @@
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>
-                                                <th class="border-top-0">#</th>
+                                                <th class="border-top-0 text-center">#</th>
                                                 <th class="border-top-0 text-center">Name</th>
                                                 <th class="border-top-0 text-center">Code</th>
                                                 <th class="border-top-0 text-center">Description</th>
@@ -146,7 +146,7 @@
                                         <tbody>
                                             <tr th:each="product : ${listProducts}">
                                                 <td class="align-middle align-self-center text-center" th:text="${product.id}"></td>
-                                                <td class="align-middle align-self-center text-center" th:text="${product.name}"></td>
+                                                <td class="align-middle align-self-center text-left" th:text="${product.name}"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${product.code}"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${product.description}"></td>
                                                 <td class="align-middle align-self-center text-center" th:text="${product.category.name}"></td>

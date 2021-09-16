@@ -130,14 +130,12 @@
 	                                    <div class="form-group">
 	                                    	<label class="col-sm-12">Category</label>
 	                                    	<span style="font-size: 12px; color: red;" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
-	                                    	<div class="col-sm-12 border-bottom">
-		                                    	<ul>
-		                                    		<li th:each="category : ${listCategory}">
-		                                    			<div class="col-md-12">
-		                                    				<input type="radio" th:field="*{category}" th:value="${category.id}">
-		                                            		<label th:text="${category.name}"></label>
-		                                    			</div>
-		                                    		</li>
+	                                    	<div class="col-sm-12 border-bottom" style="columns: 3; -webkit-columns: 3; -moz-columns: 3;">
+		                                    	<ul th:each="category : ${listCategory}" >
+	                                    			<div class="col-sm-12" >
+	                                    				<input type="radio" th:field="*{category}" th:value="${category.id}" th:disabled="${category.name == 'All'}">
+	                                            		<label th:text="${category.name}"></label>
+	                                    			</div>
 		                                    	</ul>
 	                                        </div>
 	                                    </div>
@@ -227,6 +225,7 @@
     <!--Menu sidebar -->
     <script th:src="@{/js/sidebarmenu.js}"></script>
     <!--Custom JavaScript -->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
     <script th:src="@{/js/custom.js}"></script>
     <script type="text/javascript">
     	function readUrl(input) {
