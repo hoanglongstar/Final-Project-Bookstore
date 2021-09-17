@@ -1,6 +1,7 @@
 package com.bookstore.client.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+
 import com.bookstore.client.repository.OrderResponsitory;
 import com.bookstore.client.shopcart.CartInfo;
 import com.bookstore.client.shopcart.CartLineInfo;
+import com.bookstore.model.entities.Customer;
 import com.bookstore.model.entities.Invoice;
 import com.bookstore.model.entities.InvoiceDetail;
 import com.bookstore.model.enumerate.InvoiceStatus;
@@ -23,6 +26,27 @@ public class OrderServiecs {
 	
 	@Autowired
 	OrderResponsitory orderResponsitory;
+	
+	public Invoice getInvoiceById(Integer id) {
+		return orderResponsitory.getById(id);
+	}
+	
+	public void saveInvoice(Invoice invoice) {
+		orderResponsitory.save(invoice);
+	}
+	
+	public List<InvoiceDetail> getInvoiceDetail(Invoice invoice){
+		return orderResponsitory.getInvoiceDetail(invoice);
+	}
+	
+	public Invoice getInvoiceByCode(String code) {
+		return orderResponsitory.getInvoiceByCode(code);
+	}
+	
+	public List<Invoice> getInvoiceByCustomer(Customer customer){
+		return orderResponsitory.getInvoiceByCustomerInfo(customer);
+	}
+	
 	
 	public String saveOrder(CartInfo cartInfo) {
 		Invoice invoice = new Invoice();
@@ -49,4 +73,6 @@ public class OrderServiecs {
 		
 		return invoice.getCode();	
 	}
+	
+
 }

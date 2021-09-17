@@ -350,9 +350,9 @@
                   <h4>Login</h4>
                   <form th:action="@{/dologin}" method="post" class="aa-login-form">
                     <label for="">Username or Email address<span>*</span></label>
-                    <input type="text" name="email" name="password" placeholder="Username or email">
+                    <input type="text" name="email"  placeholder="Username or email">
                     <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
+                    <input type="password" placeholder="Password" name="password">
                     <button type="submit" class="aa-browse-btn">Login</button>
                     <label class="rememberme" for="rememberme"><input name="remember-me" type="checkbox" id="rememberme"> Remember me
                     </label>

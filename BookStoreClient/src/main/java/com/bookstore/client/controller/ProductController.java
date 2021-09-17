@@ -1,4 +1,4 @@
-package com.bookstore.client.controller;
+ package com.bookstore.client.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +54,7 @@ public class ProductController {
 //			System.out.println("Sp:" + product.getCode());
 //		}
 		
+		
 		model.addAttribute("products", products);
 		model.addAttribute("totalPages", pageProduct.getTotalPages());
 		model.addAttribute("totalProducts", pageProduct.getTotalElements());
@@ -87,6 +88,7 @@ public class ProductController {
 		List<Category> listCategory = categoryService.getRootCategory();
 		model.addAttribute("categories", listCategory);
 		
+		
 		return "category";
 	}
 	
@@ -101,62 +103,24 @@ public class ProductController {
 		model.addAttribute("parents", listParent);
 		model.addAttribute("categories", listcategory);
 		
+		
 		List<Product> listProduct = productService.getProductCategory(category);
 		model.addAttribute("products", listProduct);
+		for(Product list : listProduct) {
+			System.out.println("product: " + list);
+		}
 		
 		return "category";
 	}
 	
-//	@RequestMapping("/addtocart")
-//	public String byProductHandler(HttpServletRequest request, Model model, @RequestParam(value = "code", defaultValue = "") String code) {
-//		
-//		Product product = productService.getByCode(code);
-//		System.out.println("code: " + code);
-//
-//		
-//		if (product != null) {
-//			CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
-//			cartInfo.addProduct(product, 1);
-//			System.out.println("code: " + product);
-//		}
-//		
-//		return "redirect:/shopping_cart";
-//	}
-	
-//	@RequestMapping("/shopping_cart")
-//	public String showCartView(HttpServletRequest request, Model model) {
-//		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
-//		
-////		for(CartLineInfo cartLine : cartInfo.getCartLines()) {
-////			System.out.println("ten san pham : " + cartLine.getProduct().getName());
-////			System.out.println("so luong : " + cartLine.getQuantity());
-////			System.out.println("Unit price : " + cartLine.getUnitPrice());
-////		}
-//		
-//		model.addAttribute("cartInfo", cartInfo);
-//		model.addAttribute("totalCartInfo", cartInfo.totalCartInfo());
-//		
-//		return "cart";
-//	}
-//	
-//	@PostMapping("/update_cart")
-//	public String updateCart(@ModelAttribute("cartInfo") CartInfo cartInfo ,HttpServletRequest request, Model model) {
-////		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
-//		for(CartLineInfo cartLine : cartInfo.getCartLines()) {
-//			System.out.println("ten san pham : " + cartLine.getProduct().getName());
-//			System.out.println("so luong : " + cartLine.getQuantity());
-//			System.out.println("Unit price : " + cartLine.getUnitPrice());
-//		}
-//		System.out.println("updateCart" + cartInfo.getCartLines().size());
-//		return "redirect:/shopping_cart";
-//	}
 	@RequestMapping(value = "/productdetail/{id}")
 	public String viewProduct(Model model,  @PathVariable ("id") Integer id) {
 		Product product = productService.getById(id);
 		
 //		List<Product> listProducts =  new ArrayList<>();
 //		listProducts.addAll(product.getId());
-		
+		List<Product> products = productService.getAllProduct();
+		model.addAttribute("products", products);
 
 		List<Product> listProduct = productService.getById(product);
 		model.addAttribute("products", listProduct);

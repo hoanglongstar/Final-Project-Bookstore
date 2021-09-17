@@ -1,5 +1,6 @@
 package com.bookstore.client.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.mail.MessagingException;
@@ -27,9 +28,11 @@ import com.bookstore.client.helper.EmailServiceImpl;
 import com.bookstore.client.helper.PasswordManager;
 import com.bookstore.client.security.CustomerOAuth2User;
 import com.bookstore.client.services.CustomerService;
+import com.bookstore.client.services.ProductService;
 import com.bookstore.client.storage.StorageFileNotFoundException;
 import com.bookstore.client.storage.StorageService;
 import com.bookstore.model.entities.Customer;
+import com.bookstore.model.entities.Product;
 import com.bookstore.model.formdata.CustomerForm;
 
 @Controller
@@ -40,6 +43,9 @@ public class AppController {
     
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -88,9 +94,11 @@ public class AppController {
 				}
 			}
 		}
+		
+		List<Product> products = productService.getAllProduct();
+		model.addAttribute("products", products);
 
 		CustomerForm customerData = new CustomerForm();
-
 		model.addAttribute("customerData", customerData);
 
 		return "index";
@@ -116,7 +124,7 @@ public class AppController {
 //	}
 	
 	
-	@RequestMapping(value = {"/login"} , method = RequestMethod.GET)
+	@RequestMapping(value = {"/login"})
 	public String showLoginView(Model model) {
 		return "account";
 	}
@@ -182,9 +190,8 @@ public class AppController {
 		try {
 			EmailServiceImpl.sendSimpleMail(javaMailSender, htmlTemplateEngine , "huy", "nguyenvothanhhuy2002@gmail.com" , Locale.getDefault());
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:/";
+		return "redirect:/login";
 	}
 }

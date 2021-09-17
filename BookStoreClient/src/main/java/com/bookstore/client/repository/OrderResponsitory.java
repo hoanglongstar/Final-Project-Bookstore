@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bookstore.model.entities.Customer;
 import com.bookstore.model.entities.Invoice;
+import com.bookstore.model.entities.InvoiceDetail;
 
 @Repository
 public interface OrderResponsitory extends JpaRepository<Invoice, Integer> {
@@ -17,4 +18,7 @@ public interface OrderResponsitory extends JpaRepository<Invoice, Integer> {
 	
 	@Query("SELECT i FROM Invoice i WHERE i.customerInvoice = :customerInvoice")
 	public List<Invoice> getInvoiceByCustomerInfo(@Param("customerInvoice") Customer customer);
+	
+	@Query("SELECT i FROM InvoiceDetail i WHERE i.invoiceDetail = :invoiceDetail")
+	public List<InvoiceDetail> getInvoiceDetail(@Param("invoiceDetail") Invoice invoice);
 }

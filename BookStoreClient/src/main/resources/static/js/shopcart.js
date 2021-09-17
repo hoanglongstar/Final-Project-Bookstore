@@ -64,7 +64,8 @@ $(document).ready(function() {
 		total = 0.0;
 		
 		$(".cartline-total").each(function(index, element) {
-			console.log(index);
+			console.log("hello index quatyti " +index);
+			console.log("hello: " + element.innerHTML);
 			total = total + parseFloat(element.innerHTML);
 		});
 		
@@ -78,7 +79,7 @@ $(document).ready(function() {
 		cartLineNumber = $(this).attr("cartLine");
 		cartLineItem = $("#cartLine" + cartLineNumber);
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: url,
 			beforeSend: function(xhr) {
 				console.log(csrfHeaderName);

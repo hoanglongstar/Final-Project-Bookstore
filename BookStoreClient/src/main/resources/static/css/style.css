@@ -1105,10 +1105,10 @@ img {
 .aa-product-catg li {
   display: block;
   float: left;
-  height: 380px;
+  height: 300px;
   text-align: center;
   margin: 0 0 20px 55px;
-  width: 20.5%;
+  width: 250px;
   position: relative;
   overflow: hidden;
 }
@@ -4083,9 +4083,9 @@ img {
 
   #cart-view .cart-view-area .cart-view-table .table tbody tr .aa-cart-view-bottom .aa-cart-coupon .aa-coupon-code {
     font-size: 12px;
-    margin-right: 10px;
+    margin-right: 20px;
     min-width: 100px;
-    padding: 8px;
+    padding: 20px;
     width: 100px;
   }
 
@@ -4182,5 +4182,18 @@ img {
   #aa-header .aa-header-top .aa-header-top-right .aa-head-top-nav-right li a {   
     padding: 5px 2px;
   }
+  
+  .grid__item {
+    box-sizing: border-box;
+    float: left;
+    min-height: 1px;
+    padding-left: 30px;
+    vertical-align: top;
+    width: 100%;
+}
+
+.large--five-twelfths {
+    width: 41.666%;
+}
 }
 

@@ -36,7 +36,7 @@ public class ShoppingCartRestController {
 		return "Product Not Found";
 	}
 	
-	@GetMapping("restapi/shopcart_delete/{code}")
+	@PostMapping("restapi/shopcart_delete/{code}")
 	public String shopcartDelete(HttpServletRequest request, @PathVariable(value = "code") String code) {
 		CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(request);
 		

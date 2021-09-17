@@ -16,7 +16,7 @@ import com.bookstore.model.entities.Product;
 @Service
 public class ProductService {
 	
-	public static int PAGE_SIZE = 8;
+	public static int PAGE_SIZE = 9;
 	
 	@Autowired
 	public ProductReponsitory productReponsitory;
