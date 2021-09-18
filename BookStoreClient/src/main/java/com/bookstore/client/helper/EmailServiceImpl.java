@@ -17,6 +17,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.bookstore.model.entities.Customer;
 import com.bookstore.model.entities.Invoice;
 import com.bookstore.model.entities.InvoiceDetail;
 
@@ -58,14 +59,15 @@ public class EmailServiceImpl {
 	}
 	
     public static void sendSimpleMail( JavaMailSender mailSender, TemplateEngine htmlTemplateEngine,
-            final String recipientName, final String recipientEmail, final Locale locale)
+            final Customer customer, final String recipientEmail, final Locale locale)
             throws MessagingException {
 
             // Prepare the evaluation context
             final Context ctx = new Context(locale);
-            ctx.setVariable("name", recipientName);
-            ctx.setVariable("subscriptionDate", new Date());
-            ctx.setVariable("hobbies", Arrays.asList("Tiểu thuyết", "Sách khoa học", "Sách kinh doanh"));
+//            ctx.setVariable("name", recipientName);
+//            ctx.setVariable("subscriptionDate", new Date());
+//            ctx.setVariable("hobbies", Arrays.asList("Tiểu thuyết", "Sách khoa học", "Sách kinh doanh"));
+            ctx.setVariable("customer", customer);
 
             // Prepare message using a Spring helper
             final MimeMessage mimeMessage = mailSender.createMimeMessage();
