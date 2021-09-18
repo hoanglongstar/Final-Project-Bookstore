@@ -137,40 +137,10 @@
               <!-- / logo  -->
                <!-- cart box -->
               <div class="aa-cartbox">
-                <a class="aa-cart-link" href="#">
+                <a class="aa-cart-link" th:href="@{/shopping_cart}">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
-                  <span class="aa-cart-notify">2</span>
                 </a>
-                <div class="aa-cartbox-summary">
-                  <ul>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img th:src="@{/img/woman-small-2.jpg}" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img th:src="@{/woman-small-1.jpg}" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>                    
-                    <li>
-                      <span class="aa-cartbox-total-title">
-                        Total
-                      </span>
-                      <span class="aa-cartbox-total-price">
-                        $500
-                      </span>
-                    </li>
-                  </ul>
-                  <a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
-                </div>
               </div>
               <!-- / cart box -->
               <!-- search box -->
@@ -216,21 +186,6 @@
                   	</li>
                   </ul>
               </li>            
-             <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="blog-archive.html">Blog Style 1</a></li>
-                  <li><a href="blog-archive-2.html">Blog Style 2</a></li>
-                  <li><a href="blog-single.html">Blog Single</a></li>                
-                </ul>
-              </li>
-              <li><a href="contact.html">Contact</a></li>
-              <li><a href="#">Pages <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="product.html">Shop Page</a></li>
-                  <li><a href="product-detail.html">Shop Single</a></li>                
-                  <li><a href="404.html">404 Page</a></li>                
-                </ul>
-              </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -261,7 +216,7 @@
   <section id="aa-product-category">
     <div class="container">
       <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
+        <div class="col-lg-12 col-md-9 col-sm-8 0">
           <div class="aa-product-catg-content">
             <div class="aa-product-catg-head">
               <div class="aa-product-catg-head-left">
@@ -529,40 +484,24 @@
             <div class="row">
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
-                  <h3>Main Menu</h3>
+                  <h3>Dịch vụ</h3>
                   <ul class="aa-footer-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Our Products</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="#">Hệ thống nhà sách</a></li>
                   </ul>
                 </div>
               </div>
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Knowledge Base</h3>
+                    <h3>Hỗ Trợ</h3>
                     <ul class="aa-footer-nav">
-                      <li><a href="#">Delivery</a></li>
-                      <li><a href="#">Returns</a></li>
-                      <li><a href="#">Services</a></li>
-                      <li><a href="#">Discount</a></li>
-                      <li><a href="#">Special Offer</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <div class="aa-footer-widget">
-                    <h3>Useful Links</h3>
-                    <ul class="aa-footer-nav">
-                      <li><a href="#">Site Map</a></li>
-                      <li><a href="#">Search</a></li>
-                      <li><a href="#">Advanced Search</a></li>
-                      <li><a href="#">Suppliers</a></li>
-                      <li><a href="#">FAQ</a></li>
+                      <li><a href="#">Hướng dẫn đặt hàng</a></li>
+                      <li><a href="#">Chính sách đổi trả hoàn tiền</a></li>
+                      <li><a href="#">Phương thức vận chuyển</a></li>
+                      <li><a href="#">Phương thức thanh toán</a></li>
                     </ul>
                   </div>
                 </div>
@@ -572,10 +511,17 @@
                   <div class="aa-footer-widget">
                     <h3>Contact Us</h3>
                     <address>
-                      <p> 25 Astor Pl, NY 10003, USA</p>
-                      <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
-                      <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
+                      <p> Số 55 Quang Trung, Nguyễn Du, Hai Bà Trưng, Hà Nội</p>
+                      <p><span class="fa fa-phone"></span>0902 333 999</p>
+                      <p><span class="fa fa-envelope"></span>bookstore@gmail.com</p>
                     </address>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="aa-footer-widget">
+                  <div class="aa-footer-widget">
+                    <h3>Mạng xã hội</h3>
                     <div class="aa-footer-social">
                       <a href="#"><span class="fa fa-facebook"></span></a>
                       <a href="#"><span class="fa fa-twitter"></span></a>
@@ -611,6 +557,7 @@
     </div>
   </footer>
   <!-- / footer -->
+
   <!-- Login Modal -->  
   <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

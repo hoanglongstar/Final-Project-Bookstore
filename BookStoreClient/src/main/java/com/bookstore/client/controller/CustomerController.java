@@ -44,13 +44,7 @@ public class CustomerController {
 		return "profile";
 	}
 	
-//	@PostMapping(value = ("/my_account"))
-//	public String saveCustomerProfile(@ModelAttribute("customer") Customer customerForm) {
-//		
-//		customerService.saveCustomer(customerForm);
-//		return "my-account";
-//	}
-	
+
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String checkNewCustomer(@Valid Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile multipartFile, Model model) {
 		if(bindingResult.hasErrors()) {
