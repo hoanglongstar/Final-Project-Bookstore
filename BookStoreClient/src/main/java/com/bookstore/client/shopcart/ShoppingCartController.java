@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -82,12 +83,17 @@ public class ShoppingCartController {
 	}
 
 	@GetMapping("/checkout")
-	public String checkoutShoppingCart(HttpServletRequest req, Model model) {
+	public String checkoutShoppingCart(HttpServletRequest req, Model model, @Param("id") Integer id) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "redirect:/login";
 		} else {
+			Invoice invoice = orderService.getInvoiceById(id);
+
+			InvoiceForm invoiceForm = InvoiceForm.getStatusFromEntity(invoice);
+			
+			List<InvoiceDetail> invoiceDetail = orderService.getInvoiceDetail(invoice);
 
 			CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(req);
 			model.addAttribute("orderCode", orderService.saveOrder(cartInfo));

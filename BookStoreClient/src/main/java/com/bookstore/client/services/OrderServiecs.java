@@ -27,6 +27,8 @@ public class OrderServiecs {
 	@Autowired
 	OrderResponsitory orderResponsitory;
 	
+	Customer customer;
+	
 	public Invoice getInvoiceById(Integer id) {
 		return orderResponsitory.getById(id);
 	}
@@ -65,10 +67,13 @@ public class OrderServiecs {
 			listInvoiceDetail.add(invoiceDetail);
 			
 		}
+		
+//		invoice.setCustomerInvoice(customer.getId());
 		invoice.setDetails(listInvoiceDetail);
 		invoice.setStatus(InvoiceStatus.NEW);
 		invoice.setTotalPayable(cartInfo.totalCartInfo());
 		invoice.setCode(System.currentTimeMillis() + "");
+		
 		orderResponsitory.save(invoice);
 		
 		return invoice.getCode();	

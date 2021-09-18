@@ -114,9 +114,9 @@ public class CustomerForm {
 		Customer c = new Customer();
 		c.setPassword(password);
 		c.setEmail(email);
-//		c.setFirstName(firstName);
-//		c.setLastName(lastName);
-//		c.setPhoneNumber(phoneNumber);
+		c.setFirstName(firstName);
+		c.setLastName(lastName);
+		c.setPhoneNumber(phoneNumber);
 		return c;
 	}
 	

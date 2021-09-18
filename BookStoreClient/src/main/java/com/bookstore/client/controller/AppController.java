@@ -109,21 +109,7 @@ public class AppController {
 	public String showCartView(Model model){
 		return "cart";
 	}
-	
-//	@RequestMapping(value = {"/checkout"})
-//	public String checkoutView(Model model) {
-//		/*
-//		 * Authentication authentication =
-//		 * SecurityContextHolder.getContext().getAuthentication();
-//		 * 
-//		 * if (authentication instanceof AnonymousAuthenticationToken) { return
-//		 * "redirect:/login"; }
-//		 */
-//		
-//		return "checkout";
-//	}
-	
-	
+		
 	@RequestMapping(value = {"/login"})
 	public String showLoginView(Model model) {
 		return "account";

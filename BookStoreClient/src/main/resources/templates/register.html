@@ -211,6 +211,24 @@
 						<input class="form-control" type="password" name="confirm_password" placeholder="Type your password again" id="confirm_password" required="required">
 						<span class="focus-input100" data-symbol="&#xf190;" ></span>
 					</div>
+					<div class="form-group mb-3" data-validate="Username is reauired">
+			      			<label  for="email">Fist Name<span>*</span></label>
+			      			<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName error</span>
+							<span th:if="${error_duplicate_firstName}">[[${error_duplicate_firstName}]]</span>
+			      			<input type="email" th:field="*{firstName}" name="firstName" class="form-control" placeholder="firstName" required="required">
+			      		</div>
+			      	<div class="form-group mb-3" data-validate="Username is reauired">
+			      			<label  for="email">Last Name<span>*</span></label>
+			      			<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName error</span>
+							<span th:if="${error_duplicate_lastName}">[[${error_duplicate_lastName}]]</span>
+			      			<input type="email" th:field="*{lastName}" name="lastName" class="form-control" placeholder="lastName" required="required">
+			      		</div>
+			      	<div class="form-group mb-3" data-validate="Username is reauired">
+			      			<label  for="email">Phone Number<span>*</span></label>
+			      			<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">phoneNumber error</span>
+							<span th:if="${error_duplicate_phoneNumber}">[[${error_duplicate_phoneNumber}]]</span>
+			      			<input type="email" th:field="*{phoneNumber}" name="phoneNumber" class="form-control" placeholder="phoneNumber" required="required">
+			      		</div>
 		            <div class="aa-register-now">
 		            	<button type="submit" class="aa-register-now btn btn-primary submit px-3">Sign In</button>
 		            </div>
