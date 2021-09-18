@@ -59,7 +59,7 @@ public class OrderServiecs {
 		Authentication authentication = securityContext.getAuthentication();
 		
 		CustomerUserDetails customerUserDetails = (CustomerUserDetails) authentication.getPrincipal();
-		String email = customerUserDetails.getEmail();
+		String email = customerUserDetails.getUsername();
 		Customer customer = customerService.getCustomerByEmail(email);
 		
 		for (CartLineInfo catLineInfo : cartInfo.getCartLines()) {
