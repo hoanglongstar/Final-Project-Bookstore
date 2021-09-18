@@ -22,6 +22,9 @@ public class CustomerUserDetails implements UserDetails {
 		super();
 		this.customer = customer;
 	}
+	public String getEmail() {
+		return customer.getEmail();
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

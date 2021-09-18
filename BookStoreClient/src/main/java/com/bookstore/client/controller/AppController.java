@@ -174,7 +174,7 @@ public class AppController {
 		//EmailServiceImpl.sendSimpleMessage(javaMailSender, "", "Registration success", "Registration success");
 		
 		try {
-			EmailServiceImpl.sendSimpleMail(javaMailSender, htmlTemplateEngine , "huy", "nguyenvothanhhuy2002@gmail.com" , Locale.getDefault());
+			EmailServiceImpl.sendSimpleMail(javaMailSender, htmlTemplateEngine , customerForm.getCustomer(), customerForm.getEmail() , Locale.getDefault());
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}

@@ -83,17 +83,17 @@ public class ShoppingCartController {
 	}
 
 	@GetMapping("/checkout")
-	public String checkoutShoppingCart(HttpServletRequest req, Model model, @Param("id") Integer id) {
+	public String checkoutShoppingCart(HttpServletRequest req, Model model) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "redirect:/login";
 		} else {
-			Invoice invoice = orderService.getInvoiceById(id);
-
-			InvoiceForm invoiceForm = InvoiceForm.getStatusFromEntity(invoice);
-			
-			List<InvoiceDetail> invoiceDetail = orderService.getInvoiceDetail(invoice);
+//			Invoice invoice = orderService.getInvoiceById(id);
+//
+//			InvoiceForm invoiceForm = InvoiceForm.getStatusFromEntity(invoice);
+//			
+//			List<InvoiceDetail> invoiceDetail = orderService.getInvoiceDetail(invoice);
 
 			CartInfo cartInfo = ShopCartSessionUtil.getCartInSession(req);
 			model.addAttribute("orderCode", orderService.saveOrder(cartInfo));

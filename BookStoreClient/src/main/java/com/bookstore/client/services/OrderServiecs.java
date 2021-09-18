@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.bookstore.client.repository.OrderResponsitory;
+import com.bookstore.client.security.CustomerUserDetails;
 import com.bookstore.client.shopcart.CartInfo;
 import com.bookstore.client.shopcart.CartLineInfo;
 import com.bookstore.model.entities.Customer;
@@ -57,6 +58,10 @@ public class OrderServiecs {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication authentication = securityContext.getAuthentication();
 		
+		CustomerUserDetails customerUserDetails = (CustomerUserDetails) authentication.getPrincipal();
+		String email = customerUserDetails.getEmail();
+		Customer customer = customerService.getCustomerByEmail(email);
+		
 		for (CartLineInfo catLineInfo : cartInfo.getCartLines()) {
 			InvoiceDetail invoiceDetail = new InvoiceDetail();
 			invoiceDetail.setInvoiceDetail(invoice);
@@ -64,11 +69,14 @@ public class OrderServiecs {
 			invoiceDetail.setItemTotal(catLineInfo.getTotal());
 			invoiceDetail.setQuantity(catLineInfo.getQuantity());
 			invoiceDetail.setProduct(catLineInfo.getProduct());
+			
+
+
 			listInvoiceDetail.add(invoiceDetail);
 			
 		}
 		
-//		invoice.setCustomerInvoice(customer.getId());
+		invoice.setCustomerInvoice(customer);
 		invoice.setDetails(listInvoiceDetail);
 		invoice.setStatus(InvoiceStatus.NEW);
 		invoice.setTotalPayable(cartInfo.totalCartInfo());
