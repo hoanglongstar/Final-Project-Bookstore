@@ -81,7 +81,7 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li class="hidden-xs"><a th:href="@{/cart}">Giỏ hàng</a></li>
+                  <li class="hidden-xs"><a th:href="@{/shopping_cart}">Giỏ hàng</a></li>
                   <li class="hidden-xs"><a th:href="@{/checkout}">Thanh toán</a></li>
                   <li ><a href="" data-toggle="modal" data-target="#login-modal" sec:authorize="isAnonymous()">Đăng nhập</a></li>
 					<li class="hidden-xs" sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name" class="dropdown-item">name</a></li> 
@@ -511,6 +511,14 @@
             <button class="aa-browse-btn" type="submit" >Login</button>
             <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme" name="remember-me"> Remember me </label>
             <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+            <p class="aa-lost-password"><a href="#">or Login</a>
+            <div class="w-100">
+				<p class="social-media d-flex justify-content-end">
+					<a th:href="@{/oauth2/authorization/google}" class="social-icon d-flex align-items-center justify-content-center"><i class="fa fa-google"></i>
+					<a th:href="@{/oauth2/authorization/facebook}" class="social-icon d-flex align-items-center justify-content-center"><i class="fa fa-facebook"></i></a>
+				</p>
+			</div>
+			</p>
             <div class="aa-register-now">
               Don't have an account?<a th:href="@{/register}">Register now!</a>
             </div>
