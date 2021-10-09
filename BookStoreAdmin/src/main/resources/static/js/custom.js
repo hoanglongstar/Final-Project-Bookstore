@@ -472,6 +472,29 @@ function checkCategoryName(){
 		});
 };
 
+function checkMatchPassword(){
+	var password = $("#user-password").val();
+	var passwordRetype = $("#password-retype").val();
+	$.ajax({
+		type: 'GET',
+		url: 'http://localhost:8081/api/user/checkpass',
+		data: {
+			passwordRetype: passwordRetype,
+			password: password,
+		},
+	}).done(function(data){
+		$("#check-match-password").html(data);
+		if(data != "Matched")
+		{
+			$("#create-user-btn").attr('disabled', 'disabled');
+		}
+		else
+		{
+			$("#create-user-btn").removeAttr('disabled');
+		}
+	});
+}
+
 
 
 

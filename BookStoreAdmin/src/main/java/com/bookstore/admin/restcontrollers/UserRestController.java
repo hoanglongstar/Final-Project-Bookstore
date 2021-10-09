@@ -37,4 +37,9 @@ public class UserRestController {
 	public String chechUserPhoneNumber(@RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "userId") Integer userId) {
 		return userService.checkUserPhoneNumberExist(phoneNumber, userId)?"This phone number has been taken!":"";
 	}
+	
+	@GetMapping("api/user/checkpass")
+	public String checkUserPassword(@RequestParam(value = "passwordRetype") String passwordRetype, @RequestParam(value = "password") String password) {
+		return passwordRetype.equals(password)?"Matched":"Password is not matched";
+	}
 }

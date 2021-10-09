@@ -226,7 +226,7 @@ public class UserController {
 		
 		userService.saveUser(oldUser);
 		
-		return "redirect:/dashboard";
+		return "redirect:/profile";
 	}
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
@@ -246,15 +246,21 @@ public class UserController {
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
+//		if(!fileName.equals("")) {
+//			user.setAvatar(fileName);
+//			String uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId();
+//			
+//			try {
+//				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		
 		if(!fileName.equals("")) {
-			user.setAvatar(fileName);
-			String uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + user.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			user.setAvatar("profile-photosslash" + user.getId() + "slash" + fileName);
+			String uploadDir = "profile-photos/" + user.getId();
+			storageService.store(uploadDir, multipartFile);
 		}
 		
 		user.setEnabled(true);

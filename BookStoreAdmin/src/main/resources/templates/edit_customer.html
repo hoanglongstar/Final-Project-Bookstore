@@ -151,17 +151,17 @@
 	                                        <div class="col-sm-12 ">
 		                                    		<th:block th:each="address : ${customer.addresses}">
 		                                    			<div class="row">
-			                                    			<div class="col-sm-10">
+			                                    			<div class="col-sm-12">
 					                                            <input type="text" th:value="${address.street} + ', ' + ${address.ward} + ', ' + ${address.district} + ', ' + ${address.city}" readonly
 					                                                class="form-control ps-0 form-control-line">
 			                                                </div>
-			                                                <div class="upgrade-btn col-sm-2 text-center d-flex flex-row-reverse">
+			                                                <!--<div class="upgrade-btn col-sm-2 text-center d-flex flex-row-reverse">
 			                                                	<a th:href="@{/delete_address/{id}(id=${address.id})}"
 									                                class="btn btn-success d-none d-md-inline-block text-white ">Del</a><span> </span>
 									                            <a th:href="@{/edit_address/{id}(id=${address.id})}"
 									                                class="btn btn-success d-none d-md-inline-block text-white ">Edit</a>
 								                                
-									                        </div>
+									                        </div>-->
 		                                    			</div><br>
 													</th:block>
 	                                        </div>
