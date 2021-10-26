@@ -103,7 +103,7 @@ public class InvoiceController {
 	
 	@GetMapping("/search_invoice")
 	public String searchInvoiceView(Model model, @Param("code") String code) {
-		if(code.length() < 10) {
+		if(code.length() == 13) {
 			Invoice invoice = invoiceService.getInvoiceByCode(code);
 			model.addAttribute("listInvoice", invoice);
 		} else {

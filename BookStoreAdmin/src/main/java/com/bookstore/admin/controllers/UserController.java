@@ -1,6 +1,5 @@
 package com.bookstore.admin.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bookstore.admin.handler.AppConstant;
-import com.bookstore.admin.helper.FileUploadHelper;
 import com.bookstore.admin.helper.PasswordManager;
 import com.bookstore.admin.services.RoleService;
 import com.bookstore.admin.services.UserService;

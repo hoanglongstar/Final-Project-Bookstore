@@ -1,15 +1,12 @@
 package com.bookstore.client.services;
 
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bookstore.client.helper.PasswordManager;
 import com.bookstore.client.repository.CustomerRepository;
 import com.bookstore.model.entities.Customer;
 import com.bookstore.model.enumerate.AuthProvider;

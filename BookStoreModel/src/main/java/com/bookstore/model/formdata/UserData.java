@@ -7,8 +7,6 @@ import java.util.Set;
 
 import javax.validation.constraints.Size;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import com.bookstore.model.entities.Role;
 import com.bookstore.model.entities.User;
 

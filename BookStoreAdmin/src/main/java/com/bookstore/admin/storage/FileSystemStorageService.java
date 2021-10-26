@@ -1,6 +1,5 @@
 package com.bookstore.admin.storage;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -17,9 +16,6 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.bookstore.admin.handler.AppConstant;
-import com.bookstore.model.enumerate.EntityType;
 
 @Service
 public class FileSystemStorageService implements StorageService {

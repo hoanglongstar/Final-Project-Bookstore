@@ -3,19 +3,12 @@ package com.bookstore.client.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.client.repository.ProductReponsitory;
-import com.bookstore.client.shopcart.CartInfo;
-import com.bookstore.client.shopcart.CartLineInfo;
-import com.bookstore.client.shopcart.ShopCartSessionUtil;
 import com.bookstore.model.entities.Product;
 import com.bookstore.model.formdata.ProductAutoComplete;
 
